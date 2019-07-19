@@ -1,0 +1,10 @@
+{
+        "name": "project-com-coc-dryer-fdpsm",
+        "version": "1.0.21",
+        "scripts":{
+            "start":"node ../../bin/runProject.js"
+        },
+        "dependencies":{
+            
+        }
+    }
