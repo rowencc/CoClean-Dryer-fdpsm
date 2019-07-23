@@ -1,4 +1,3 @@
-<script src="http://localhost:8097"></script>
     import React from 'react';
     import { API_LEVEL, Package, Device, Service, Host } from 'miot';
     import { PackageEvent, DeviceEvent } from 'miot';
