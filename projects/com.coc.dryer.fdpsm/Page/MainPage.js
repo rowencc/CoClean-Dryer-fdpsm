@@ -1,60 +1,142 @@
 import React from 'react';
 import { API_LEVEL, Package, Device, Service, Host } from 'miot';
-import { PackageEvent, DeviceEvent } from 'miot';
-import TitleBar from "miot/ui/TitleBar";
-import Setting from "./Setting";
-import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View ,Button } from 'react-native';
-import { getString } from '../Main/MHLocalizableString';
+import {DeviceEventEmitter} from 'react-native'
+import Selects from './Select';
+import { AppRegistry,Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View ,Button,TouchableOpacity } from 'react-native';
 
-var Dimensions = require('Dimensions');
-var {width,height} = Dimensions.get("screen");//第一种写法
-// var height = Host.getPhoneScreenInfo;
+let Dimensions = require('Dimensions');
+let {width,height} = Dimensions.get("screen");//第一种写法
+
 export default class App extends React.Component  {
+    constructor(props) {
+        super(props);
+        let time = new Date();
+        this.state = {
+            count: 0,
+            time: this.getTodayDate(0),
+            param: null
+        };
+
+    }
+    setNum = (param) =>{
+        this.setState({time: this.getTodayDate(param)});
+        this.setState({count: this.state.count+param});
+    };
+    componentDidMount() {
+        // 这里的`param`可以为空，接受你B页面传过来的数据
+        this.subscription = DeviceEventEmitter.addListener("EventType", (param)=>{
+            // 刷新界面等
+            // alert(param);
+            this.setNum(param);
+        });
+    }
+    componentWillUnmount() {
+        this.subscription.remove();
+    }
+    getTodayDate = (param) => {
+        if(param<=0)param=0;
+        let paramTime = {
+            hours:Math.floor(param/60),
+            minute:Math.floor(Math.floor(param%60))
+        }
+        let date = new Date();
+        let year = date.getFullYear().toString();
+        let month = (date.getMonth()+1).toString();
+        let day = date.getDate().toString();
+        // let hour =  date.getHours().toString();
+        let hour =  (date.getHours()+paramTime.hours).toString();
+        // let minute = date.getMinutes().toString();
+        let minute = (date.getMinutes()+paramTime.minute).toString();
+        // this.setState({time: hour+':'+minute});
+        return hour+':'+minute;
+    };
+
+    onPressP = () => {
+        if(this.state.count<=355){
+            this.setState({
+                count: this.state.count+5
+            });
+        }else{
+            this.setState({
+                count: 360
+            });
+        }
+    };
+    onPressM = () => {
+        if(this.state.count>=5){
+            this.setState({
+                count: this.state.count-5
+            });
+        }else{
+            this.setState({
+                count: 0
+            });
+        }
+
+    };
     render() {
         return (
             <View style={style.container}>
                 <View style={style.overTimeBox}>
                     <View style={style.overTime}>
-                        <Text style={style.overTimeText}>约17:34完成</Text>
+                        <Text style={style.overTimeText}>约{ this.state.time }完成</Text>
                     </View>
                 </View>
                 <View style={{flex:1,justifyContent: 'center',
                     alignItems: 'center',
-                    marginBottom: 0,
-                    marginTop: 40,
+                    marginBottom: 40,
+                    marginTop: 0,
                     padding: 0,position:'relative'}}>
 
                     {/*    时间计时器*/}
                     <View style={style.timeContainer}>
-                        <Text style={style.timeLable}>360</Text>
+                        <Text style={style.timeLable}>{ this.state.count }</Text>
                         <Text style={style.unitLable}>min</Text>
                     </View>
                     <View style={style.timeBeContainer}></View>
+                    <View style={style.timeBeContainer1}></View>
+                    <View style={style.timeBeContainer2}></View>
+                    <View style={style.timeBeContainer3}></View>
+                    <View style={style.timeBeContainer4}></View>
+                    <View style={style.timeBeContainer5}></View>
+                    <View style={style.timeBeContainer6}></View>
+                    <View style={style.timeBeContainer7}></View>
+                    <View style={style.timeBeContainer9}></View>
+                    <View style={style.timeBeContainer8}></View>
+                    <View style={style.timeBeContainer10}></View>
                 </View>
                 <View style={style.rowContainer}>
                     {/*    选择按钮*/}
-                    <Text style={style.tabLable} onPress={() => alert('背心')}>背心</Text>
-                    <Text style={style.tabLable} onPress={() => alert('短袖')}>短袖</Text>
-                    <Text style={style.tabLable} onPress={() => alert('长袖')}>长袖</Text>
-                    <Text style={style.tabLable} onPress={() => alert('毛巾')}>毛巾</Text>
-                    <Text style={style.tabLable} onPress={() => alert('牛仔裤')}>牛仔裤</Text>
-                    <Text style={style.tabLable} onPress={() => alert('薄外套')}>薄外套</Text>
+                    <Text style={style.tabLable} onPress={() => this.props.navigation.navigate('Selects', { 'title': '烘干时间表' })}>帮我计算干衣时间 ></Text>
                 </View>
                 <View style={style.rowContainer}>
                     {/*    功能按键*/}
-                    <View style={style.butBox} onPress={() => alert('开关')}>
-                        <View style={style.butIcon} onPress={() => alert('开关')}>
-
-                        </View>
-                        <Text style={style.butLable} onPress={() => alert('开关')}>开关</Text>
+                    <View style={style.butBox}>
+                        <TouchableOpacity
+                            style={style.butIcon}
+                            onPress={() => alert(this.state.count)}
+                        >
+                            <Image source={require('../Resources/dryer/switch.png')}></Image>
+                        </TouchableOpacity>
+                        <Text style={style.butLable} onPress={() => alert(this.state.count)}>开关</Text>
                     </View>
-                    <View style={style.butBox} onPress={() => alert('加时')}>
-                        <View style={style.butIcon}></View>
-                        <Text style={style.butLable}>加时</Text>
+                    <View style={style.butBox}>
+                        <TouchableOpacity
+                            style={style.butIcon}
+                            onPress={this.onPressM}
+                        >
+                            <Image source={require('../Resources/dryer/reduce.png')}></Image>
+                        </TouchableOpacity>
+                        <Text style={style.butLable} onPress={this.onPressM}>减时</Text>
                     </View>
-                    <View style={style.butBox} onPress={() => alert('减时')}>
-                        <View style={style.butIcon}></View>
-                        <Text style={style.butLable}>减时</Text>
+                    <View style={style.butBox}>
+                        <TouchableOpacity
+                            style={style.butIcon}
+                            onPress={this.onPressP}
+                        >
+                            <Image source={require('../Resources/dryer/plus.png')}></Image>
+                        </TouchableOpacity>
+                        <Text style={style.butLable} onPress={this.onPressP}>加时</Text>
                     </View>
                 </View>
             </View>
@@ -73,7 +155,9 @@ var style = StyleSheet.create({
         width: width,
         height: height-90,
         backgroundColor: '#0e62bd',
-
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        flex: 1
     },
     rowContainer: {
         height: 5,
@@ -87,22 +171,112 @@ var style = StyleSheet.create({
     },
     timeContainer:{
         position:'absolute',
-        borderWidth:10,
+        borderWidth:20,
         borderColor:'#ccc',
-        borderRadius:100,
-        width:200,
-        height:200,
+        borderRadius:150,
+        width:250,
+        height:250,
         flex:1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     timeBeContainer:{
         position:'absolute',
-        borderWidth:10,
+        borderWidth:20,
         borderColor:'#fff',
-        borderRadius:100,
-        width:200,
-        height:200
+        borderRadius:150,
+        width:250,
+        height:250
+    },
+    timeBeContainer1:{
+        opacity:0.3,
+        position:'absolute',
+        borderWidth:1,
+        borderColor:'#fff',
+        borderRadius:160,
+        width:273,
+        height:273
+    },
+    timeBeContainer2:{
+        opacity:0.3,
+        position:'absolute',
+        borderWidth:1,
+        borderColor:'#fff',
+        borderRadius:160,
+        width:277,
+        height:277
+    },
+    timeBeContainer3:{
+        opacity:0.3,
+        position:'absolute',
+        borderWidth:1,
+        borderColor:'#fff',
+        borderRadius:160,
+        width:281,
+        height:281
+    },
+    timeBeContainer4:{
+        opacity:0.3,
+        position:'absolute',
+        borderWidth:1,
+        borderColor:'#fff',
+        borderRadius:160,
+        width:285,
+        height:285
+    },
+    timeBeContainer5:{
+        opacity:0.3,
+        position:'absolute',
+        borderWidth:1,
+        borderColor:'#fff',
+        borderRadius:160,
+        width:289,
+        height:289
+    },
+    timeBeContainer6:{
+        opacity:0.3,
+        position:'absolute',
+        borderWidth:1,
+        borderColor:'#fff',
+        borderRadius:160,
+        width:293,
+        height:293
+    },
+    timeBeContainer7:{
+        opacity:0.3,
+        position:'absolute',
+        borderWidth:1,
+        borderColor:'#fff',
+        borderRadius:160,
+        width:297,
+        height:297
+    },
+    timeBeContainer8:{
+        opacity:0.3,
+        position:'absolute',
+        borderWidth:1,
+        borderColor:'#fff',
+        borderRadius:160,
+        width:301,
+        height:301
+    },
+    timeBeContainer9:{
+        opacity:0.3,
+        position:'absolute',
+        borderWidth:1,
+        borderColor:'#fff',
+        borderRadius:160,
+        width:305,
+        height:305
+    },
+    timeBeContainer10:{
+        opacity:0.3,
+        position:'absolute',
+        borderWidth:1,
+        borderColor:'#fff',
+        borderRadius:160,
+        width:309,
+        height:309
     },
     tabLable:{
         marginLeft: 5,
@@ -113,20 +287,21 @@ var style = StyleSheet.create({
         marginLeft: 5,
         marginRight: 5,
         color:'#fff',
-        lineHeight:48,
-        fontSize: 48
+        lineHeight:68,
+        fontSize: 68
     },
     unitLable:{
         marginLeft: 5,
         marginRight: 5,
         color:'#fff',
-        lineHeight:32,
-        fontSize: 32
+        lineHeight:42,
+        fontSize: 42
     },
     butBox:{
         flex:1,
         alignItems: 'center',
-        justifyContent:'center'
+        justifyContent:'center',
+        height:60,
     },
     butIcon:{
         height:60,
@@ -167,9 +342,11 @@ var style = StyleSheet.create({
         padding: 0
     },
     overTimeBox:{
-        flex:.3,
+        flex:1,
+        height:26,
+        marginTop:40,
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'flex-start'
     },
     overTime:{
         borderWidth:1,

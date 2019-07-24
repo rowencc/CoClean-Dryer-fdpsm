@@ -2,12 +2,12 @@
 
 import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
-import { createStackNavigator } from 'react-navigation'; //
+import { createStackNavigator,goback } from 'react-navigation'; //
 import MainPages from './MainPage';
 import { FirmwareUpgrade, MoreSetting } from "miot/ui/CommonSetting";
 import Setting from "./Setting";
 import RpcControl from './RpcControl';
-import * as Screens from "../Main/uikit/screens";
+import Selects from './Select';
 import { API_LEVEL, Package, Device, Service, Host } from 'miot';
 
 const RootStack = createStackNavigator({
@@ -16,6 +16,7 @@ const RootStack = createStackNavigator({
         MoreSetting,
         FirmwareUpgrade,
         RpcControl,
+        Selects,
     },
     {
         // ThirdPartyDemo
@@ -29,7 +30,14 @@ const RootStack = createStackNavigator({
                         title={navigation.state.params ? navigation.state.params.title : Device.name}
                         subTitle=''
                         style={{backgroundColor:'#0e62bd'}}
-                        onPressLeft={() => { Package.exit() }}
+                        onPressLeft={() => {
+                            Package.exit();
+                            // if (this.props.navigation.routeName == 'MainPage') {
+                            //     Package.exit();
+                            // }else{
+                            //     navigation.goBack();
+                            // }
+                        }}
                         onPressLeft2={() => {
                             navigation.navigate('RpcControl', { 'title': '设备控制' });
                         }}
