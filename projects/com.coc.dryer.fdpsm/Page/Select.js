@@ -7,25 +7,28 @@ import {
 } from 'react-native';
 import TitleBar from "miot/ui/TitleBar";
 import {strings} from "miot/resources";
+import {NumberSpinner} from 'miot/ui'
 let param = 0;
 export default class Selects extends React.Component{
     constructor(props) {
         super(props);
-        this.state = { param:0};
+        this.state = {
+            param:0
+        };
     }
-    paramNum =() => {
-        let num = this.state.param+1;
+    paramNum =(num) => {
+        // let num = this.state.param+1;
         this.setState({
-            param: num
+            param: num.newValue
         });
-        param = num;
+        param = num.newValue;
     };
     static navigationOptions = ({ navigation }) => {
         return {
             header:
                 <TitleBar
                     type='dark'
-                    title={strings.setting}
+                    title='烘干时间表'
                     style={{ backgroundColor: '#fff' }}
                     onPressLeft={_ => {
                         navigation.goBack();
@@ -37,10 +40,15 @@ export default class Selects extends React.Component{
     render(){
         return (
             <View style={{flex: 1,justifyContent: 'center',alignContent: 'center'}}>
-                <TouchableOpacity style={{flex: 1,justifyContent: 'center',alignContent: 'center'}} onPress={this.paramNum}>
-                    <Text style={{textAlign: 'center',marginBottom: 50}}>{ this.state.param }</Text>
-                    <Text style={{textAlign: 'center'}}>有本事你点我</Text>
-                </TouchableOpacity>
+                <NumberSpinner
+                    style={{height:300}}
+                    maxValue={360}
+                    minValue={0}
+                    defaultValue={0}
+                    unit={''}
+                    onNumberChanged={data=>{this.paramNum(data)}}
+                />
+                <Text style={{textAlign: 'center'}}>有本事你选个数</Text>
             </View>
         )
     }

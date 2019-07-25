@@ -131,35 +131,35 @@ export default class RPCControl extends React.Component {
     }
     setParamsTo_alarm_ops() {
         var params = { "operation": "query", "req_type": "alarm", "index": 0 };
-        var paramsString = JSON.stringify(params)
-        var method = 'alarm_ops'
-        var extraString = ''
+        var paramsString = JSON.stringify(params);
+        var method = 'alarm_ops';
+        var extraString = '';
         this.setState({ params, paramsString, method, extraString })
     }
 
     setParamsTo_get_count_down() {
-        var params = []
-        var paramsString = JSON.stringify(params)
-        var method = 'get_count_down'
-        var extraString = ''
+        var params = [];
+        var paramsString = JSON.stringify(params);
+        var method = 'get_count_down';
+        var extraString = '';
         this.setState({ params, paramsString, method, extraString })
     }
 
     setPramsTo_light_props() {
-        var params = [Device.deviceID, "light_level", "power_status"]
-        var paramsString = JSON.stringify(params)
-        var extra = { id: Device.deviceID }
-        var extraString = JSON.stringify(extra)
-        var method = 'get_device_prop'
+        var params = [Device.deviceID, "light_level", "power_status"];
+        var paramsString = JSON.stringify(params);
+        var extra = { id: Device.deviceID };
+        var extraString = JSON.stringify(extra);
+        var method = 'get_device_prop';
         this.setState({ params, paramsString, method, extraString, extra })
     }
 
     setPramsTo_light_toggle() {
-        var params = ['toggle']
-        var paramsString = JSON.stringify(params)
-        var extra = { 'sid': Device.deviceID }
-        var extraString = JSON.stringify(extra)
-        var method = 'set_power'
+        var params = ['toggle'];
+        var paramsString = JSON.stringify(params);
+        var extra = { 'sid': Device.deviceID };
+        var extraString = JSON.stringify(extra);
+        var method = 'set_power';
         this.setState({ params, paramsString, method, extraString, extra })
     }
 
@@ -170,14 +170,14 @@ export default class RPCControl extends React.Component {
     }
 
     onParamsTextGChanged(event) {
-        var paramsString = event.nativeEvent.text
+        var paramsString = event.nativeEvent.text;
         try {
-            var params = JSON.parse(paramsString)
+            var params = JSON.parse(paramsString);
             this.setState({
                 params, paramsString, result: 'None'
             })
         } catch (err) {
-            var params = []
+            var params = [];
             this.setState({
                 params, paramsString, result: "prase params failed"
             })
@@ -185,16 +185,16 @@ export default class RPCControl extends React.Component {
     }
 
     onExtraTextBChanged(event) {
-        var extraString = event.nativeEvent.text
+        var extraString = event.nativeEvent.text;
         try {
-            var extra = JSON.parse(extraString)
+            var extra = JSON.parse(extraString);
             this.setState({
                 extra,
                 extraString,
                 result: 'None'
             })
         } catch (err) {
-            var extra = {}
+            var extra = {};
             this.setState({
                 extra,
                 extraString,

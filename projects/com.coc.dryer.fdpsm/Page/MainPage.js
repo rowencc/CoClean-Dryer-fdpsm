@@ -1,32 +1,67 @@
 import React from 'react';
 import { API_LEVEL, Package, Device, Service, Host } from 'miot';
-import {DeviceEventEmitter} from 'react-native'
 import Selects from './Select';
-import { AppRegistry,Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View ,Button,TouchableOpacity } from 'react-native';
+import { DeviceEventEmitter, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View ,TouchableOpacity } from 'react-native';
+import PercentageCircle from 'react-native-percentage-circle';
 
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
-
 export default class App extends React.Component  {
     constructor(props) {
         super(props);
-        let time = new Date();
         this.state = {
-            count: 0,
-            time: this.getTodayDate(0),
-            param: null
+            min: 0, //最小值
+            max: 360, //最大值
+            count: 0, // 默认时间值
+            percents:0, //百分比默认值
+            getParam: 0,  //传入值
+            step: 5,  //步进
+            status: false, //开关状态
+            statusText: '开启', //开关文字描述
+            statusImg: require('../Resources/dryer/switch.png'), //开关文字描述
+            plusText: '加时', //加时文字描述
+            plusImg: require('../Resources/dryer/plus.png'), //加时按钮图片
+            reduceText: '加时', //减时文字描述
+            reduceImg: require('../Resources/dryer/reduce.png'), //减时按钮图片
+            time: this.getTodayDate(0), // 获取预计完成时间
+
+            requestStatus: false,
+            method: '',
+            params: {},
+            extra: {},
+            paramsString: '',
+            extraString: {},
+            result: 'None'
         };
 
     }
-    setNum = (param) =>{
+    setNum = (param) => {
+        this.setState({count: param});
+        this.setState({percents: param/this.state.max*100});
         this.setState({time: this.getTodayDate(param)});
-        this.setState({count: this.state.count+param});
+    };
+    setCountdown = () => {
+        this.timer && clearInterval(this.timer);
+        if(this.state.count>0){
+            this.timer = setInterval(
+                () => {
+                    let count = this.state.count;
+                    this.setState({count: count-1});
+                    this.setState({percents: (count-1)/this.state.max*100});
+                    if(this.state.count===0){
+                        this.timer && clearInterval(this.timer);
+                        this.setState({status: false});
+                        this.setState({statusText: '开启'});
+                        // this.setState({statusImg: require('../Resources/dryer/switch.png')});
+                    }
+                },
+                1000
+            )
+        }
     };
     componentDidMount() {
-        // 这里的`param`可以为空，接受你B页面传过来的数据
         this.subscription = DeviceEventEmitter.addListener("EventType", (param)=>{
-            // 刷新界面等
-            // alert(param);
+            // 接收传参并执行写入
             this.setNum(param);
         });
     }
@@ -34,47 +69,78 @@ export default class App extends React.Component  {
         this.subscription.remove();
     }
     getTodayDate = (param) => {
-        if(param<=0)param=0;
+        // if(param != 0){
+        //     params = this.state.getParam;
+        // }
         let paramTime = {
             hours:Math.floor(param/60),
             minute:Math.floor(Math.floor(param%60))
         }
+        let tomorrow = '';
         let date = new Date();
         let year = date.getFullYear().toString();
         let month = (date.getMonth()+1).toString();
         let day = date.getDate().toString();
-        // let hour =  date.getHours().toString();
-        let hour =  (date.getHours()+paramTime.hours).toString();
-        // let minute = date.getMinutes().toString();
-        let minute = (date.getMinutes()+paramTime.minute).toString();
-        // this.setState({time: hour+':'+minute});
-        return hour+':'+minute;
+        let hourNumber =  date.getHours()+paramTime.hours;
+        let minuteNumber = date.getMinutes()+paramTime.minute;
+        if(minuteNumber>=60) {
+            minuteNumber = minuteNumber%60;
+            hourNumber = hourNumber + Math.floor(minuteNumber/60);
+        }
+        if(hourNumber>=24){
+            hourNumber = hourNumber%24;
+            if(hourNumber.toString()===1) hourNumber='0'+hourNumber.toString();
+            tomorrow = '明天 ';
+        }
+        let hour =  hourNumber.toString();
+        let minute = minuteNumber.toString();
+        if(hour.length===1) hour = '0'+hour;
+        if(minute.length===1) minute = '0'+minute;
+        return tomorrow + hour+':'+minute;
     };
-
-    onPressP = () => {
-        if(this.state.count<=355){
-            this.setState({
-                count: this.state.count+5
-            });
+    onPressSwitch = () => {
+        if( this.state.count===0 ) {
+            alert('请设定烘干时间后 重试');
+            return false;
+        }
+        if(!this.state.status){
+            this.setState({status: true});
+            this.setState({statusText: '关闭'});
+            // this.setState({statusImg: require('../Resources/dryer/switch-1.png')});
+            this.setCountdown()
+        }else{
+            this.timer && clearInterval(this.timer);
+            this.setState({status: false});
+            this.setState({statusText: '开启'});
+            // this.setState({statusImg: require('../Resources/dryer/switch.png')});
+        }
+    };
+    onPressPlus = () => {
+        if(this.state.count<=this.state.max-this.state.step){
+            this.setNum(this.state.count+this.state.step)
         }else{
             this.setState({
-                count: 360
+                count: this.state.max
             });
         }
     };
-    onPressM = () => {
-        if(this.state.count>=5){
-            this.setState({
-                count: this.state.count-5
-            });
+    onPressReduce = () => {
+        if(this.state.count>=this.state.min+this.state.step){
+            this.setNum(this.state.count-this.state.step)
         }else{
             this.setState({
-                count: 0
+                count: this.state.min
             });
         }
 
+    };
+    onPressShare = () => {
+        Host.file.screenShot("temp.png").then((result)=>{ console.log('截屏成功' + result);
+        Host.ui.openShareListBar('分享', '分享描述', {local: "temp.png"},'') }).catch((err)=>{ console.log('截屏失败' + err) })
     };
     render() {
+
+
         return (
             <View style={style.container}>
                 <View style={style.overTimeBox}>
@@ -89,10 +155,13 @@ export default class App extends React.Component  {
                     padding: 0,position:'relative'}}>
 
                     {/*    时间计时器*/}
-                    <View style={style.timeContainer}>
-                        <Text style={style.timeLable}>{ this.state.count }</Text>
-                        <Text style={style.unitLable}>min</Text>
-                    </View>
+
+                    <PercentageCircle radius={125} percent={ this.state.percents } innerColor={'#0e62bd'} borderWidth={20} bgcolor={'transparent'} color={"#fff"}>
+                        <View style={style.timeContainer}>
+                            <Text style={style.timeLable}>{ this.state.count }</Text>
+                            <Text style={style.unitLable}>min</Text>
+                        </View>
+                    </PercentageCircle>
                     <View style={style.timeBeContainer}></View>
                     <View style={style.timeBeContainer1}></View>
                     <View style={style.timeBeContainer2}></View>
@@ -104,6 +173,7 @@ export default class App extends React.Component  {
                     <View style={style.timeBeContainer9}></View>
                     <View style={style.timeBeContainer8}></View>
                     <View style={style.timeBeContainer10}></View>
+
                 </View>
                 <View style={style.rowContainer}>
                     {/*    选择按钮*/}
@@ -112,35 +182,67 @@ export default class App extends React.Component  {
                 <View style={style.rowContainer}>
                     {/*    功能按键*/}
                     <View style={style.butBox}>
-                        <TouchableOpacity
-                            style={style.butIcon}
-                            onPress={() => alert(this.state.count)}
-                        >
-                            <Image source={require('../Resources/dryer/switch.png')}></Image>
+                        <TouchableOpacity style={style.butIcon} onPress={this.onPressSwitch} >
+                            <Image source={ this.state.statusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={() => alert(this.state.count)}>开关</Text>
+                        <Text style={style.butLable} onPress={this.onPressSwitch}>{ this.state.statusText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity
-                            style={style.butIcon}
-                            onPress={this.onPressM}
-                        >
-                            <Image source={require('../Resources/dryer/reduce.png')}></Image>
+                        <TouchableOpacity style={style.butIcon} onPress={this.onPressReduce} >
+                            <Image source={ this.state.reduceImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={this.onPressM}>减时</Text>
+                        <Text style={style.butLable} onPress={this.onPressReduce}>{ this.state.reduceText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity
-                            style={style.butIcon}
-                            onPress={this.onPressP}
-                        >
-                            <Image source={require('../Resources/dryer/plus.png')}></Image>
+                        <TouchableOpacity style={style.butIcon} onPress={this.onPressPlus} >
+                            <Image source={ this.state.plusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={this.onPressP}>加时</Text>
+                        <Text style={style.butLable} onPress={this.onPressPlus}>{ this.state.plusText }</Text>
                     </View>
                 </View>
             </View>
         )
+    }
+    sendRequest() {
+        var params = this.state.params;
+        var method = this.state.method;
+        var extra = this.state.extra;
+        if (method == '') {
+            alert('method 不能为空')
+            return;
+        }
+        console.log('extra', extra)
+        Device.getDeviceWifi().callMethod(method, params, extra).then(res => {
+            var result = JSON.stringify(res);
+            this.setState({ result })
+        }).catch(err => {
+            console.log('error:', err)
+            var result = JSON.stringify(err);
+            result = "Error: \n" + result;
+            this.setState({ result })
+        })
+    }
+
+    sendRemoteRequest() {
+        var params = this.state.params;
+        var method = this.state.method;
+        var extra = this.state.extra;
+        if (method == '') {
+            alert('method 不能为空')
+            return;
+        }
+        Device.getDeviceWifi().callMethodFromCloud(method, params).then(res => {
+            var result = JSON.stringify(res);
+            this.setState({ result })
+        }).catch(err => {
+            var result = JSON.stringify(err);
+            result = "Error: \n" + result;
+            this.setState({ result })
+        })
+    }
+
+    clearParams() {
+        this.setState({ params: {}, extra: {}, paramsString: '', extraString: '', method: '' })
     }
 }
 Package.entry(App, () => {
@@ -181,6 +283,7 @@ var style = StyleSheet.create({
         alignItems: 'center',
     },
     timeBeContainer:{
+        opacity:0.3,
         position:'absolute',
         borderWidth:20,
         borderColor:'#fff',
@@ -195,7 +298,9 @@ var style = StyleSheet.create({
         borderColor:'#fff',
         borderRadius:160,
         width:273,
-        height:273
+        height:273,
+        // transform:[{rotate: this.spin }]
+
     },
     timeBeContainer2:{
         opacity:0.3,
