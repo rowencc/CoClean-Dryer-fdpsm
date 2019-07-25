@@ -2,7 +2,7 @@ import React from 'react';
 import { API_LEVEL, Package, Device, Service, Host } from 'miot';
 import Selects from './Select';
 import { DeviceEventEmitter, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View ,TouchableOpacity } from 'react-native';
-import PercentageCircle from 'react-native-percentage-circle';
+import PercentageCircle from '../CommonModules/percentage';
 
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
