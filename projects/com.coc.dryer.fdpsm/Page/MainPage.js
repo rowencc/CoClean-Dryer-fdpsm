@@ -1,11 +1,12 @@
 import React from 'react';
 import { API_LEVEL, Package, Device, Service, Host } from 'miot';
 import Selects from './Select';
-import { DeviceEventEmitter, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View ,TouchableOpacity } from 'react-native';
+import { DeviceEventEmitter, NativeModules, LayoutAnimation, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View ,TouchableOpacity } from 'react-native';
 import PercentageCircle from '../CommonModules/percentage';
 
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
+const { UIManager } = NativeModules;
 export default class App extends React.Component  {
     constructor(props) {
         super(props);
@@ -24,6 +25,13 @@ export default class App extends React.Component  {
             reduceText: '加时', //减时文字描述
             reduceImg: require('../Resources/dryer/reduce.png'), //减时按钮图片
             time: this.getTodayDate(0), // 获取预计完成时间
+            w: 273,//动画光环宽度
+            h: 273,//动画光环高度
+            l: new Animated.ValueXY({x:273,y:273}),//动画光环直径
+            o: 0,//动画光环隐显  关闭状态下 隐藏，开启状态下  显示
+            translateValue: new Animated.ValueXY({x:0, y:0}), // 二维坐标
+            scaleValue : new Animated.Value(0),
+            reScaleValue : new Animated.Value(0),
 
             requestStatus: false,
             method: '',
@@ -31,14 +39,33 @@ export default class App extends React.Component  {
             extra: {},
             paramsString: '',
             extraString: {},
-            result: 'None'
+            result: 'None',
         };
-
+        // this.setAnimation = this.setAnimation.bind(this);
     }
+    anima = () =>{
+        return Animated.timing(
+            this.state.scaleValue,
+            {
+                toValue: 100,
+                duration: 2000,
+                friction: 100,
+                easing: Easing.linear,
+            }
+        )
+    };
+    setAnimation(){
+        // this.state.scaleValue.setValue(0.88);
+        this.state.scaleValue.setValue(0.88);
+        this.state.reScaleValue.setValue(0.88);
+        this.anima();
+    };
     setNum = (param) => {
-        this.setState({count: param});
-        this.setState({percents: param/this.state.max*100});
-        this.setState({time: this.getTodayDate(param)});
+        this.setState({
+            count: param,
+            percents: param/this.state.max*100,
+            time: this.getTodayDate(param)
+        });
     };
     setCountdown = () => {
         this.timer && clearInterval(this.timer);
@@ -46,13 +73,18 @@ export default class App extends React.Component  {
             this.timer = setInterval(
                 () => {
                     let count = this.state.count;
-                    this.setState({count: count-1});
-                    this.setState({percents: (count-1)/this.state.max*100});
+                    this.setState({
+                        count: count-1,
+                        percents: (count-1)/this.state.max*100
+                    });
                     if(this.state.count===0){
                         this.timer && clearInterval(this.timer);
-                        this.setState({status: false});
-                        this.setState({statusText: '开启'});
-                        // this.setState({statusImg: require('../Resources/dryer/switch.png')});
+                        this.setState({
+                            status: false,
+                            statusText: '开启',
+                            o: 0,
+                            // statusImg: require('../Resources/dryer/switch.png')
+                        });
                     }
                 },
                 1000
@@ -60,6 +92,7 @@ export default class App extends React.Component  {
         }
     };
     componentDidMount() {
+
         this.subscription = DeviceEventEmitter.addListener("EventType", (param)=>{
             // 接收传参并执行写入
             this.setNum(param);
@@ -83,9 +116,9 @@ export default class App extends React.Component  {
         let day = date.getDate().toString();
         let hourNumber =  date.getHours()+paramTime.hours;
         let minuteNumber = date.getMinutes()+paramTime.minute;
-        if(minuteNumber>=60) {
-            minuteNumber = minuteNumber%60;
+        if(minuteNumber>0) {
             hourNumber = hourNumber + Math.floor(minuteNumber/60);
+            minuteNumber = minuteNumber%60;
         }
         if(hourNumber>=24){
             hourNumber = hourNumber%24;
@@ -104,15 +137,27 @@ export default class App extends React.Component  {
             return false;
         }
         if(!this.state.status){
-            this.setState({status: true});
-            this.setState({statusText: '关闭'});
-            // this.setState({statusImg: require('../Resources/dryer/switch-1.png')});
+            Animated.loop(this.anima()).start();
+            this.setState({
+                status: true,
+                statusText: '关闭',
+                w: this.state.w + 2,
+                h: this.state.h + 2,
+                o: 1,
+                // statusImg: require('../Resources/dryer/switch-1.png')
+            });
             this.setCountdown()
         }else{
             this.timer && clearInterval(this.timer);
-            this.setState({status: false});
-            this.setState({statusText: '开启'});
-            // this.setState({statusImg: require('../Resources/dryer/switch.png')});
+            Animated.loop(this.anima()).stop();
+            this.setState({
+                status: false,
+                statusText: '开启',
+                w: 273,
+                h: 273,
+                o: 0,
+                // statusImg: require('../Resources/dryer/switch.png')
+            });
         }
     };
     onPressPlus = () => {
@@ -134,13 +179,11 @@ export default class App extends React.Component  {
         }
 
     };
-    onPressShare = () => {
-        Host.file.screenShot("temp.png").then((result)=>{ console.log('截屏成功' + result);
-        Host.ui.openShareListBar('分享', '分享描述', {local: "temp.png"},'') }).catch((err)=>{ console.log('截屏失败' + err) })
-    };
     render() {
-
-
+        const scale = this.state.scaleValue.interpolate({
+                inputRange: [0,50,100],
+                outputRange: [0.88,1,0.88]
+            });
         return (
             <View style={style.container}>
                 <View style={style.overTimeBox}>
@@ -156,23 +199,25 @@ export default class App extends React.Component  {
 
                     {/*    时间计时器*/}
 
-                    <PercentageCircle radius={125} percent={ this.state.percents } innerColor={'#0e62bd'} borderWidth={20} bgcolor={'transparent'} color={"#fff"}>
+                    <PercentageCircle radius={125} percent={ this.state.percents } innerColor={'#0e62bd'} borderWidth={20} bgcolor={'transparent'} color={"#fff"} >
                         <View style={style.timeContainer}>
                             <Text style={style.timeLable}>{ this.state.count }</Text>
                             <Text style={style.unitLable}>min</Text>
                         </View>
                     </PercentageCircle>
-                    <View style={style.timeBeContainer}></View>
-                    <View style={style.timeBeContainer1}></View>
-                    <View style={style.timeBeContainer2}></View>
-                    <View style={style.timeBeContainer3}></View>
-                    <View style={style.timeBeContainer4}></View>
-                    <View style={style.timeBeContainer5}></View>
-                    <View style={style.timeBeContainer6}></View>
-                    <View style={style.timeBeContainer7}></View>
-                    <View style={style.timeBeContainer9}></View>
-                    <View style={style.timeBeContainer8}></View>
-                    <View style={style.timeBeContainer10}></View>
+                    <View style={style.timeBeContainer} />
+                    <Animated.View style={[style.timeBeContainer0, {transform: [{scale: scale}],opacity:this.state.o} ]} />
+                    <View style={[style.timeBeContainer0, ]} />
+                    <View style={style.timeBeContainer1} />
+                    <View style={style.timeBeContainer2} />
+                    <View style={style.timeBeContainer3} />
+                    <View style={style.timeBeContainer4} />
+                    <View style={style.timeBeContainer5} />
+                    <View style={style.timeBeContainer6} />
+                    <View style={style.timeBeContainer7} />
+                    <View style={style.timeBeContainer9} />
+                    <View style={style.timeBeContainer8} />
+                    <View style={style.timeBeContainer10} />
 
                 </View>
                 <View style={style.rowContainer}>
@@ -249,7 +294,7 @@ Package.entry(App, () => {
 
 })
 
-var style = StyleSheet.create({
+const style = StyleSheet.create({
     navigate: {
         backgroundColor: 'transparent',
     },
@@ -290,6 +335,17 @@ var style = StyleSheet.create({
         borderRadius:150,
         width:250,
         height:250
+    },
+    timeBeContainer0:{
+        opacity:0,
+        position:'absolute',
+        borderWidth:1,
+        borderColor:'#fff',
+        borderRadius:160,
+        width:309,
+        height:309,
+        // transform:[{rotate: this.spin }]
+
     },
     timeBeContainer1:{
         opacity:0.3,

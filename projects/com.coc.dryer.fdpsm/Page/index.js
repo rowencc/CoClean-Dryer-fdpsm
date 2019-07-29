@@ -10,10 +10,12 @@ import RpcControl from './RpcControl';
 import Selects from './Select';
 import { API_LEVEL, Package, Device, Service, Host } from 'miot';
 let onPressShare = () => {
+    // alert('share start');
     Host.file.screenShot("share.png").then((result)=>{
         console.log('截屏成功' + result);
         Host.ui.openShareListBar(Device.name, Device.name+'分享描述', {local: "share.png"},'https://www.coclean.com')
-    }).catch((err)=>{ console.log('截屏失败' + err) })
+    }).catch((err)=>{ console.log('截屏失败' + err) });
+    // alert('share end');
 };
 const RootStack = createStackNavigator({
         Home: MainPages,
