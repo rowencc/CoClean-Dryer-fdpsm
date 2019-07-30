@@ -13,10 +13,11 @@ export default class App extends React.Component  {
         this.state = {
             min: 0, //最小值
             max: 360, //最大值
-            count: 0, // 默认时间值
+            count: 0, // 初始时间值
+            defaultNum: 120,//默认开机时间
             percents:0, //百分比默认值
             getParam: 0,  //传入值
-            step: 5,  //步进
+            step: 30,  //步进
             status: false, //开关状态
             statusText: '开启', //开关文字描述
             statusImg: require('../Resources/dryer/switch.png'), //开关文字描述
@@ -24,14 +25,11 @@ export default class App extends React.Component  {
             plusImg: require('../Resources/dryer/plus.png'), //加时按钮图片
             reduceText: '加时', //减时文字描述
             reduceImg: require('../Resources/dryer/reduce.png'), //减时按钮图片
-            time: this.getTodayDate(0), // 获取预计完成时间
-            w: 273,//动画光环宽度
-            h: 273,//动画光环高度
-            l: new Animated.ValueXY({x:273,y:273}),//动画光环直径
+            overTimeText: '待开机',
+            time: this.setTime(0), // 获取预计完成时间
             o: 0,//动画光环隐显  关闭状态下 隐藏，开启状态下  显示
-            translateValue: new Animated.ValueXY({x:0, y:0}), // 二维坐标
             scaleValue : new Animated.Value(0),
-            reScaleValue : new Animated.Value(0),
+            aniStatus:false,//动画锁
 
             requestStatus: false,
             method: '',
@@ -43,7 +41,7 @@ export default class App extends React.Component  {
         };
         // this.setAnimation = this.setAnimation.bind(this);
     }
-    anima = () =>{
+    anim = () =>{
         return Animated.timing(
             this.state.scaleValue,
             {
@@ -57,28 +55,45 @@ export default class App extends React.Component  {
     setAnimation(){
         // this.state.scaleValue.setValue(0.88);
         this.state.scaleValue.setValue(0.88);
-        this.state.reScaleValue.setValue(0.88);
-        this.anima();
+        this.anim();
     };
     setNum = (param) => {
         this.setState({
             count: param,
             percents: param/this.state.max*100,
-            time: this.getTodayDate(param)
+            time: this.setTime(param)
         });
     };
-    setCountdown = () => {
+    setRun = (param) =>{
+        if(!this.state.status){
+            //开机
+            this.setState({status:true});
+
+        }else{
+            //关机
+            this.setState({status:false});
+
+        }
+    };
+    setCountdown = (number) => {
         this.timer && clearInterval(this.timer);
         if(this.state.count>0){
+            let param = number || this.state.count;
+            this.setNum(param);
             this.timer = setInterval(
                 () => {
                     let count = this.state.count;
                     this.setState({
                         count: count-1,
-                        percents: (count-1)/this.state.max*100
+                        percents: (count-1)/this.state.max*100,
                     });
-                    if(this.state.count===0){
+                    if(this.state.count<=0){
                         this.timer && clearInterval(this.timer);
+                        // if(this.state.status){
+                            Animated.loop(this.anim()).stop();//动画停止
+                            this.setState({status:false});
+                        // };//动画开始
+                        this.setNum(0);
                         this.setState({
                             status: false,
                             statusText: '开启',
@@ -88,7 +103,24 @@ export default class App extends React.Component  {
                     }
                 },
                 1000
-            )
+            );
+            if(!this.state.status){
+                this.setState({status:true,o:1});
+                Animated.loop(this.anim()).start();
+            } //动画开始
+        }else{
+            this.timer && clearInterval(this.timer);
+            // if(this.state.status){
+            Animated.loop(this.anim()).stop();//动画停止
+            this.setState({status:false});
+            // };//动画开始
+            this.setNum(0);
+            this.setState({
+                status: false,
+                statusText: '开启',
+                o: 0,
+                // statusImg: require('../Resources/dryer/switch.png')
+            });
         }
     };
     componentDidMount() {
@@ -96,19 +128,25 @@ export default class App extends React.Component  {
         this.subscription = DeviceEventEmitter.addListener("EventType", (param)=>{
             // 接收传参并执行写入
             this.setNum(param);
+            if(param>0){
+                setTimeout(()=>{
+                    this.setCountdown(this.state.count);
+                },100);
+            }
         });
+
     }
     componentWillUnmount() {
         this.subscription.remove();
     }
-    getTodayDate = (param) => {
+    setTime = (param) => {
         // if(param != 0){
         //     params = this.state.getParam;
         // }
         let paramTime = {
             hours:Math.floor(param/60),
             minute:Math.floor(Math.floor(param%60))
-        }
+        };
         let tomorrow = '';
         let date = new Date();
         let year = date.getFullYear().toString();
@@ -132,41 +170,44 @@ export default class App extends React.Component  {
         return tomorrow + hour+':'+minute;
     };
     onPressSwitch = () => {
-        if( this.state.count===0 ) {
-            alert('请设定烘干时间后 重试');
-            return false;
-        }
+        let num = 0;
+        this.state.count===0 ? num = this.state.defaultNum : num = this.state.count;
         if(!this.state.status){
-            Animated.loop(this.anima()).start();
+            this.setNum(num);
             this.setState({
-                status: true,
+                // status: true,
                 statusText: '关闭',
-                w: this.state.w + 2,
-                h: this.state.h + 2,
-                o: 1,
-                // statusImg: require('../Resources/dryer/switch-1.png')
             });
-            this.setCountdown()
+            setTimeout(()=>{
+                this.setCountdown(this.state.count);
+                this.setState({o: 1});
+            },50);
         }else{
             this.timer && clearInterval(this.timer);
-            Animated.loop(this.anima()).stop();
+            this.setNum(0);
             this.setState({
-                status: false,
+                // status: false,
                 statusText: '开启',
-                w: 273,
-                h: 273,
-                o: 0,
-                // statusImg: require('../Resources/dryer/switch.png')
             });
+            this.timer && clearInterval(this.timer);
+            setTimeout(()=>{
+                this.setCountdown(this.state.count);
+                this.timer && clearInterval(this.timer);
+            },100);
         }
     };
     onPressPlus = () => {
         if(this.state.count<=this.state.max-this.state.step){
-            this.setNum(this.state.count+this.state.step)
+            this.setNum(this.state.count+this.state.step);
         }else{
             this.setState({
                 count: this.state.max
             });
+        }
+        if(this.state.count+this.state.step>0){
+            setTimeout(()=>{
+                this.setCountdown(this.state.count);
+            },100);
         }
     };
     onPressReduce = () => {
@@ -177,7 +218,11 @@ export default class App extends React.Component  {
                 count: this.state.min
             });
         }
-
+        if(this.state.count>0){
+            setTimeout(()=>{
+                this.setCountdown(this.state.count);
+            },50);
+        }
     };
     render() {
         const scale = this.state.scaleValue.interpolate({
@@ -188,7 +233,7 @@ export default class App extends React.Component  {
             <View style={style.container}>
                 <View style={style.overTimeBox}>
                     <View style={style.overTime}>
-                        <Text style={style.overTimeText}>约{ this.state.time }完成</Text>
+                        <Text style={style.overTimeText}>{ this.state.count <= 0 ?this.state.overTimeText : '约'+this.state.time+'完成'}</Text>
                     </View>
                 </View>
                 <View style={{flex:1,justifyContent: 'center',
