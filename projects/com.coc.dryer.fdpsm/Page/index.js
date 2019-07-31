@@ -31,7 +31,7 @@ let onPressShare = () => {
             )
         })
         .catch((result) => {
-            alert(result);
+            // alert(result);
         });
 
     // Host.file.screenShot("share.png").then((result)=>{

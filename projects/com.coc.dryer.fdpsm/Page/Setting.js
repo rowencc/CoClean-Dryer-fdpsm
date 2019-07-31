@@ -33,7 +33,7 @@ export default class Setting extends React.Component {
             sliderValue: 25,
             switchValue: false,
             name: Device.name,
-            showDot: true,
+            showDot: [],
         }
     }
 
