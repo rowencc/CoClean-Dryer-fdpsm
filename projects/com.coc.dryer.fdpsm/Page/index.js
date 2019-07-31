@@ -9,12 +9,35 @@ import Setting from "./Setting";
 import RpcControl from './RpcControl';
 import Selects from './Select';
 import { API_LEVEL, Package, Device, Service, Host } from 'miot';
+
+const imagePathMap = new Map();
+let imagePaths = '';
 let onPressShare = () => {
     // alert('share start');
-    Host.file.screenShot("share.png").then((result)=>{
-        console.log('截屏成功' + result);
-        Host.ui.openShareListBar(Device.name, Device.name+'分享描述', {local: "share.png"},'https://www.coclean.com')
-    }).catch((err)=>{ console.log('截屏失败' + err) });
+    // Host.ui.openShareDevicePage()
+    // Host.ui.openShareDevicePage()
+    let imageName = "share_" + new Date().getTime() + ".png";
+    Host.file.screenShot(imageName)
+        .then((imagePath) => {
+            imagePathMap.set(imageName, imagePath);
+            imagePaths = imagePath;
+            // this._readFileList();
+            alert(imagePath);
+            Host.ui.openShareListBar(
+                Device.name,
+                Device.name+'分享描述',
+                {uri:imagePath},
+                ''
+            )
+        })
+        .catch((result) => {
+            alert(result);
+        });
+
+    // Host.file.screenShot("share.png").then((result)=>{
+    //     console.log('截屏成功' + result);
+    //     Host.ui.openShareListBar(Device.name, Device.name+'分享描述', {local: "share.png"},'')
+    // }).catch((err)=>{ console.log('截屏失败' + err) });
     // alert('share end');
 };
 const RootStack = createStackNavigator({

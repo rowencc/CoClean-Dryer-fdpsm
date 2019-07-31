@@ -32,7 +32,8 @@ export default class Setting extends React.Component {
         this.state = {
             sliderValue: 25,
             switchValue: false,
-            showDot: [],
+            name: Device.name,
+            showDot: true,
         }
     }
 
@@ -46,15 +47,15 @@ export default class Setting extends React.Component {
         ]
         // 显示部分二级菜单项
         const secondOptions = [
-            // second_options.AUTO_UPGRADE,
+            second_options.AUTO_UPGRADE,
             second_options.TIMEZONE,
         ]
         // 显示固件升级二级菜单
         const extraOptions = {
             showUpgrade: true,
-            // upgradePageKey: 'FirmwareUpgrade',
-            // licenseUrl: require('../resources/html/license_zh.html'),
-            // policyUrl: require('../resources/html/privacy_zh.html'),
+            upgradePageKey: 'FirmwareUpgrade',
+            // licenseUrl: require('../Resources/html/license_zh.html'),
+            // policyUrl: require('../Resources/html/privacy_zh.html'),
             deleteDeviceMessage: '真的要删除？你不再考虑考虑？',
             excludeRequiredOptions: [secondAllOptions.SECURITY]
         }
@@ -63,33 +64,33 @@ export default class Setting extends React.Component {
                 <Separator />
                 <ScrollView
                     showsVerticalScrollIndicator={false}>
-                    {/*<View style={[styles.blank, { borderTopWidth: 0 }]} />*/}
-                    {/*<View style={styles.featureSetting}>*/}
-                    {/*    <View style={styles.titleContainer}>*/}
-                    {/*        <Text style={styles.title}>{strings.featureSetting}</Text>*/}
-                    {/*    </View>*/}
-                    {/*    <Separator style={{ marginLeft: Styles.common.padding }} />*/}
-                    {/*    <ListItem*/}
-                    {/*        title= '便携烘干机'*/}
-                    {/*        showDot={true}*/}
-                    {/*        onPress={_ => console.log(0)}*/}
-                    {/*    />*/}
-                    {/*    <ListItemWithSwitch*/}
-                    {/*        title='三个'*/}
-                    {/*        value={this.state.switchValue}*/}
-                    {/*        onValueChange={value => this.onValueChange(value)}*/}
-                    {/*    />*/}
-                    {/*    <ListItemWithSlider*/}
-                    {/*        title='测试'*/}
-                    {/*        showWithPercent={false}*/}
-                    {/*        unit={'cal'}*/}
-                    {/*        sliderProps={{ value: this.state.sliderValue }}*/}
-                    {/*        onSlidingComplete={value => this.onSlidingComplete(value)}*/}
-                    {/*        onValueChange={value => console.log(value)}*/}
-                    {/*        showSeparator={false}*/}
-                    {/*    />*/}
-                    {/*</View>*/}
-                    {/*<View style={styles.blank} />*/}
+                    <View style={[styles.blank, { borderTopWidth: 0 }]} />
+                    <View style={styles.featureSetting}>
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.title}>{strings.featureSetting}</Text>
+                        </View>
+                        <Separator style={{ marginLeft: Styles.common.padding }} />
+                        <ListItem
+                            title= {this.state.name}
+                            showDot={this.state.showDot}
+                            onPress={_ => console.log(0)}
+                        />
+                        {/*<ListItemWithSwitch*/}
+                        {/*    title='三个'*/}
+                        {/*    value={this.state.switchValue}*/}
+                        {/*    onValueChange={value => this.onValueChange(value)}*/}
+                        {/*/>*/}
+                        {/*<ListItemWithSlider*/}
+                        {/*    title='测试'*/}
+                        {/*    showWithPercent={false}*/}
+                        {/*    unit={'cal'}*/}
+                        {/*    sliderProps={{ value: this.state.sliderValue }}*/}
+                        {/*    onSlidingComplete={value => this.onSlidingComplete(value)}*/}
+                        {/*    onValueChange={value => console.log(value)}*/}
+                        {/*    showSeparator={false}*/}
+                        {/*/>*/}
+                    </View>
+                    <View style={styles.blank} />
                     <CommonSetting
                         navigation={this.props.navigation}
                         firstOptions={firstOptions}
