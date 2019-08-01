@@ -2,7 +2,7 @@ import React from 'react';
 import { API_LEVEL, Package, Device, Service, Host } from 'miot';
 import Selects from './Select';
 import { DeviceEventEmitter, NativeModules, LayoutAnimation, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View ,TouchableOpacity } from 'react-native';
-import PercentageCircle from '../CommonModules/percentage';
+import ProgressCircle from '../CommonModules/progress-circle';
 
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
@@ -19,7 +19,9 @@ export default class App extends React.Component  {
             getParam: 0,  //传入值
             step: 30,  //步进
             status: false, //开关状态
-            statusText: '开启', //开关文字描述
+            statusText: '开机', //开关文字描述
+            onText: '开机', //关机文字描述
+            offText: '关机', //开机文字描述
             statusImg: require('../Resources/dryer/switch.png'), //开关文字描述
             plusText: '加时', //加时文字描述
             plusImg: require('../Resources/dryer/plus.png'), //加时按钮图片
@@ -80,6 +82,12 @@ export default class App extends React.Component  {
         if(this.state.count>0){
             let param = number || this.state.count;
             this.setNum(param);
+            this.setState({
+                status: true,
+                statusText: this.state.offText,
+                o: 0,
+                // statusImg: require('../Resources/dryer/switch.png')
+            });
             this.timer = setInterval(
                 () => {
                     let count = this.state.count;
@@ -96,7 +104,7 @@ export default class App extends React.Component  {
                         this.setNum(0);
                         this.setState({
                             status: false,
-                            statusText: '开启',
+                            statusText: this.state.onText,
                             o: 0,
                             // statusImg: require('../Resources/dryer/switch.png')
                         });
@@ -117,14 +125,14 @@ export default class App extends React.Component  {
             this.setNum(0);
             this.setState({
                 status: false,
-                statusText: '开启',
+                statusText: this.state.onText,
                 o: 0,
                 // statusImg: require('../Resources/dryer/switch.png')
             });
         }
     };
     componentDidMount() {
-
+        //获取设备状态-
         this.subscription = DeviceEventEmitter.addListener("EventType", (param)=>{
             // 接收传参并执行写入
             this.setNum(param);
@@ -176,7 +184,7 @@ export default class App extends React.Component  {
             this.setNum(num);
             this.setState({
                 // status: true,
-                statusText: '关闭',
+                statusText: this.state.offText,
             });
             setTimeout(()=>{
                 this.setCountdown(this.state.count);
@@ -187,7 +195,7 @@ export default class App extends React.Component  {
             this.setNum(0);
             this.setState({
                 // status: false,
-                statusText: '开启',
+                statusText: this.state.onText,
             });
             this.timer && clearInterval(this.timer);
             setTimeout(()=>{
@@ -239,18 +247,26 @@ export default class App extends React.Component  {
                 <View style={{flex:1,justifyContent: 'center',
                     alignItems: 'center',
                     marginBottom: 40,
-                    marginTop: 0,
+                    marginTop: -20,
                     padding: 0,position:'relative'}}>
 
                     {/*    时间计时器*/}
-
-                    <PercentageCircle radius={125} percent={ this.state.percents } innerColor={'#0e62bd'} borderWidth={20} bgcolor={'transparent'} color={"#fff"} >
-                        <View style={style.timeContainer}>
-                            <Text style={style.timeLable}>{ this.state.count }</Text>
-                            <Text style={style.unitLable}>min</Text>
-                        </View>
-                    </PercentageCircle>
-                    <View style={style.timeBeContainer} />
+                    <ProgressCircle
+                        size={250}
+                        width={250}
+                        height={250}
+                        thickness={20}
+                        borderRadius={10}
+                        strokeCap={this.state.percents>0 ? 'round':'butt'}
+                        progress={ this.state.percents/100 }
+                        borderWidth={0}
+                        unfilledColor={'rgba(255,255,255,.3)'}
+                        color={"#fff"} >.
+                    </ProgressCircle>
+                    <View style={style.timeContainer}>
+                        <Text style={style.timeLable}>{ this.state.count }</Text>
+                        <Text style={style.unitLable}>min</Text>
+                    </View>
                     <Animated.View style={[style.timeBeContainer0, {transform: [{scale: scale}],opacity:this.state.o} ]} />
                     <View style={[style.timeBeContainer0, ]} />
                     <View style={style.timeBeContainer1} />
@@ -272,7 +288,7 @@ export default class App extends React.Component  {
                 <View style={style.rowContainer}>
                     {/*    功能按键*/}
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPress={this.onPressSwitch} >
+                        <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={this.onPressSwitch} >
                             <Image source={ this.state.statusImg } />
                         </TouchableOpacity>
                         <Text style={style.butLable} onPress={this.onPressSwitch}>{ this.state.statusText }</Text>
@@ -364,7 +380,7 @@ const style = StyleSheet.create({
     timeContainer:{
         position:'absolute',
         borderWidth:20,
-        borderColor:'#ccc',
+        borderColor:'transparent',
         borderRadius:150,
         width:250,
         height:250,
@@ -376,7 +392,7 @@ const style = StyleSheet.create({
         opacity:0.3,
         position:'absolute',
         borderWidth:20,
-        borderColor:'#fff',
+        borderColor:'transparent',
         borderRadius:150,
         width:250,
         height:250
@@ -557,14 +573,15 @@ const style = StyleSheet.create({
     overTime:{
         borderWidth:1,
         borderColor:'#fff',
-        borderRadius:13,
-        height:26,
+        borderRadius:16,
+        // height:26,
         width:100,
     },
     overTimeText:{
         color:'#fff',
         textAlign: 'center',
-        lineHeight:30
+        paddingTop: 7,
+        paddingBottom: 7
     }
 });
 

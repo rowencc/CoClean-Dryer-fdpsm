@@ -64,17 +64,17 @@ export default class Setting extends React.Component {
                 <Separator />
                 <ScrollView
                     showsVerticalScrollIndicator={false}>
-                    <View style={[styles.blank, { borderTopWidth: 0 }]} />
-                    <View style={styles.featureSetting}>
-                        <View style={styles.titleContainer}>
-                            <Text style={styles.title}>{strings.featureSetting}</Text>
-                        </View>
-                        <Separator style={{ marginLeft: Styles.common.padding }} />
-                        <ListItem
-                            title= {this.state.name}
-                            showDot={this.state.showDot}
-                            onPress={_ => console.log(0)}
-                        />
+                    {/*<View style={[styles.blank, { borderTopWidth: 0 }]} />*/}
+                    {/*<View style={styles.featureSetting}>*/}
+                        {/*<View style={styles.titleContainer}>*/}
+                        {/*    <Text style={styles.title}>{strings.featureSetting}</Text>*/}
+                        {/*</View>*/}
+                        {/*<Separator style={{ marginLeft: Styles.common.padding }} />*/}
+                        {/*<ListItem*/}
+                        {/*    title= {this.state.name}*/}
+                        {/*    showDot={this.state.showDot}*/}
+                        {/*    onPress={_ => console.log(0)}*/}
+                        {/*/>*/}
                         {/*<ListItemWithSwitch*/}
                         {/*    title='三个'*/}
                         {/*    value={this.state.switchValue}*/}
@@ -89,8 +89,8 @@ export default class Setting extends React.Component {
                         {/*    onValueChange={value => console.log(value)}*/}
                         {/*    showSeparator={false}*/}
                         {/*/>*/}
-                    </View>
-                    <View style={styles.blank} />
+                    {/*</View>*/}
+                    {/*<View style={styles.blank} />*/}
                     <CommonSetting
                         navigation={this.props.navigation}
                         firstOptions={firstOptions}
