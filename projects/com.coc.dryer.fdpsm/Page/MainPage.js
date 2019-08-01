@@ -582,12 +582,10 @@ const style = StyleSheet.create({
         justifyContent:'center',
         textAlignVertical:'center',
         // lineHeight:30,
-        // this.Platform.select({
-        //     ios:{
-        //         lineHeight:36,
-        //     },
-        //     android:{
-        //     }
+        // ...Platform.select({
+        //     ios:{lineHeight:30},
+        //     android:{}
+        // })
         // textAlign: 'center',
         // paddingTop: 5,
         // paddingBottom: 5
