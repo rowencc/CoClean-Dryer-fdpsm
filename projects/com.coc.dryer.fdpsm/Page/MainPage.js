@@ -1,8 +1,9 @@
 import React from 'react';
 import { API_LEVEL, Package, Device, Service, Host } from 'miot';
 import Selects from './Select';
-import { DeviceEventEmitter, NativeModules, LayoutAnimation, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View ,TouchableOpacity } from 'react-native';
-import ProgressCircle from '../CommonModules/progress-circle';
+import { DeviceEventEmitter, NativeModules, LayoutAnimation, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View ,TouchableOpacity, Platform } from 'react-native';
+// import ProgressCircle from '../CommonModules/progress-circle';
+import * as Progress from 'react-native-progress';
 
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
@@ -82,12 +83,6 @@ export default class App extends React.Component  {
         if(this.state.count>0){
             let param = number || this.state.count;
             this.setNum(param);
-            this.setState({
-                status: true,
-                statusText: this.state.offText,
-                o: 0,
-                // statusImg: require('../Resources/dryer/switch.png')
-            });
             this.timer = setInterval(
                 () => {
                     let count = this.state.count;
@@ -113,7 +108,7 @@ export default class App extends React.Component  {
                 1000
             );
             if(!this.state.status){
-                this.setState({status:true,o:1});
+                this.setState({status:true,statusText: this.state.offText,o:1});
                 Animated.loop(this.anim()).start();
             } //动画开始
         }else{
@@ -175,7 +170,7 @@ export default class App extends React.Component  {
         let minute = minuteNumber.toString();
         if(hour.length===1) hour = '0'+hour;
         if(minute.length===1) minute = '0'+minute;
-        return tomorrow + hour+':'+minute;
+        return hour+':'+minute;
     };
     onPressSwitch = () => {
         let num = 0;
@@ -241,7 +236,7 @@ export default class App extends React.Component  {
             <View style={style.container}>
                 <View style={style.overTimeBox}>
                     <View style={style.overTime}>
-                        <Text style={style.overTimeText}>{ this.state.count <= 0 ?this.state.overTimeText : '约'+this.state.time+'完成'}</Text>
+                        <Text style={[style.overTimeText,{lineHeight: Host.isIOS===true? 30:''}]}>{ this.state.count <= 0 ?this.state.overTimeText : '约'+this.state.time+'完成'}</Text>
                     </View>
                 </View>
                 <View style={{flex:1,justifyContent: 'center',
@@ -251,7 +246,7 @@ export default class App extends React.Component  {
                     padding: 0,position:'relative'}}>
 
                     {/*    时间计时器*/}
-                    <ProgressCircle
+                    <Progress.Circle
                         size={250}
                         width={250}
                         height={250}
@@ -262,7 +257,7 @@ export default class App extends React.Component  {
                         borderWidth={0}
                         unfilledColor={'rgba(255,255,255,.3)'}
                         color={"#fff"} >.
-                    </ProgressCircle>
+                    </Progress.Circle>
                     <View style={style.timeContainer}>
                         <Text style={style.timeLable}>{ this.state.count }</Text>
                         <Text style={style.unitLable}>min</Text>
@@ -574,14 +569,28 @@ const style = StyleSheet.create({
         borderWidth:1,
         borderColor:'#fff',
         borderRadius:16,
-        // height:26,
-        width:100,
+        height:26,
+        width:110,
+        alignItems:'center',
+        justifyContent:'center'
     },
     overTimeText:{
         color:'#fff',
-        textAlign: 'center',
-        paddingTop: 7,
-        paddingBottom: 7
+        height: 26,
+        textAlign:'center',
+        alignItems:'center',
+        justifyContent:'center',
+        textAlignVertical:'center',
+        // lineHeight:30,
+        // this.Platform.select({
+        //     ios:{
+        //         lineHeight:36,
+        //     },
+        //     android:{
+        //     }
+        // textAlign: 'center',
+        // paddingTop: 5,
+        // paddingBottom: 5
     }
 });
 
