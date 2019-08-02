@@ -1,13 +1,14 @@
 import React from 'react';
 import { API_LEVEL, Package, Device, Service, Host } from 'miot';
 import Selects from './Select';
-import { DeviceEventEmitter, NativeModules, LayoutAnimation, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View ,TouchableOpacity, Platform } from 'react-native';
+import { DeviceEventEmitter, NativeModules, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, View ,TouchableOpacity, Platform } from 'react-native';
 // import ProgressCircle from '../CommonModules/progress-circle';
 import * as Progress from 'react-native-progress';
 
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
 const { UIManager } = NativeModules;
+
 export default class App extends React.Component  {
     constructor(props) {
         super(props);
@@ -35,8 +36,9 @@ export default class App extends React.Component  {
             aniStatus:false,//动画锁
 
             requestStatus: false,
-            method: '',
-            params: {},
+            did: Device.getDeviceWifi().deviceID,
+            method: 'power',
+            params: [{'value':'on'}],
             extra: {},
             paramsString: '',
             extraString: {},
@@ -128,6 +130,7 @@ export default class App extends React.Component  {
     };
     componentDidMount() {
         //获取设备状态-
+        // alert(JSON.stringify(Device.getDeviceWifi()));
         this.subscription = DeviceEventEmitter.addListener("EventType", (param)=>{
             // 接收传参并执行写入
             this.setNum(param);
@@ -185,6 +188,7 @@ export default class App extends React.Component  {
                 this.setCountdown(this.state.count);
                 this.setState({o: 1});
             },50);
+            this.sendRequest(this.state.status);
         }else{
             this.timer && clearInterval(this.timer);
             this.setNum(0);
@@ -197,6 +201,7 @@ export default class App extends React.Component  {
                 this.setCountdown(this.state.count);
                 this.timer && clearInterval(this.timer);
             },100);
+            this.sendRequest(this.state.status);
         }
     };
     onPressPlus = () => {
@@ -236,7 +241,7 @@ export default class App extends React.Component  {
             <View style={style.container}>
                 <View style={style.overTimeBox}>
                     <View style={style.overTime}>
-                        <Text style={[style.overTimeText,{lineHeight: Host.isIOS===true? 30:''}]}>{ this.state.count <= 0 ?this.state.overTimeText : '约'+this.state.time+'完成'}</Text>
+                        <Text style={style.overTimeText}>{ this.state.count <= 0 ?this.state.overTimeText : '约'+this.state.time+'完成'}</Text>
                     </View>
                 </View>
                 <View style={{flex:1,justifyContent: 'center',
@@ -263,7 +268,7 @@ export default class App extends React.Component  {
                         <Text style={style.unitLable}>min</Text>
                     </View>
                     <Animated.View style={[style.timeBeContainer0, {transform: [{scale: scale}],opacity:this.state.o} ]} />
-                    <View style={[style.timeBeContainer0, ]} />
+                    <View style={[style.timeBeContainer0]} />
                     <View style={style.timeBeContainer1} />
                     <View style={style.timeBeContainer2} />
                     <View style={style.timeBeContainer3} />
@@ -304,43 +309,54 @@ export default class App extends React.Component  {
             </View>
         )
     }
-    sendRequest() {
-        var params = this.state.params;
-        var method = this.state.method;
-        var extra = this.state.extra;
+    sendRequest =(status)=> {
+        let params = this.state.params;
+        let method = this.state.method;
+        let extra = this.state.extra;
         if (method == '') {
-            alert('method 不能为空')
+            alert('method 不能为空');
             return;
         }
-        console.log('extra', extra)
-        Device.getDeviceWifi().callMethod(method, params, extra).then(res => {
-            var result = JSON.stringify(res);
-            this.setState({ result })
+        // alert(Device.getDeviceWifi().deviceID);
+        Device.getDeviceWifi().loadProperties("power", "left-time").then(map=>{
+            const a = map.get("power");
+            const b = map.get("left-time");
+            alert(JSON.stringify(a));
+            alert(JSON.stringify(b));
+        });
+        Service.spec.getPropertiesValue([{did: Device.deviceID, siid: 3, piid: 3}])
+            .then(res => alert('success:'+JSON.stringify(res)))
+            .catch(err => alert('failed:'+ JSON.stringify(err)));
+        Device.getDeviceWifi().callMethod('getProps',[{power:'on'}]).then(res => {
+            let result = JSON.stringify(res);
+            this.setState({ result });
+            alert('成功 '+result)
         }).catch(err => {
-            console.log('error:', err)
-            var result = JSON.stringify(err);
+            console.log('error:', err);
+            let result = JSON.stringify(err);
             result = "Error: \n" + result;
-            this.setState({ result })
+            this.setState({ result });
+            alert('失败 '+result)
         })
-    }
+    };
 
-    sendRemoteRequest() {
-        var params = this.state.params;
-        var method = this.state.method;
-        var extra = this.state.extra;
+    sendRemoteRequest =()=> {
+        let params = this.state.params;
+        let method = this.state.method;
+        let extra = this.state.extra;
         if (method == '') {
             alert('method 不能为空')
             return;
         }
-        Device.getDeviceWifi().callMethodFromCloud(method, params).then(res => {
-            var result = JSON.stringify(res);
+        Device.getDeviceWifi().callMethodFromCloud(method, {value:'on'}).then(res => {
+            let result = JSON.stringify(res);
             this.setState({ result })
         }).catch(err => {
-            var result = JSON.stringify(err);
+            let result = JSON.stringify(err);
             result = "Error: \n" + result;
             this.setState({ result })
         })
-    }
+    };
 
     clearParams() {
         this.setState({ params: {}, extra: {}, paramsString: '', extraString: '', method: '' })
@@ -375,7 +391,7 @@ const style = StyleSheet.create({
     timeContainer:{
         position:'absolute',
         borderWidth:20,
-        borderColor:'transparent',
+        borderColor:'rgba(255,255,255,0)',
         borderRadius:150,
         width:250,
         height:250,
@@ -387,7 +403,7 @@ const style = StyleSheet.create({
         opacity:0.3,
         position:'absolute',
         borderWidth:20,
-        borderColor:'transparent',
+        borderColor:'rgba(255,255,255,0)',
         borderRadius:150,
         width:250,
         height:250
@@ -404,10 +420,10 @@ const style = StyleSheet.create({
 
     },
     timeBeContainer1:{
-        opacity:0.3,
+        // opacity:0.3,
         position:'absolute',
         borderWidth:1,
-        borderColor:'#fff',
+        borderColor:'rgba(255,255,255,.3)',
         borderRadius:160,
         width:273,
         height:273,
@@ -415,82 +431,82 @@ const style = StyleSheet.create({
 
     },
     timeBeContainer2:{
-        opacity:0.3,
+        // opacity:0.3,
         position:'absolute',
         borderWidth:1,
-        borderColor:'#fff',
+        borderColor:'rgba(255,255,255,.3)',
         borderRadius:160,
         width:277,
         height:277
     },
     timeBeContainer3:{
-        opacity:0.3,
+        // opacity:0.3,
         position:'absolute',
         borderWidth:1,
-        borderColor:'#fff',
+        borderColor:'rgba(255,255,255,.3)',
         borderRadius:160,
         width:281,
         height:281
     },
     timeBeContainer4:{
-        opacity:0.3,
+        // opacity:0.3,
         position:'absolute',
         borderWidth:1,
-        borderColor:'#fff',
+        borderColor:'rgba(255,255,255,.3)',
         borderRadius:160,
         width:285,
         height:285
     },
     timeBeContainer5:{
-        opacity:0.3,
+        // opacity:0.3,
         position:'absolute',
         borderWidth:1,
-        borderColor:'#fff',
+        borderColor:'rgba(255,255,255,.3)',
         borderRadius:160,
         width:289,
         height:289
     },
     timeBeContainer6:{
-        opacity:0.3,
+        // opacity:0.3,
         position:'absolute',
         borderWidth:1,
-        borderColor:'#fff',
+        borderColor:'rgba(255,255,255,.3)',
         borderRadius:160,
         width:293,
         height:293
     },
     timeBeContainer7:{
-        opacity:0.3,
+        // opacity:0.3,
         position:'absolute',
         borderWidth:1,
-        borderColor:'#fff',
+        borderColor:'rgba(255,255,255,.3)',
         borderRadius:160,
         width:297,
         height:297
     },
     timeBeContainer8:{
-        opacity:0.3,
+        // opacity:0.3,
         position:'absolute',
         borderWidth:1,
-        borderColor:'#fff',
+        borderColor:'rgba(255,255,255,.3)',
         borderRadius:160,
         width:301,
         height:301
     },
     timeBeContainer9:{
-        opacity:0.3,
+        // opacity:0.3,
         position:'absolute',
         borderWidth:1,
-        borderColor:'#fff',
+        borderColor:'rgba(255,255,255,.3)',
         borderRadius:160,
         width:305,
         height:305
     },
     timeBeContainer10:{
-        opacity:0.3,
+        // opacity:0.3,
         position:'absolute',
         borderWidth:1,
-        borderColor:'#fff',
+        borderColor:'rgba(255,255,255,.3)',
         borderRadius:160,
         width:309,
         height:309
@@ -582,10 +598,10 @@ const style = StyleSheet.create({
         justifyContent:'center',
         textAlignVertical:'center',
         // lineHeight:30,
-        // ...Platform.select({
-        //     ios:{lineHeight:30},
-        //     android:{}
-        // })
+        ...Platform.select({
+            ios:{lineHeight:30},
+            android:{}
+        })
         // textAlign: 'center',
         // paddingTop: 5,
         // paddingBottom: 5

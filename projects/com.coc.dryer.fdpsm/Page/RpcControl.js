@@ -50,11 +50,11 @@ export default class RPCControl extends React.Component {
             <View style={styles.containerAll}>
                 <View style={styles.menu}>
                     <Text>默认指令</Text>
-                    <Button style={styles.btn} title="清空" onPress={this.clearParams.bind(this)}></Button>
-                    <Button style={styles.btn} title="闹钟 属性" onPress={this.setParamsTo_alarm_ops.bind(this)}></Button>
-                    <Button style={styles.btn} title="闹钟 倒计时" onPress={this.setParamsTo_get_count_down.bind(this)}></Button>
-                    <Button style={styles.btn} title="宜家灯 属性" onPress={this.setPramsTo_light_props.bind(this)}></Button>
-                    <Button style={styles.btn} title="宜家灯 开关" onPress={this.setPramsTo_light_toggle.bind(this)}></Button>
+                    <Button style={styles.btn} title="清空" onPress={this.clearParams.bind(this)}/>
+                    <Button style={styles.btn} title="闹钟 属性" onPress={this.setParamsTo_alarm_ops.bind(this)}/>
+                    <Button style={styles.btn} title="闹钟 倒计时" onPress={this.setParamsTo_get_count_down.bind(this)}/>
+                    <Button style={styles.btn} title="宜家灯 属性" onPress={this.setPramsTo_light_props.bind(this)}/>
+                    <Button style={styles.btn} title="宜家灯 开关" onPress={this.setPramsTo_light_toggle.bind(this)}/>
                 </View>
                 <View style={styles.main}>
                     <Text>Main</Text>
@@ -63,13 +63,13 @@ export default class RPCControl extends React.Component {
                         placeholder="method"
                         value={this.state.method}
                         onChange={this.onMethodTextRChanged.bind(this)}
-                    ></TextInput>
+                    />
                     <TextInput
                         style={styles.input}
                         placeholder="extra 可以为空"
                         value={this.state.extraString}
                         onChange={this.onExtraTextBChanged.bind(this)}
-                    ></TextInput>
+                    />
                     <TextInput
                         style={[styles.input, styles.area]}
                         placeholder="params String"
@@ -77,10 +77,10 @@ export default class RPCControl extends React.Component {
                         multiline={true}
                         numberOfLines={10}
                         onChange={this.onParamsTextGChanged.bind(this)}
-                    ></TextInput>
+                    />
 
-                    <Button style={styles.btn} title="发送普通指令" onPress={this.sendRequest.bind(this)}></Button>
-                    <Button style={styles.btn} title="发送Remote指令" onPress={this.sendRemoteRequest.bind(this)}></Button>
+                    <Button style={styles.btn} title="发送普通指令" onPress={this.sendRequest.bind(this)}/>
+                    <Button style={styles.btn} title="发送Remote指令" onPress={this.sendRemoteRequest.bind(this)}/>
                     <Text >result: </Text>
                     <Text >{this.state.result}</Text>
                 </View>
@@ -132,7 +132,7 @@ export default class RPCControl extends React.Component {
     setParamsTo_alarm_ops() {
         var params = { "operation": "query", "req_type": "alarm", "index": 0 };
         var paramsString = JSON.stringify(params);
-        var method = 'alarm_ops';
+        var method = 'power';
         var extraString = '';
         this.setState({ params, paramsString, method, extraString })
     }
@@ -155,11 +155,11 @@ export default class RPCControl extends React.Component {
     }
 
     setPramsTo_light_toggle() {
-        var params = ['toggle'];
+        var params = ['on'];
         var paramsString = JSON.stringify(params);
         var extra = { 'sid': Device.deviceID };
         var extraString = JSON.stringify(extra);
-        var method = 'set_power';
+        var method = 'set-power';
         this.setState({ params, paramsString, method, extraString, extra })
     }
 
