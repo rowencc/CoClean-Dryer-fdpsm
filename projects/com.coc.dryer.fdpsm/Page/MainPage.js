@@ -67,7 +67,8 @@ export default class App extends React.Component  {
         this.setState({
             count: param,
             percents: param/this.state.max*100,
-            time: this.setTime(param)
+            time: this.setTime(param),
+            o: param>0?1:0,
         });
     };
     setCountdown = (number) => {
@@ -75,6 +76,7 @@ export default class App extends React.Component  {
         if(this.state.count>0){
             let param = number || this.state.count;
             this.setNum(param);
+            Animated.loop(this.anim()).start();
             this.timer = setInterval(
                 () => {
                     let count = this.state.count;
@@ -132,6 +134,9 @@ export default class App extends React.Component  {
                 result
             });
             this.setNum(arrys.result[0].value);
+            setTimeout(()=>{
+                this.setCountdown(this.state.count);
+            },10);
             console.log('成功 '+':'+this.state.result);
         }).catch(err => {
             console.log('error:', err);
@@ -178,8 +183,7 @@ export default class App extends React.Component  {
             });
             setTimeout(()=>{
                 this.setCountdown(this.state.count);
-
-            },100);
+            },10);
             console.log('成功 '+result);
         }).catch(err => {
             console.log('error:', err);
@@ -195,11 +199,6 @@ export default class App extends React.Component  {
         });
         PackageEvent.packageDidResume.addListener(()=>{
             console.log('我又回来了');
-            this.timer && clearInterval(this.timer);
-            this.setState({
-                scaleValue : new Animated.Value(0)
-            });
-
             this.getRequest()
         });
         //获取设备状态-
