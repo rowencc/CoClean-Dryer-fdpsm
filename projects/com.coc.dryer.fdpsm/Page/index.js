@@ -45,9 +45,9 @@ const RootStack = createStackNavigator({
                             //     navigation.goBack();
                             // }
                         }}
-                        onPressLeft2={() => {
-                            navigation.navigate('RpcControl', { 'title': '设备控制' });
-                        }}
+                        // onPressLeft2={() => {
+                        //     navigation.navigate('RpcControl', { 'title': '设备控制' });
+                        // }}
                         onPressRight={() => {
                             navigation.navigate('Setting', { 'title': '设置' });
                         }}

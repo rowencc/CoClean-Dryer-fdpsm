@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_LEVEL, Package, Device, Service, Host, PackageEvent } from 'miot';
+import { API_LEVEL, Package, Device, Service, Host, PackageEvent,ISpecProperty } from 'miot';
 import Selects from './Select';
 import { DeviceEventEmitter, NativeModules, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, View ,TouchableOpacity, Platform } from 'react-native';
 // import ProgressCircle from '../CommonModules/progress-circle';
@@ -8,13 +8,7 @@ import * as Progress from 'react-native-progress';
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
 const { UIManager } = NativeModules;
-const willPause = PackageEvent.packageWillPause.addListener(()=>{
-    console.log('我离开了')
-});
-const didResume = PackageEvent.packageDidResume.addListener(()=>{
-    console.log('我又回来了');
-    this.getRequest()
-});
+
 export default class App extends React.Component  {
     constructor(props) {
         super(props);
@@ -66,6 +60,10 @@ export default class App extends React.Component  {
         )
     };
     setNum = (param) => {
+        if(typeof param!= "number"){
+            console.log('参数值类型错误');
+            return false
+        }
         this.setState({
             count: param,
             percents: param/this.state.max*100,
@@ -99,8 +97,8 @@ export default class App extends React.Component  {
                 },
                 1000
             );
-            if(!this.state.status){
-                this.setState({status:true,statusText: this.state.offText,o:1});
+            if(this.state.status){
+                this.setState({statusText: this.state.offText,o:1});
                 Animated.loop(this.anim()).start();
             } //动画开始
         }else{
@@ -115,7 +113,95 @@ export default class App extends React.Component  {
             });
         }
     };
+    getRequest =(status)=>{
+        const method = 'get_properties';
+        //获取属性值
+        let params = [
+            {"did":this.state.did,"piid":1,"siid":3},
+            {"did":this.state.did,"piid":2,"siid":3},
+            {"did":this.state.did,"piid":3,"siid":3},
+            {"did":this.state.did,"piid":4,"siid":3},
+            {"did":this.state.did,"piid":5,"siid":3}
+        ];
+        let paramsString = JSON.stringify(params);
+        Device.getDeviceWifi().callMethod(method,paramsString).then(res => {
+            let result = JSON.stringify(res);
+            let arrys = JSON.parse(result);
+            this.setState({
+                status: arrys.result[0].value>0 ? true:false,
+                result
+            });
+            this.setNum(arrys.result[0].value);
+            console.log('成功 '+':'+this.state.result);
+        }).catch(err => {
+            console.log('error:', err);
+            let result = JSON.stringify(err);
+            result = "Error: \n" + result;
+            this.setState({ result });
+            console.log('失败 '+result)
+        })
+    };
+    sendRequest =(status,num)=> {
+        const method = 'set_properties';
+        //提交数据 设置属性值
+
+        /*
+        * 功能定义ID
+        * siid = 3 当前使用
+        * ----------------------------------------------
+        * 属性
+        * piid = 1 属性名：left-time       衣物烘干剩余时间
+        * piid = 2 属性名：error-code      故障通知码
+        * piid = 3 属性名：power           电源开关
+        * piid = 4 属性名：mode            工作模式
+        * piid = 5 属性名：end-status      运行结束状态
+        * ----------------------------------------------
+        * 方法
+        * aiid = 1 方法名：set-time        运行结束通知
+        * aiid = 2 方法名：set-power       设置成功通知
+        * aiid = 3 方法名：set-mode        异常错误通知
+        * ----------------------------------------------
+        * 事件
+        * eiid = 1 事件名：end-send        运行结束通知
+        * eiid = 2 事件名：button-pressed  设置成功通知
+        * eiid = 3 事件名：error-send      异常错误通知
+        * */
+
+        let params = [{"did":this.state.did,"piid":3,"siid":3,"value": status===true?"off":'on'}];
+        let paramsString = JSON.stringify(params);
+        Device.getDeviceWifi().callMethod(method,paramsString).then(res => {
+            let result = JSON.stringify(res);
+            this.setNum(num);
+            this.setState({
+                status: status===true ? false : true,
+                statusText: this.state.onText,
+            });
+            setTimeout(()=>{
+                this.setCountdown(this.state.count);
+
+            },100);
+            console.log('成功 '+result);
+        }).catch(err => {
+            console.log('error:', err);
+            let result = JSON.stringify(err);
+            result = "Error: \n" + result;
+            this.setState({ result });
+            console.log('失败 '+result)
+        })
+    };
     componentDidMount() {
+        PackageEvent.packageWillPause.addListener(()=>{
+            console.log('我离开了')
+        });
+        PackageEvent.packageDidResume.addListener(()=>{
+            console.log('我又回来了');
+            this.timer && clearInterval(this.timer);
+            this.setState({
+                scaleValue : new Animated.Value(0)
+            });
+
+            this.getRequest()
+        });
         //获取设备状态-
         this.subscription = DeviceEventEmitter.addListener("EventType", (param)=>{
             // 接收传参并执行写入
@@ -276,59 +362,7 @@ export default class App extends React.Component  {
             </View>
         )
     }
-    getRequest =(status)=>{
-        let params = [
-            {"did":this.state.did,"piid":1,"siid":3},
-            {"did":this.state.did,"piid":2,"siid":3},
-            {"did":this.state.did,"piid":3,"siid":3},
-            {"did":this.state.did,"piid":4,"siid":3},
-            {"did":this.state.did,"piid":5,"siid":3}];
-        let paramsString = JSON.stringify(params);
-        Device.getDeviceWifi().callMethod('get_properties',paramsString).then(res => {
-            let result = JSON.stringify(res);
-            this.setState({
-                status: res[0].code === 0 ? false : true,
-            });
-            console.log('成功 '+result);
-        }).catch(err => {
-            console.log('error:', err);
-            let result = JSON.stringify(err);
-            result = "Error: \n" + result;
-            this.setState({ result });
-            alert('失败 '+result)
-        })
-    };
-    sendRequest =(status,num)=> {
-        let method = 'props';
-        let extra = this.state.extra;
-        if (method == '') {
-            alert('method 不能为空');
-            return;
-        }
-        let params = [{"did":this.state.did,"piid":3,"siid":3,"value": status===false?"off":'on'}];
-        let paramsString = JSON.stringify(params);
-        Device.getDeviceWifi().callMethod('set_properties',paramsString).then(res => {
-            let result = JSON.stringify(res);
-            console.log(result);
-            this.setNum(num);
-            this.setState({
-                status: status===false?"off":'on',
-                statusText: this.state.onText,
-            });
-            this.timer && clearInterval(this.timer);
-            setTimeout(()=>{
-                this.setCountdown(this.state.count);
-                this.timer && clearInterval(this.timer);
-            },100);
-            alert('成功 '+result);
-        }).catch(err => {
-            console.log('error:', err);
-            let result = JSON.stringify(err);
-            result = "Error: \n" + result;
-            this.setState({ result });
-            alert('失败 '+result)
-        })
-    };
+
 
     sendRemoteRequest =()=> {
         let params = this.state.params;
