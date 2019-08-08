@@ -54,7 +54,7 @@ export default class RPCControl extends React.Component {
                     <Button style={styles.btn} title="闹钟 属性" onPress={this.setParamsTo_alarm_ops.bind(this)}/>
                     <Button style={styles.btn} title="闹钟 倒计时" onPress={this.setParamsTo_get_count_down.bind(this)}/>
                     <Button style={styles.btn} title="宜家灯 属性" onPress={this.setPramsTo_light_props.bind(this)}/>
-                    <Button style={styles.btn} title="宜家灯 开关" onPress={this.setPramsTo_light_toggle.bind(this)}/>
+                    <Button style={styles.btn} title="开关" onPress={this.setPramsTo_light_toggle.bind(this)}/>
                 </View>
                 <View style={styles.main}>
                     <Text>Main</Text>
@@ -93,18 +93,21 @@ export default class RPCControl extends React.Component {
         var method = this.state.method;
         var extra = this.state.extra;
         if (method == '') {
-            alert('method 不能为空')
+            alert('method 不能为空');
             return;
         }
-        console.log('extra', extra)
-        Device.getDeviceWifi().callMethod(method, params, extra).then(res => {
-            var result = JSON.stringify(res);
-            this.setState({ result })
+        console.log('extra', extra);
+        alert(JSON.stringify(method+':'+params+':'+extra));
+        Device.getDeviceWifi().callMethod('power',['on']).then(res => {
+            let result = JSON.stringify(res);
+            this.setState({ result });
+            alert('成功 '+result)
         }).catch(err => {
-            console.log('error:', err)
-            var result = JSON.stringify(err);
+            console.log('error:', err);
+            let result = JSON.stringify(err);
             result = "Error: \n" + result;
-            this.setState({ result })
+            this.setState({ result });
+            alert('失败 '+result)
         })
     }
 
@@ -159,7 +162,7 @@ export default class RPCControl extends React.Component {
         var paramsString = JSON.stringify(params);
         var extra = { 'sid': Device.deviceID };
         var extraString = JSON.stringify(extra);
-        var method = 'set-power';
+        var method = 'power';
         this.setState({ params, paramsString, method, extraString, extra })
     }
 

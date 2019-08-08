@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_LEVEL, Package, Device, Service, Host } from 'miot';
+import { API_LEVEL, Package, Device, Service, Host, PackageEvent } from 'miot';
 import Selects from './Select';
 import { DeviceEventEmitter, NativeModules, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, View ,TouchableOpacity, Platform } from 'react-native';
 // import ProgressCircle from '../CommonModules/progress-circle';
@@ -8,7 +8,13 @@ import * as Progress from 'react-native-progress';
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
 const { UIManager } = NativeModules;
-
+const willPause = PackageEvent.packageWillPause.addListener(()=>{
+    console.log('我离开了')
+});
+const didResume = PackageEvent.packageDidResume.addListener(()=>{
+    console.log('我又回来了');
+    this.getRequest()
+});
 export default class App extends React.Component  {
     constructor(props) {
         super(props);
@@ -34,6 +40,7 @@ export default class App extends React.Component  {
             o: 0,//动画光环隐显  关闭状态下 隐藏，开启状态下  显示
             scaleValue : new Animated.Value(0),
             aniStatus:false,//动画锁
+            circleSize:250,
 
             requestStatus: false,
             did: Device.getDeviceWifi().deviceID,
@@ -54,13 +61,9 @@ export default class App extends React.Component  {
                 duration: 2000,
                 friction: 100,
                 easing: Easing.linear,
+                useNativeDriver: true
             }
         )
-    };
-    setAnimation(){
-        // this.state.scaleValue.setValue(0.88);
-        this.state.scaleValue.setValue(0.88);
-        this.anim();
     };
     setNum = (param) => {
         this.setState({
@@ -68,17 +71,6 @@ export default class App extends React.Component  {
             percents: param/this.state.max*100,
             time: this.setTime(param)
         });
-    };
-    setRun = (param) =>{
-        if(!this.state.status){
-            //开机
-            this.setState({status:true});
-
-        }else{
-            //关机
-            this.setState({status:false});
-
-        }
     };
     setCountdown = (number) => {
         this.timer && clearInterval(this.timer);
@@ -94,15 +86,13 @@ export default class App extends React.Component  {
                     });
                     if(this.state.count<=0){
                         this.timer && clearInterval(this.timer);
-                        // if(this.state.status){
-                            Animated.loop(this.anim()).stop();//动画停止
-                            this.setState({status:false});
-                        // };//动画开始
+                        Animated.loop(this.anim()).stop();//动画停止
                         this.setNum(0);
                         this.setState({
                             status: false,
                             statusText: this.state.onText,
                             o: 0,
+                            scaleValue : new Animated.Value(0)
                             // statusImg: require('../Resources/dryer/switch.png')
                         });
                     }
@@ -115,22 +105,18 @@ export default class App extends React.Component  {
             } //动画开始
         }else{
             this.timer && clearInterval(this.timer);
-            // if(this.state.status){
             Animated.loop(this.anim()).stop();//动画停止
-            this.setState({status:false});
-            // };//动画开始
             this.setNum(0);
             this.setState({
                 status: false,
                 statusText: this.state.onText,
                 o: 0,
-                // statusImg: require('../Resources/dryer/switch.png')
+                scaleValue : new Animated.Value(0)
             });
         }
     };
     componentDidMount() {
         //获取设备状态-
-        // alert(JSON.stringify(Device.getDeviceWifi()));
         this.subscription = DeviceEventEmitter.addListener("EventType", (param)=>{
             // 接收传参并执行写入
             this.setNum(param);
@@ -179,29 +165,10 @@ export default class App extends React.Component  {
         let num = 0;
         this.state.count===0 ? num = this.state.defaultNum : num = this.state.count;
         if(!this.state.status){
-            this.setNum(num);
-            this.setState({
-                // status: true,
-                statusText: this.state.offText,
-            });
-            setTimeout(()=>{
-                this.setCountdown(this.state.count);
-                this.setState({o: 1});
-            },50);
-            this.sendRequest(this.state.status);
+            this.sendRequest(this.state.status,num);
         }else{
             this.timer && clearInterval(this.timer);
-            this.setNum(0);
-            this.setState({
-                // status: false,
-                statusText: this.state.onText,
-            });
-            this.timer && clearInterval(this.timer);
-            setTimeout(()=>{
-                this.setCountdown(this.state.count);
-                this.timer && clearInterval(this.timer);
-            },100);
-            this.sendRequest(this.state.status);
+            this.sendRequest(this.state.status,0);
         }
     };
     onPressPlus = () => {
@@ -252,16 +219,16 @@ export default class App extends React.Component  {
 
                     {/*    时间计时器*/}
                     <Progress.Circle
-                        size={250}
-                        width={250}
-                        height={250}
+                        size={this.state.circleSize}
+                        width={this.state.circleSize}
+                        height={this.state.circleSize}
                         thickness={20}
                         borderRadius={10}
                         strokeCap={this.state.percents>0 ? 'round':'butt'}
                         progress={ this.state.percents/100 }
                         borderWidth={0}
                         unfilledColor={'rgba(255,255,255,.3)'}
-                        color={"#fff"} >.
+                        color={"#fff"} >
                     </Progress.Circle>
                     <View style={style.timeContainer}>
                         <Text style={style.timeLable}>{ this.state.count }</Text>
@@ -309,28 +276,51 @@ export default class App extends React.Component  {
             </View>
         )
     }
-    sendRequest =(status)=> {
-        let params = this.state.params;
-        let method = this.state.method;
+    getRequest =(status)=>{
+        let params = [
+            {"did":this.state.did,"piid":1,"siid":3},
+            {"did":this.state.did,"piid":2,"siid":3},
+            {"did":this.state.did,"piid":3,"siid":3},
+            {"did":this.state.did,"piid":4,"siid":3},
+            {"did":this.state.did,"piid":5,"siid":3}];
+        let paramsString = JSON.stringify(params);
+        Device.getDeviceWifi().callMethod('get_properties',paramsString).then(res => {
+            let result = JSON.stringify(res);
+            this.setState({
+                status: res[0].code === 0 ? false : true,
+            });
+            console.log('成功 '+result);
+        }).catch(err => {
+            console.log('error:', err);
+            let result = JSON.stringify(err);
+            result = "Error: \n" + result;
+            this.setState({ result });
+            alert('失败 '+result)
+        })
+    };
+    sendRequest =(status,num)=> {
+        let method = 'props';
         let extra = this.state.extra;
         if (method == '') {
             alert('method 不能为空');
             return;
         }
-        // alert(Device.getDeviceWifi().deviceID);
-        Device.getDeviceWifi().loadProperties("power", "left-time").then(map=>{
-            const a = map.get("power");
-            const b = map.get("left-time");
-            alert(JSON.stringify(a));
-            alert(JSON.stringify(b));
-        });
-        Service.spec.getPropertiesValue([{did: Device.deviceID, siid: 3, piid: 3}])
-            .then(res => alert('success:'+JSON.stringify(res)))
-            .catch(err => alert('failed:'+ JSON.stringify(err)));
-        Device.getDeviceWifi().callMethod('getProps',[{power:'on'}]).then(res => {
+        let params = [{"did":this.state.did,"piid":3,"siid":3,"value": status===false?"off":'on'}];
+        let paramsString = JSON.stringify(params);
+        Device.getDeviceWifi().callMethod('set_properties',paramsString).then(res => {
             let result = JSON.stringify(res);
-            this.setState({ result });
-            alert('成功 '+result)
+            console.log(result);
+            this.setNum(num);
+            this.setState({
+                status: status===false?"off":'on',
+                statusText: this.state.onText,
+            });
+            this.timer && clearInterval(this.timer);
+            setTimeout(()=>{
+                this.setCountdown(this.state.count);
+                this.timer && clearInterval(this.timer);
+            },100);
+            alert('成功 '+result);
         }).catch(err => {
             console.log('error:', err);
             let result = JSON.stringify(err);
@@ -416,7 +406,7 @@ const style = StyleSheet.create({
         borderRadius:160,
         width:309,
         height:309,
-        // transform:[{rotate: this.spin }]
+        // transform:[{rotate: '90deg' }]
 
     },
     timeBeContainer1:{
@@ -424,7 +414,7 @@ const style = StyleSheet.create({
         position:'absolute',
         borderWidth:1,
         borderColor:'rgba(255,255,255,.3)',
-        borderRadius:160,
+        borderRadius:200,
         width:273,
         height:273,
         // transform:[{rotate: this.spin }]

@@ -7,7 +7,7 @@ PackageEvent.packageAuthorizationCancel.addListener(() => {
     let licenseKey = "license-" + Device.deviceID;
     Host.storage.set(licenseKey, false);
     Package.exit();
-})
+});
 PackageEvent.packageViewWillAppear.addListener(() => { console.log("packageViewWillAppear") });
 PackageEvent.packageWillLoad.addListener(() => { console.log("packageWillLoad") });
 PackageEvent.packageDidLoaded.addListener(() => { console.log("packageDidLoaded") });
