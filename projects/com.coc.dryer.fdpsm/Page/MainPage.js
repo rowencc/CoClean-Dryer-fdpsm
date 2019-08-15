@@ -36,9 +36,14 @@ export default class App extends React.Component  {
             aniStatus:false,//动画锁
             circleSize:250,
 
+            siid:3,
+            piid:0,// 1:left-time, 2:error-code, 3:power, 4:mode, 5:end-status
+            aiid:0,// 1:set-time, 2:set-power, 3:set-mode
+            eiid:0,// 1:end-send, 2:button-pressed, 3:error-send
+
             requestStatus: false,
             did: Device.getDeviceWifi().deviceID,
-            method: 'power',
+            method: 'get_properties',
             params: [{'value':'on'}],
             extra: {},
             paramsString: '',
@@ -68,7 +73,7 @@ export default class App extends React.Component  {
             count: param,
             percents: param/this.state.max*100,
             time: this.setTime(param),
-            o: param>0?1:0,
+            o: this.state.status && param>0?1:0,
         });
     };
     setCountdown = (number) => {
@@ -76,7 +81,10 @@ export default class App extends React.Component  {
         if(this.state.count>0){
             let param = number || this.state.count;
             this.setNum(param);
-            Animated.loop(this.anim()).start();
+            if(this.state.status){
+                this.setState({statusText: this.state.offText});
+                Animated.loop(this.anim()).start();
+            } //动画开始
             this.timer = setInterval(
                 () => {
                     let count = this.state.count;
@@ -99,10 +107,7 @@ export default class App extends React.Component  {
                 },
                 1000
             );
-            if(this.state.status){
-                this.setState({statusText: this.state.offText,o:1});
-                Animated.loop(this.anim()).start();
-            } //动画开始
+
         }else{
             this.timer && clearInterval(this.timer);
             Animated.loop(this.anim()).stop();//动画停止
@@ -114,6 +119,21 @@ export default class App extends React.Component  {
                 scaleValue : new Animated.Value(0)
             });
         }
+    };
+    setRun=(count)=>{
+        this._sendRequests('setPower',this.state.status?'off':'on');
+    };
+    setPlusNum=(num)=>{
+        if(this.state.count<=this.state.max-this.state.step){
+            this._sendRequests('setLeftTime',this.state.count+this.state.step);
+        }else{
+            this.setState({
+                count: this.state.max
+            });
+        }
+    };
+    setReduceNum=(num)=>{
+
     };
     getRequest =(status)=>{
         const method = 'get_properties';
@@ -146,6 +166,117 @@ export default class App extends React.Component  {
             console.log('失败 '+result)
         })
     };
+    async _sendRequests(type,value) {
+        /*
+        * 功能定义ID
+        * siid = 3 当前使用
+        * ----------------------------------------------
+        * 属性
+        * piid = 1 属性名：left-time       衣物烘干剩余时间
+        * piid = 2 属性名：error-code      故障通知码
+        * piid = 3 属性名：power           电源开关
+        * piid = 4 属性名：mode            工作模式
+        * piid = 5 属性名：end-status      运行结束状态
+        * ----------------------------------------------
+        * 方法
+        * aiid = 1 方法名：set-time        运行结束通知
+        * aiid = 2 方法名：set-power       设置成功通知
+        * aiid = 3 方法名：set-mode        异常错误通知
+        * ----------------------------------------------
+        * 事件
+        * eiid = 1 事件名：end-send        运行结束通知
+        * eiid = 2 事件名：button-pressed  设置成功通知
+        * eiid = 3 事件名：error-send      异常错误通知
+        * */
+        const did = Device.deviceID;
+
+        let setLeftTime = { did, siid: 3, piid: 1, value: value };
+        let setMode = { did, siid: 3, piid: 2, value: value };
+        let setPower = { did, siid: 3, piid: 3, value: value };
+
+        let getLeftTime = { did, siid: 3, piid: 1};
+        let getErrorCode = { did, siid: 3, piid: 2};
+        let getPower = { did, siid: 3, piid: 3};
+        let getMode = { did, siid: 3, piid: 4};
+        let getEndStatus = { did, siid: 3, piid: 5};
+        // let getAll = [getLeftTime,getErrorCode,getPower,getMode,getEndStatus];
+
+        switch (type) {
+            case 'setLeftTime':
+                this.on = !this.on;
+                Service.spec.setPropertiesValue([setLeftTime]).then(res => {
+                    this.setNum(value);
+                    if(value>0){
+                        setTimeout(()=>{
+                            this.setCountdown(value);
+                        },100);
+                    }
+                    console.log('setPropertiesValue', res)
+                }).catch(res => {
+                    console.log(res, 'catch')
+                });
+                break;
+            case 'setPower':
+                this.on = !this.on;
+                Service.spec.setPropertiesValue([setPower]).then(res => {
+                    this.setNum(120);
+                    console.log('setPropertiesValue', res)
+                }).catch(res => {
+                    console.log(res, 'catch')
+                });
+                break;
+            case 'setMode':
+                this.on = !this.on;
+                Service.spec.setPropertiesValue([setMode]).then(res => {
+                    // this.setState({
+                    //     status: !status
+                    // });
+                    console.log('setPropertiesValue', res)
+                }).catch(res => {
+                    console.log(res, 'catch')
+                });
+                break;
+            case 'get':
+                Service.spec.getPropertiesValue([getLeftTime,getErrorCode,getPower,getMode,getEndStatus]).then(res => {
+                    console.log('getPropertiesValue', res)
+                }).catch(res => {
+                    console.log(res, 'catch')
+                });
+                break;
+            case 'do':
+                Service.spec.doAction({ did, siid: 3, aiid: 1, inList: [10] }).then(res => {
+                    console.log('doAction', res)
+                }).catch(res => {
+                    console.log(res, 'catch')
+                });
+                break;
+            case 'sub':
+                Device.getDeviceWifi().subscribeMessages("end-send", "button-pressed", "error-send").then(res => {
+                    console.log('subscribeMessages', res)
+                }).catch(res => {
+                    console.log(res, 'catch')
+                });
+                break;
+            case 'getSpec':
+                Service.spec.getSpecString(did).then(res => {
+                    console.log('getSpecString', JSON.stringify(res));
+                }).catch(res => {
+                    console.log(res, 'catch');
+                });
+                break;
+            case 'getCurrent':
+                console.log('执行到这了');
+                let data = await Service.spec.getCurrentSpecValue(Device.deviceID);
+                console.log(data);
+                this.setState({
+                    data: data,
+                });
+                break;
+            default:
+                break;
+
+        }
+    }
     sendRequest =(status,num)=> {
         const method = 'set_properties';
         //提交数据 设置属性值
@@ -193,6 +324,28 @@ export default class App extends React.Component  {
             console.log('失败 '+result)
         })
     };
+    sendLiftTime=(value)=>{
+        let params = [{"did":this.state.did,"piid":1,"siid":3,"value": Number(value)}];
+        let paramsString = JSON.stringify(params);
+        Device.getDeviceWifi().callMethod('set_properties',paramsString).then(res => {
+            let result = JSON.stringify(res);
+            this.setNum(value);
+            // this.setState({
+            //     status: status===true ? false : true,
+            //     statusText: this.state.onText,
+            // });
+            setTimeout(()=>{
+                this.setCountdown(this.state.count);
+            },10);
+            console.log('成功 '+result);
+        }).catch(err => {
+            console.log('error:', err);
+            let result = JSON.stringify(err);
+            result = "Error: \n" + result;
+            this.setState({ result });
+            console.log('失败 '+result)
+        })
+    };
     componentDidMount() {
         PackageEvent.packageWillPause.addListener(()=>{
             console.log('我离开了')
@@ -201,6 +354,7 @@ export default class App extends React.Component  {
             console.log('我又回来了');
             this.getRequest()
         });
+        // this.sendRequests('setLeftTime',60);
         //获取设备状态-
         this.subscription = DeviceEventEmitter.addListener("EventType", (param)=>{
             // 接收传参并执行写入
@@ -250,6 +404,7 @@ export default class App extends React.Component  {
         let num = 0;
         this.state.count===0 ? num = this.state.defaultNum : num = this.state.count;
         if(!this.state.status){
+            // this._sendRequest('setLeftTime',num);
             this.sendRequest(this.state.status,num);
         }else{
             this.timer && clearInterval(this.timer);
@@ -258,7 +413,7 @@ export default class App extends React.Component  {
     };
     onPressPlus = () => {
         if(this.state.count<=this.state.max-this.state.step){
-            this.setNum(this.state.count+this.state.step);
+            this.sendLiftTime(this.state.count+this.state.step);
         }else{
             this.setState({
                 count: this.state.max
@@ -272,7 +427,7 @@ export default class App extends React.Component  {
     };
     onPressReduce = () => {
         if(this.state.count>=this.state.min+this.state.step){
-            this.setNum(this.state.count-this.state.step)
+            this.sendLiftTime(this.state.count-this.state.step)
         }else{
             this.setState({
                 count: this.state.min
@@ -340,10 +495,10 @@ export default class App extends React.Component  {
                 <View style={style.rowContainer}>
                     {/*    功能按键*/}
                     <View style={style.butBox}>
-                        <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={this.onPressSwitch} >
+                        <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={this.setRun} >
                             <Image source={ this.state.statusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={this.onPressSwitch}>{ this.state.statusText }</Text>
+                        <Text style={style.butLable} onPress={this.setRun}>{ this.state.statusText }</Text>
                     </View>
                     <View style={style.butBox}>
                         <TouchableOpacity style={style.butIcon} onPress={this.onPressReduce} >
@@ -352,10 +507,10 @@ export default class App extends React.Component  {
                         <Text style={style.butLable} onPress={this.onPressReduce}>{ this.state.reduceText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPress={this.onPressPlus} >
+                        <TouchableOpacity style={style.butIcon} onPress={this.setPlusNum} >
                             <Image source={ this.state.plusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={this.onPressPlus}>{ this.state.plusText }</Text>
+                        <Text style={style.butLable} onPress={this.setPlusNum}>{ this.state.plusText }</Text>
                     </View>
                 </View>
             </View>
