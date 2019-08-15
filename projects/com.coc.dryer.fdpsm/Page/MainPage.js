@@ -4,6 +4,7 @@ import Selects from './Select';
 import { DeviceEventEmitter, NativeModules, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, View ,TouchableOpacity, Platform } from 'react-native';
 // import ProgressCircle from '../CommonModules/progress-circle';
 import * as Progress from 'react-native-progress';
+import Svg, { G,Circle, Path } from 'react-native-svg';
 
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
@@ -33,8 +34,14 @@ export default class App extends React.Component  {
             time: this.setTime(0), // 获取预计完成时间
             o: 0,//动画光环隐显  关闭状态下 隐藏，开启状态下  显示
             scaleValue : new Animated.Value(0),
-            aniStatus:false,//动画锁
+            aniStatus:true,//动画锁
             circleSize:250,
+            svgSize:312,
+            svgCircleSize:156,
+            svgCircleBorder:1,
+            svgCircleFill:'none',
+            svgCircleR:[134,136,138,140,142,144,146,148,150,152],
+            svgCircleStroke:'rgba(255,255,255,.3)',
 
             siid:3,
             piid:0,// 1:left-time, 2:error-code, 3:power, 4:mode, 5:end-status
@@ -83,7 +90,9 @@ export default class App extends React.Component  {
             this.setNum(param);
             if(this.state.status){
                 this.setState({statusText: this.state.offText});
-                Animated.loop(this.anim()).start();
+                if(this.state.aniStatus) {
+                    Animated.loop(this.anim()).start();
+                }
             } //动画开始
             this.timer = setInterval(
                 () => {
@@ -94,15 +103,18 @@ export default class App extends React.Component  {
                     });
                     if(this.state.count<=0){
                         this.timer && clearInterval(this.timer);
-                        Animated.loop(this.anim()).stop();//动画停止
                         this.setNum(0);
                         this.setState({
                             status: false,
+                            aniStatus:false,
                             statusText: this.state.onText,
                             o: 0,
                             scaleValue : new Animated.Value(0)
                             // statusImg: require('../Resources/dryer/switch.png')
                         });
+                        if(!this.state.aniStatus) {
+                            Animated.loop(this.anim()).stop();//动画停止
+                        }
                     }
                 },
                 1000
@@ -151,6 +163,7 @@ export default class App extends React.Component  {
             let arrys = JSON.parse(result);
             this.setState({
                 status: arrys.result[0].value>0 ? true:false,
+                aniStatus: arrys.result[0].value>0 ? true:false,
                 result
             });
             this.setNum(arrys.result[0].value);
@@ -354,6 +367,7 @@ export default class App extends React.Component  {
             console.log('我又回来了');
             this.getRequest()
         });
+        this.getRequest();
         // this.sendRequests('setLeftTime',60);
         //获取设备状态-
         this.subscription = DeviceEventEmitter.addListener("EventType", (param)=>{
@@ -475,18 +489,16 @@ export default class App extends React.Component  {
                         <Text style={style.unitLable}>min</Text>
                     </View>
                     <Animated.View style={[style.timeBeContainer0, {transform: [{scale: scale}],opacity:this.state.o} ]} />
-                    <View style={[style.timeBeContainer0]} />
-                    <View style={style.timeBeContainer1} />
-                    <View style={style.timeBeContainer2} />
-                    <View style={style.timeBeContainer3} />
-                    <View style={style.timeBeContainer4} />
-                    <View style={style.timeBeContainer5} />
-                    <View style={style.timeBeContainer6} />
-                    <View style={style.timeBeContainer7} />
-                    <View style={style.timeBeContainer9} />
-                    <View style={style.timeBeContainer8} />
-                    <View style={style.timeBeContainer10} />
-
+                    <View style={style.timeBeContainerCircle} ><Svg height={this.state.svgSize} width={this.state.svgSize}><Circle cx={this.state.svgCircleSize} cy={this.state.svgCircleSize} r={this.state.svgCircleR[0]} stroke={this.state.svgCircleStroke}　strokeWidth={this.state.svgCircleBorder} fill={this.state.svgCircleFill}/></Svg></View>
+                    <View style={style.timeBeContainerCircle} ><Svg height={this.state.svgSize} width={this.state.svgSize}><Circle cx={this.state.svgCircleSize} cy={this.state.svgCircleSize} r={this.state.svgCircleR[1]} stroke={this.state.svgCircleStroke}　strokeWidth={this.state.svgCircleBorder} fill={this.state.svgCircleFill}/></Svg></View>
+                    <View style={style.timeBeContainerCircle} ><Svg height={this.state.svgSize} width={this.state.svgSize}><Circle cx={this.state.svgCircleSize} cy={this.state.svgCircleSize} r={this.state.svgCircleR[2]} stroke={this.state.svgCircleStroke}　strokeWidth={this.state.svgCircleBorder} fill={this.state.svgCircleFill}/></Svg></View>
+                    <View style={style.timeBeContainerCircle} ><Svg height={this.state.svgSize} width={this.state.svgSize}><Circle cx={this.state.svgCircleSize} cy={this.state.svgCircleSize} r={this.state.svgCircleR[3]} stroke={this.state.svgCircleStroke}　strokeWidth={this.state.svgCircleBorder} fill={this.state.svgCircleFill}/></Svg></View>
+                    <View style={style.timeBeContainerCircle} ><Svg height={this.state.svgSize} width={this.state.svgSize}><Circle cx={this.state.svgCircleSize} cy={this.state.svgCircleSize} r={this.state.svgCircleR[4]} stroke={this.state.svgCircleStroke}　strokeWidth={this.state.svgCircleBorder} fill={this.state.svgCircleFill}/></Svg></View>
+                    <View style={style.timeBeContainerCircle} ><Svg height={this.state.svgSize} width={this.state.svgSize}><Circle cx={this.state.svgCircleSize} cy={this.state.svgCircleSize} r={this.state.svgCircleR[5]} stroke={this.state.svgCircleStroke}　strokeWidth={this.state.svgCircleBorder} fill={this.state.svgCircleFill}/></Svg></View>
+                    <View style={style.timeBeContainerCircle} ><Svg height={this.state.svgSize} width={this.state.svgSize}><Circle cx={this.state.svgCircleSize} cy={this.state.svgCircleSize} r={this.state.svgCircleR[6]} stroke={this.state.svgCircleStroke}　strokeWidth={this.state.svgCircleBorder} fill={this.state.svgCircleFill}/></Svg></View>
+                    <View style={style.timeBeContainerCircle} ><Svg height={this.state.svgSize} width={this.state.svgSize}><Circle cx={this.state.svgCircleSize} cy={this.state.svgCircleSize} r={this.state.svgCircleR[7]} stroke={this.state.svgCircleStroke}　strokeWidth={this.state.svgCircleBorder} fill={this.state.svgCircleFill}/></Svg></View>
+                    <View style={style.timeBeContainerCircle} ><Svg height={this.state.svgSize} width={this.state.svgSize}><Circle cx={this.state.svgCircleSize} cy={this.state.svgCircleSize} r={this.state.svgCircleR[8]} stroke={this.state.svgCircleStroke}　strokeWidth={this.state.svgCircleBorder} fill={this.state.svgCircleFill}/></Svg></View>
+                    <View style={style.timeBeContainerCircle} ><Svg height={this.state.svgSize} width={this.state.svgSize}><Circle cx={this.state.svgCircleSize} cy={this.state.svgCircleSize} r={this.state.svgCircleR[9]} stroke={this.state.svgCircleStroke}　strokeWidth={this.state.svgCircleBorder} fill={this.state.svgCircleFill}/></Svg></View>
                 </View>
                 <View style={style.rowContainer}>
                     {/*    选择按钮*/}
@@ -688,6 +700,9 @@ const style = StyleSheet.create({
         borderRadius:160,
         width:309,
         height:309
+    },
+    timeBeContainerCircle:{
+        position:'absolute',
     },
     tabLable:{
         marginLeft: 5,
