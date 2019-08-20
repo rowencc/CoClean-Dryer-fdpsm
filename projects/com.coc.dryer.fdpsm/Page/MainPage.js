@@ -5,6 +5,7 @@ import { DeviceEventEmitter, NativeModules, Animated, Easing, Image, ListView, P
 // import ProgressCircle from '../CommonModules/progress-circle';
 import * as Progress from 'react-native-progress';
 import Svg, { G,Circle, Path } from 'react-native-svg';
+import {MessageDialog} from "miot/ui";
 
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
@@ -20,7 +21,8 @@ export default class App extends React.Component  {
             defaultNum: 120,//默认开机时间
             percents:0, //百分比默认值
             getParam: 0,  //传入值
-            step: 30,  //步进
+            step: 10,  //步进
+            longStep:40,
             status: false, //开关状态
             statusText: '开机', //开关文字描述
             onText: '开机', //关机文字描述
@@ -43,6 +45,8 @@ export default class App extends React.Component  {
             svgCircleR:[134,136,138,140,142,144,146,148,150,152],
             svgCircleStroke:'rgba(255,255,255,.3)',
 
+            visMessage: false,
+
             siid:3,
             piid:0,// 1:left-time, 2:error-code, 3:power, 4:mode, 5:end-status
             aiid:0,// 1:set-time, 2:set-power, 3:set-mode
@@ -59,7 +63,8 @@ export default class App extends React.Component  {
         };
         // this.setAnimation = this.setAnimation.bind(this);
     }
-    anim = () =>{
+    //缩放动画配置
+    animateInfo = () =>{
         return Animated.timing(
             this.state.scaleValue,
             {
@@ -71,6 +76,21 @@ export default class App extends React.Component  {
             }
         )
     };
+    setAnimate = {
+        start: ()=> {
+            if(!this.state.aniStatus && this.state.percents>0) {
+                this.setState({aniStatus:false,o:1});
+                Animated.loop(this.animateInfo()).start();
+            }
+        },
+        stop: ()=> {
+            if(this.state.aniStatus &&  this.state.percents<=0) {
+                this.setState({aniStatus:true,o:0});
+                Animated.loop(this.animateInfo()).stop();
+            }
+        }
+    };
+    //设置时间值
     setNum = (param) => {
         if(typeof param!= "number"){
             console.log('参数值类型错误');
@@ -78,9 +98,8 @@ export default class App extends React.Component  {
         }
         this.setState({
             count: param,
-            percents: param/this.state.max*100,
-            time: this.setTime(param),
-            o: this.state.status && param>0?1:0,
+            percents: this.state.status ? param/this.state.max*100 : 0,
+            time: this.setTime(param)
         });
     };
     setCountdown = (number) => {
@@ -90,9 +109,7 @@ export default class App extends React.Component  {
             this.setNum(param);
             if(this.state.status){
                 this.setState({statusText: this.state.offText});
-                if(this.state.aniStatus) {
-                    Animated.loop(this.anim()).start();
-                }
+                this.setAnimate.start(this.animateInfo)
             } //动画开始
             this.timer = setInterval(
                 () => {
@@ -106,47 +123,113 @@ export default class App extends React.Component  {
                         this.setNum(0);
                         this.setState({
                             status: false,
-                            aniStatus:false,
                             statusText: this.state.onText,
-                            o: 0,
+                            // o: 0,
                             scaleValue : new Animated.Value(0)
                             // statusImg: require('../Resources/dryer/switch.png')
                         });
-                        if(!this.state.aniStatus) {
-                            Animated.loop(this.anim()).stop();//动画停止
-                        }
+                        this.setAnimate.stop(this.animateInfo)
                     }
                 },
-                1000
+                60000
             );
 
         }else{
             this.timer && clearInterval(this.timer);
-            Animated.loop(this.anim()).stop();//动画停止
+            this.setAnimate.stop(this.animateInfo);//动画停止
             this.setNum(0);
             this.setState({
                 status: false,
                 statusText: this.state.onText,
-                o: 0,
+                // o: 0,
                 scaleValue : new Animated.Value(0)
             });
         }
     };
+    setLongCount = (num)=>{
+        this.timerCount && clearInterval(this.timerCount);
+        this.timerCount = setInterval(()=>{
+
+            },1000
+
+        )
+
+    };
     setRun=(count)=>{
+        if(!this.state.status){
+            this._sendRequests('setLeftTime',this.state.count>0?this.state.count:120);
+        }
         this._sendRequests('setPower',this.state.status?'off':'on');
     };
     setPlusNum=(num)=>{
         if(this.state.count<=this.state.max-this.state.step){
-            this._sendRequests('setLeftTime',this.state.count+this.state.step);
+            if(this.state.status){
+                this._sendRequests('setLeftTime',this.state.count+this.state.step);
+            }else{
+                this.setNum(this.state.count+this.state.step);
+            }
+
         }else{
             this.setState({
                 count: this.state.max
             });
         }
     };
-    setReduceNum=(num)=>{
+    setLongPlusNum=()=>{
+        this.longOut();
+        this.timerCount = setInterval(()=>{
+            if(this.state.count<=this.state.max-this.state.longStep){
+                if(this.state.status){
+                    this._sendRequests('setLeftTime',this.state.count+1);
+                }else{
+                    this.setNum(this.state.count+1);
+                }
+            }else{
+                this.setState({
+                    count: this.state.max
+                });
+            }
+        },25)
 
     };
+    setReduceNum=(num)=>{
+        if(this.state.count>=this.state.min+this.state.step){
+            if(this.state.status){
+                this._sendRequests('setLeftTime',this.state.count+this.state.step);
+            }else{
+                this.setNum(this.state.count-this.state.step);
+            }
+        }else{
+            this.setState({
+                count: this.state.min
+            });
+        }
+        if(this.state.count>0){
+            setTimeout(()=>{
+                this.setCountdown(this.state.count);
+            },50);
+        }
+    };
+    setLongReduceNum=()=>{
+        this.longOut();
+        this.timerCount = setInterval(()=>{
+            if(this.state.count>=this.state.min+this.state.longStep){
+                if(this.state.status){
+                    this._sendRequests('setLeftTime',this.state.count-1);
+                }else{
+                    this.setNum(this.state.count-1);
+                }
+            }else{
+                this.setState({
+                    count: this.state.min
+                });
+            }
+        },25)
+    };
+    longOut=()=>{
+        this.timerCount && clearInterval(this.timerCount);
+    };
+
     getRequest =(status)=>{
         const method = 'get_properties';
         //获取属性值
@@ -158,7 +241,8 @@ export default class App extends React.Component  {
             {"did":this.state.did,"piid":5,"siid":3}
         ];
         let paramsString = JSON.stringify(params);
-        Device.getDeviceWifi().callMethod(method,paramsString).then(res => {
+        // if(Host.isIOS){alert(typeof params)}
+        Device.getDeviceWifi().callMethod(method,params).then(res => {
             let result = JSON.stringify(res);
             let arrys = JSON.parse(result);
             this.setState({
@@ -171,12 +255,14 @@ export default class App extends React.Component  {
                 this.setCountdown(this.state.count);
             },10);
             console.log('成功 '+':'+this.state.result);
+            if(Host.isIOS){alert('成功 '+':'+this.state.result)}
         }).catch(err => {
             console.log('error:', err);
             let result = JSON.stringify(err);
             result = "Error: \n" + result;
             this.setState({ result });
-            console.log('失败 '+result)
+            console.log('失败 '+result);
+            if(Host.isIOS){alert('失败 '+result)}
         })
     };
     async _sendRequests(type,value) {
@@ -361,10 +447,12 @@ export default class App extends React.Component  {
     };
     componentDidMount() {
         PackageEvent.packageWillPause.addListener(()=>{
-            console.log('我离开了')
+            console.log('我离开了');
+            // if(Host.isIOS){alert('我离开了')}
         });
         PackageEvent.packageDidResume.addListener(()=>{
             console.log('我又回来了');
+            // if(Host.isIOS){alert('我又回来了')}
             this.getRequest()
         });
         this.getRequest();
@@ -413,45 +501,6 @@ export default class App extends React.Component  {
         if(hour.length===1) hour = '0'+hour;
         if(minute.length===1) minute = '0'+minute;
         return hour+':'+minute;
-    };
-    onPressSwitch = () => {
-        let num = 0;
-        this.state.count===0 ? num = this.state.defaultNum : num = this.state.count;
-        if(!this.state.status){
-            // this._sendRequest('setLeftTime',num);
-            this.sendRequest(this.state.status,num);
-        }else{
-            this.timer && clearInterval(this.timer);
-            this.sendRequest(this.state.status,0);
-        }
-    };
-    onPressPlus = () => {
-        if(this.state.count<=this.state.max-this.state.step){
-            this.sendLiftTime(this.state.count+this.state.step);
-        }else{
-            this.setState({
-                count: this.state.max
-            });
-        }
-        if(this.state.count+this.state.step>0){
-            setTimeout(()=>{
-                this.setCountdown(this.state.count);
-            },100);
-        }
-    };
-    onPressReduce = () => {
-        if(this.state.count>=this.state.min+this.state.step){
-            this.sendLiftTime(this.state.count-this.state.step)
-        }else{
-            this.setState({
-                count: this.state.min
-            });
-        }
-        if(this.state.count>0){
-            setTimeout(()=>{
-                this.setCountdown(this.state.count);
-            },50);
-        }
     };
     render() {
         const scale = this.state.scaleValue.interpolate({
@@ -513,18 +562,35 @@ export default class App extends React.Component  {
                         <Text style={style.butLable} onPress={this.setRun}>{ this.state.statusText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPress={this.onPressReduce} >
+                        <TouchableOpacity style={style.butIcon} onPressOut={this.longOut} onLongPress={this.setLongReduceNum} onPress={this.setReduceNum} >
                             <Image source={ this.state.reduceImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={this.onPressReduce}>{ this.state.reduceText }</Text>
+                        <Text style={style.butLable} onPressOut={this.longOut} onLongPress={this.setLongReduceNum} onPress={this.setReduceNum}>{ this.state.reduceText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPress={this.setPlusNum} >
+                        <TouchableOpacity style={style.butIcon} onPressOut={this.longOut} onLongPress={this.setLongPlusNum} onPress={this.setPlusNum} >
                             <Image source={ this.state.plusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={this.setPlusNum}>{ this.state.plusText }</Text>
+                        <Text style={style.butLable} onPressOut={this.longOut} onLongPress={this.setLongPlusNum} onPress={this.setPlusNum}>{ this.state.plusText }</Text>
                     </View>
                 </View>
+                <MessageDialog title={'title'}
+                               message={'message'}
+                               cancelable={true}
+                               // cancel={'取消'}
+                               confirm={'确认'}
+                               timeout={10000}
+                               onCancel={(e) => {
+                                   console.log('onCancel', e);
+                               }}
+                               onConfirm={(e) => {
+                                   console.log('onConfirm', e);
+                               }}
+                               onDismiss={() => {
+                                   console.log('onDismiss');
+                                   this.setState({ visMessage: false });
+                               }}
+                               visible={this.state.visMessage} />
             </View>
         )
     }
@@ -599,7 +665,7 @@ const style = StyleSheet.create({
         height:250
     },
     timeBeContainer0:{
-        opacity:0,
+        opacity:1,
         position:'absolute',
         borderWidth:1,
         borderColor:'#fff',

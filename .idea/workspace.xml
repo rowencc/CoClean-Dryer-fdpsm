@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28e4c28b-4881-436c-bbb0-993af0f2bc23" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/CommonModules/pickers.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/build/publish.mpkg" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/build/publish.mpkg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/AnimationComponentDemo/AnimCustomCompDemo.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/AnimationComponentDemo/AnimCustomCompDemo.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,41 +43,21 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="464" column="16" selection-start-line="464" selection-start-column="16" selection-end-line="464" selection-end-column="16" />
+            <state relative-caret-position="645">
+              <caret line="215" column="32" selection-start-line="215" selection-start-column="32" selection-end-line="215" selection-end-column="32" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#384#434#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Service/MiotSpecDemo.js">
+        <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/ThirdPartDemo/AnimatedSVGDemo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="56" column="25" selection-start-line="56" selection-start-column="25" selection-end-line="56" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#52#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/ThirdPartDemo/ProgressDemo.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1155">
-              <caret line="81" column="17" selection-start-line="81" selection-start-column="17" selection-end-line="81" selection-end-column="17" />
+            <state relative-caret-position="435">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -82,24 +66,57 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/RpcControl.js">
+        <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/DialogTest.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="27" column="26" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="26" />
+            <state relative-caret-position="30">
+              <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
               <folding>
-                <element signature="e#15#45#0" expanded="true" />
+                <element signature="e#15#136#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js">
+        <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/unuse/MoreDialog.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="13" column="5" selection-start-line="13" selection-end-line="13" selection-end-column="5" />
+            <state relative-caret-position="-728">
+              <caret line="69" column="16" lean-forward="true" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/ThirdPartDemo/ProgressDemo.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="731">
+              <caret line="57" column="12" lean-forward="true" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
               <folding>
-                <element signature="e#16#65#0" expanded="true" />
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/StringSpinnerDemo.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="720">
+              <caret line="48" column="47" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="47" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/AnimationComponentDemo/AnimCustomCompDemo.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="332" column="18" lean-forward="true" selection-start-line="332" selection-start-column="18" selection-end-line="332" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -108,10 +125,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+            <state relative-caret-position="29">
+              <caret line="145" column="189" lean-forward="true" selection-start-line="145" selection-start-column="189" selection-end-line="145" selection-end-column="189" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/CommonModules/pickers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" column="48" lean-forward="true" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -138,7 +167,17 @@
       <find>setState</find>
       <find>ProgressDemo</find>
       <find>Animated.loop(this.anim()).start();</find>
+      <find>&quot;155&quot;</find>
+      <find>aniStatus</find>
+      <find>setCountdown</find>
+      <find>status</find>
+      <find>CustomCompDemo</find>
+      <find>scale</find>
     </findStrings>
+    <replaceStrings>
+      <replace>{this.state.svgSize}</replace>
+      <replace>{this.state.svgCircleSize}</replace>
+    </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/projects</dir>
       <dir>$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page</dir>
@@ -156,7 +195,6 @@
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/mainIndex.js" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/index.js" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Main/index.js" />
-        <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" />
         <option value="$PROJECT_DIR$/miot-sdk/package.json" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/package.json" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/CommonModules/percentage.js" />
@@ -165,6 +203,9 @@
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/project.json" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/RpcControl.js" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js" />
+        <option value="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/AnimationComponentDemo/AnimCustomCompDemo.js" />
+        <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/CommonModules/pickers.js" />
+        <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" />
       </list>
     </option>
@@ -200,6 +241,19 @@
               <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
               <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
               <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.coc.dryer.fdpsm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.coc.dryer.fdpsm" type="462c0819:PsiDirectoryNode" />
+              <item name="CommonModules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
               <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -208,6 +262,286 @@
               <item name="projects" type="462c0819:PsiDirectoryNode" />
               <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
               <item name="Main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="Account" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="AnimationComponentDemo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="Device" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="Host" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="Service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="ARTComponentDemo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="openGL" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="openGL" type="462c0819:PsiDirectoryNode" />
+              <item name="AdvancedEffects" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="openGL" type="462c0819:PsiDirectoryNode" />
+              <item name="Animated" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="openGL" type="462c0819:PsiDirectoryNode" />
+              <item name="Hearts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="openGL" type="462c0819:PsiDirectoryNode" />
+              <item name="Orientation" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="openGL" type="462c0819:PsiDirectoryNode" />
+              <item name="Particles" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="openGL" type="462c0819:PsiDirectoryNode" />
+              <item name="Simple" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="openGL" type="462c0819:PsiDirectoryNode" />
+              <item name="Tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="Victory-Native" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="Victory-Native" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="Victory-Native" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="Victory-Native" type="462c0819:PsiDirectoryNode" />
+              <item name="styles" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdPartDemo" type="462c0819:PsiDirectoryNode" />
+              <item name="Victory-Native" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="tutorial" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="UIComponent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="UIComponent" type="462c0819:PsiDirectoryNode" />
+              <item name="swiper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="uikit" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="uikit" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="uikit" type="462c0819:PsiDirectoryNode" />
+              <item name="fonts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="uikit" type="462c0819:PsiDirectoryNode" />
+              <item name="screens" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="uikit" type="462c0819:PsiDirectoryNode" />
+              <item name="style" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="unuse" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="unuse" type="462c0819:PsiDirectoryNode" />
+              <item name="navigation" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+              <item name="com.xiaomi.demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="unuse" type="462c0819:PsiDirectoryNode" />
+              <item name="operation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -278,7 +612,9 @@
       <workItem from="1565577945842" duration="1540000" />
       <workItem from="1565678081273" duration="11612000" />
       <workItem from="1565750393211" duration="1629000" />
-      <workItem from="1565836803741" duration="611000" />
+      <workItem from="1565836803741" duration="4752000" />
+      <workItem from="1565921383450" duration="753000" />
+      <workItem from="1566267460583" duration="17462000" />
     </task>
     <task id="LOCAL-00001" summary="初始化项目">
       <created>1563506477241</created>
@@ -420,17 +756,31 @@
       <option name="project" value="LOCAL" />
       <updated>1565260457540</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="demo UI优化 BUG修复">
+      <created>1565860795930</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1565860795930</updated>
+    </task>
+    <task id="LOCAL-00022" summary="demo UI优化 BUG修复">
+      <created>1565865387481</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1565865387481</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="145685000" />
+    <option name="totallyTimeSpent" value="168041000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1786" y="-1057" width="1080" height="1530" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.34104046" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.35452795" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -445,7 +795,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.23504868" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.23504868" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
@@ -461,6 +811,38 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Theme Preview" order="9" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.35452795" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="npm" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.23504868" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="10" />
+      <window_info anchor="bottom" id="Version Control" order="11" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Nativescript Palette" order="6" />
+      <window_info anchor="right" id="Database" order="7" weight="0.32947975" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -485,63 +867,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/react-navigation/src/NavigationActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="804">
-          <caret line="54" column="2" selection-start-line="54" selection-start-column="2" selection-end-line="54" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/CommonModules/MHNavigationBar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2802" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Main/Account/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Main/Device/DeviceDemo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Main/tutorial/Setting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding>
-            <element signature="e#15#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Main/unuse/MHSetting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" lean-forward="true" selection-end-line="27" />
-          <folding>
-            <element signature="e#0#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Main/MainPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="359">
@@ -743,17 +1068,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="76" column="56" selection-start-line="76" selection-start-column="56" selection-end-line="76" selection-end-column="56" />
-          <folding>
-            <element signature="e#654#723#0" expanded="true" />
-            <element signature="e#852#913#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/UIDemo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="720">
@@ -775,13 +1089,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/issues/svgClick/CircularRing.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="464" column="16" selection-start-line="464" selection-start-column="16" selection-end-line="464" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -799,16 +1110,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/ThirdPartDemo/ProgressDemo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="81" column="17" selection-start-line="81" selection-start-column="17" selection-end-line="81" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -832,12 +1133,140 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/unuse/Simple.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+        <state>
           <folding>
             <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/unuse/SimpleChartDemo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/unuse/AndroidBack.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+          <folding>
+            <element signature="e#654#723#0" expanded="true" />
+            <element signature="e#4019#4072#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/uikit/screens/SettingsScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-221">
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/ThirdPartDemo/CircularSliderDemo.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/DialogTest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#15#136#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/unuse/MoreDialog.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-728">
+          <caret line="69" column="16" lean-forward="true" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/AnimationComponentDemo/AnimCustomCompDemo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="332" column="18" lean-forward="true" selection-start-line="332" selection-start-column="18" selection-end-line="332" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/StringSpinnerDemo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="48" column="47" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/CommonModules/pickers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="48" lean-forward="true" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="145" column="189" lean-forward="true" selection-start-line="145" selection-start-column="189" selection-end-line="145" selection-end-column="189" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/ThirdPartDemo/ProgressDemo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="57" column="12" lean-forward="true" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/ThirdPartDemo/AnimatedSVGDemo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="215" column="32" selection-start-line="215" selection-start-column="32" selection-end-line="215" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#384#434#0" expanded="true" />
           </folding>
         </state>
       </provider>

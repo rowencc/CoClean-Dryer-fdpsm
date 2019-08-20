@@ -21,8 +21,6 @@ const
 
 // Shapes
 class Circle extends React.Component {
-
-
   render() {
     const { radius } = this.props;
 
