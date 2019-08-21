@@ -48,19 +48,28 @@ export default class App extends React.Component  {
             visMessage: false,
 
             siid:3,
-            piid:0,// 1:left-time, 2:error-code, 3:power, 4:mode, 5:end-status
-            aiid:0,// 1:set-time, 2:set-power, 3:set-mode
-            eiid:0,// 1:end-send, 2:button-pressed, 3:error-send
+            leftTimePiid:1,// 1:left-time, 2:error-code, 3:power, 4:mode, 5:end-status
+            errorCodePiid:2,// 1:left-time, 2:error-code, 3:power, 4:mode, 5:end-status
+            powerPiid:3,// 1:left-time, 2:error-code, 3:power, 4:mode, 5:end-status
+            modePiid:4,// 1:left-time, 2:error-code, 3:power, 4:mode, 5:end-status
+            endStatusPiid:5,// 1:left-time, 2:error-code, 3:power, 4:mode, 5:end-status
+            setTimeAiid:1,// 1:set-time, 2:set-power, 3:set-mode
+            setPowerAiid:2,// 1:set-time, 2:set-power, 3:set-mode
+            setModeAiid:3,// 1:set-time, 2:set-power, 3:set-mode
+            endSendEiid:1,// 1:end-send, 2:button-pressed, 3:error-send
+            buttonPressedEiid:2,// 1:end-send, 2:button-pressed, 3:error-send
+            errorSendEiid:3,// 1:end-send, 2:button-pressed, 3:error-send
 
-            requestStatus: false,
-            did: Device.getDeviceWifi().deviceID,
+            requestStatus: true,
+
+            did: Device.deviceID,
             method: 'get_properties',
             params: [{'value':'on'}],
             extra: {},
             paramsString: '',
             extraString: {},
             result: 'None',
-        };
+            };
         // this.setAnimation = this.setAnimation.bind(this);
     }
     //缩放动画配置
@@ -76,18 +85,18 @@ export default class App extends React.Component  {
             }
         )
     };
-    setAnimate = {
-        start: ()=> {
-            if(!this.state.aniStatus && this.state.percents>0) {
-                this.setState({aniStatus:false,o:1});
-                Animated.loop(this.animateInfo()).start();
-            }
-        },
-        stop: ()=> {
-            if(this.state.aniStatus &&  this.state.percents<=0) {
-                this.setState({aniStatus:true,o:0});
-                Animated.loop(this.animateInfo()).stop();
-            }
+    setAnimateStart =()=>{
+        if(this.state.aniStatus && this.state.count>0) {
+            this.setState({aniStatus:false,o:1,scaleValue:new Animated.Value(0)});
+            Animated.loop(this.animateInfo()).start();
+            console.log('loop true '+this.state.aniStatus)
+        }
+    };
+    setAnimateStop =()=>{
+        if(!this.state.aniStatus &&  this.state.count<=0) {
+            this.setState({aniStatus:true,o:0,scaleValue:new Animated.Value(0)});
+            Animated.loop(this.animateInfo()).stop();
+            console.log('loop false '+this.state.aniStatus)
         }
     };
     //设置时间值
@@ -106,10 +115,10 @@ export default class App extends React.Component  {
         this.timer && clearInterval(this.timer);
         if(this.state.count>0){
             let param = number || this.state.count;
-            this.setNum(param);
+            // this.setNum(param);
             if(this.state.status){
                 this.setState({statusText: this.state.offText});
-                this.setAnimate.start(this.animateInfo)
+                this.setAnimateStart()
             } //动画开始
             this.timer = setInterval(
                 () => {
@@ -128,7 +137,7 @@ export default class App extends React.Component  {
                             scaleValue : new Animated.Value(0)
                             // statusImg: require('../Resources/dryer/switch.png')
                         });
-                        this.setAnimate.stop(this.animateInfo)
+                        this.setAnimateStop()
                     }
                 },
                 60000
@@ -136,8 +145,8 @@ export default class App extends React.Component  {
 
         }else{
             this.timer && clearInterval(this.timer);
-            this.setAnimate.stop(this.animateInfo);//动画停止
-            this.setNum(0);
+            this.setAnimateStop();//动画停止
+            this.setNum(this.state.min);
             this.setState({
                 status: false,
                 statusText: this.state.onText,
@@ -146,88 +155,90 @@ export default class App extends React.Component  {
             });
         }
     };
-    setLongCount = (num)=>{
-        this.timerCount && clearInterval(this.timerCount);
-        this.timerCount = setInterval(()=>{
-
-            },1000
-
-        )
-
-    };
     setRun=(count)=>{
         if(!this.state.status){
-            this._sendRequests('setLeftTime',this.state.count>0?this.state.count:120);
+            this.setState({status:true,count:this.state.count>0?this.state.count:120});
+            // alert('open : '+this.state.status);
+        }else{
+            this.setState({status:false,count:0});
+            // alert('close : '+this.state.status+':'+this.state.count);
         }
-        this._sendRequests('setPower',this.state.status?'off':'on');
+
     };
     setPlusNum=(num)=>{
-        if(this.state.count<=this.state.max-this.state.step){
-            if(this.state.status){
-                this._sendRequests('setLeftTime',this.state.count+this.state.step);
-            }else{
-                this.setNum(this.state.count+this.state.step);
-            }
 
+        if(this.state.count<=this.state.max-this.state.step){
+            this.setNum(this.state.count+this.state.step);
         }else{
-            this.setState({
-                count: this.state.max
-            });
+            this.setState({count: this.state.max});
         }
+        this.requestClock();
     };
     setLongPlusNum=()=>{
-        this.longOut();
+        this.timerCount && clearInterval(this.timerCount);
         this.timerCount = setInterval(()=>{
             if(this.state.count<=this.state.max-this.state.longStep){
-                if(this.state.status){
-                    this._sendRequests('setLeftTime',this.state.count+1);
-                }else{
-                    this.setNum(this.state.count+1);
-                }
+                this.setNum(this.state.count+1);
             }else{
-                this.setState({
-                    count: this.state.max
-                });
+                this.setState({count: this.state.max});
             }
         },25)
 
     };
     setReduceNum=(num)=>{
+
         if(this.state.count>=this.state.min+this.state.step){
-            if(this.state.status){
-                this._sendRequests('setLeftTime',this.state.count+this.state.step);
-            }else{
-                this.setNum(this.state.count-this.state.step);
-            }
+            this.setNum(this.state.count-this.state.step);
         }else{
-            this.setState({
-                count: this.state.min
-            });
+            this.setState({count: this.state.min});
         }
-        if(this.state.count>0){
-            setTimeout(()=>{
-                this.setCountdown(this.state.count);
-            },50);
-        }
+        this.requestClock();
     };
     setLongReduceNum=()=>{
-        this.longOut();
+        this.timerCount && clearInterval(this.timerCount);
         this.timerCount = setInterval(()=>{
             if(this.state.count>=this.state.min+this.state.longStep){
-                if(this.state.status){
-                    this._sendRequests('setLeftTime',this.state.count-1);
-                }else{
-                    this.setNum(this.state.count-1);
-                }
+                this.setNum(this.state.count-1);
             }else{
-                this.setState({
-                    count: this.state.min
-                });
+                this.setState({count: this.state.min});
             }
         },25)
     };
+    outRun=()=>{
+        this.setNum(this.state.count);
+        let value='';
+        setTimeout(()=>{
+            this.state.status?value='on':value='off';
+            this._sendRequests('setLeftTime',this.state.count);
+            this._sendRequests('setPower',value);
+        },0);
+    };
     longOut=()=>{
         this.timerCount && clearInterval(this.timerCount);
+        this.setNum(this.state.count);
+        if(!this.state.requestStatus){
+            console.log('发送请求');
+            setTimeout(()=>{
+                this._sendRequests('setLeftTime',this.state.count);
+                this.setCountdown(this.state.count);
+            },1000);
+        }else{
+            console.log('执行跳过 : '+this.state.requestStatus);
+        }
+    };
+    requestClock =(t)=>{
+        this.request && clearInterval(this.request);
+        let time = t || 50;
+        this.request = setInterval(()=>{
+            time=time-1;
+            console.log(time+' : '+this.state.requestStatus);
+            this.setState({requestStatus:true});
+            if(time<=0){
+                this.request && clearInterval(this.request);
+                this.setState({requestStatus:false});
+                console.log(time+' : '+this.state.requestStatus);
+            }
+        },1);
     };
 
     getRequest =(status)=>{
@@ -246,8 +257,8 @@ export default class App extends React.Component  {
             let result = JSON.stringify(res);
             let arrys = JSON.parse(result);
             this.setState({
-                status: arrys.result[0].value>0 ? true:false,
-                aniStatus: arrys.result[0].value>0 ? true:false,
+                status: arrys.result[2].value=='on' ? true:false,
+                aniStatus: arrys.result[2].value=='on' ? true:false,
                 result
             });
             this.setNum(arrys.result[0].value);
@@ -255,15 +266,30 @@ export default class App extends React.Component  {
                 this.setCountdown(this.state.count);
             },10);
             console.log('成功 '+':'+this.state.result);
-            if(Host.isIOS){alert('成功 '+':'+this.state.result)}
+            // if(Host.isIOS){alert('成功 '+':'+this.state.result)}
         }).catch(err => {
             console.log('error:', err);
             let result = JSON.stringify(err);
             result = "Error: \n" + result;
             this.setState({ result });
             console.log('失败 '+result);
-            if(Host.isIOS){alert('失败 '+result)}
+            // if(Host.isIOS){alert('失败 '+result)}
         })
+    };
+    async setPower(value){
+        const did = Device.deviceID;
+        let setPower = { did, siid: 3, piid: 3, value: value };
+        Service.spec.setPropertiesValue([setPower]).then(res => {
+            this.setNum(value);
+            if(value>0){
+                setTimeout(()=>{
+                    this.setCountdown(value);
+                },100);
+            }
+            console.log('setPropertiesValue', res)
+        }).catch(res => {
+            console.log(res, 'catch')
+        });
     };
     async _sendRequests(type,value) {
         /*
@@ -303,22 +329,18 @@ export default class App extends React.Component  {
         switch (type) {
             case 'setLeftTime':
                 this.on = !this.on;
+
                 Service.spec.setPropertiesValue([setLeftTime]).then(res => {
-                    this.setNum(value);
-                    if(value>0){
-                        setTimeout(()=>{
-                            this.setCountdown(value);
-                        },100);
-                    }
+                    this.setCountdown(value);
+                    console.log('setValue', this.state.count);
                     console.log('setPropertiesValue', res)
                 }).catch(res => {
                     console.log(res, 'catch')
                 });
                 break;
             case 'setPower':
-                this.on = !this.on;
                 Service.spec.setPropertiesValue([setPower]).then(res => {
-                    this.setNum(120);
+                    console.log('setPower : '+value);
                     console.log('setPropertiesValue', res)
                 }).catch(res => {
                     console.log(res, 'catch')
@@ -337,6 +359,17 @@ export default class App extends React.Component  {
                 break;
             case 'get':
                 Service.spec.getPropertiesValue([getLeftTime,getErrorCode,getPower,getMode,getEndStatus]).then(res => {
+                    let result = JSON.stringify(res);
+                    let arrys = JSON.parse(result);
+                    this.setState({
+                        status: arrys.result[0].value>0 ? true:false,
+                        aniStatus: arrys.result[0].value>0 ? true:false,
+                        result
+                    });
+                    this.setNum(arrys.result[0].value);
+                    setTimeout(()=>{
+                        this.setCountdown(this.state.count);
+                    },10);
                     console.log('getPropertiesValue', res)
                 }).catch(res => {
                     console.log(res, 'catch')
@@ -446,6 +479,7 @@ export default class App extends React.Component  {
         })
     };
     componentDidMount() {
+        Animated.loop(this.animateInfo()).start();
         PackageEvent.packageWillPause.addListener(()=>{
             console.log('我离开了');
             // if(Host.isIOS){alert('我离开了')}
@@ -504,9 +538,9 @@ export default class App extends React.Component  {
     };
     render() {
         const scale = this.state.scaleValue.interpolate({
-                inputRange: [0,50,100],
-                outputRange: [0.88,1,0.88]
-            });
+            inputRange: [0,50,100],
+            outputRange: [0.88,1,0.88]
+        });
         return (
             <View style={style.container}>
                 <View style={style.overTimeBox}>
@@ -527,8 +561,9 @@ export default class App extends React.Component  {
                         height={this.state.circleSize}
                         thickness={20}
                         borderRadius={10}
-                        strokeCap={this.state.percents>0 ? 'round':'butt'}
-                        progress={ this.state.percents/100 }
+                        strokeCap={this.state.count>0 ? 'round':'butt'}
+                        progress={ this.state.status ? this.state.count/this.state.max*100/100 : 0 }
+                        // progress={ this.state.percents/100 }
                         borderWidth={0}
                         unfilledColor={'rgba(255,255,255,.3)'}
                         color={"#fff"} >
@@ -556,22 +591,22 @@ export default class App extends React.Component  {
                 <View style={style.rowContainer}>
                     {/*    功能按键*/}
                     <View style={style.butBox}>
-                        <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={this.setRun} >
+                        <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={this.setRun} onPressOut={this.outRun}>
                             <Image source={ this.state.statusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={this.setRun}>{ this.state.statusText }</Text>
+                        <Text style={style.butLable} onPress={this.setRun} onPressOut={this.outRun}>{ this.state.statusText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPressOut={this.longOut} onLongPress={this.setLongReduceNum} onPress={this.setReduceNum} >
+                        <TouchableOpacity style={style.butIcon} onPress={this.setReduceNum} delayLongPress={2000} onLongPress={this.setLongReduceNum} onPressOut={this.longOut}>
                             <Image source={ this.state.reduceImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPressOut={this.longOut} onLongPress={this.setLongReduceNum} onPress={this.setReduceNum}>{ this.state.reduceText }</Text>
+                        <Text style={style.butLable} onPress={this.setReduceNum} delayLongPress={2000} onLongPress={this.setLongReduceNum} onPressOut={this.longOut}>{ this.state.reduceText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPressOut={this.longOut} onLongPress={this.setLongPlusNum} onPress={this.setPlusNum} >
+                        <TouchableOpacity style={style.butIcon} onPress={this.setPlusNum} delayLongPress={2000} onLongPress={this.setLongPlusNum} onPressOut={this.longOut}>
                             <Image source={ this.state.plusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPressOut={this.longOut} onLongPress={this.setLongPlusNum} onPress={this.setPlusNum}>{ this.state.plusText }</Text>
+                        <Text style={style.butLable} onPress={this.setPlusNum} delayLongPress={2000} onPressOut={this.longOut} onLongPress={this.setLongPlusNum}>{ this.state.plusText }</Text>
                     </View>
                 </View>
                 <MessageDialog title={'title'}
@@ -665,7 +700,7 @@ const style = StyleSheet.create({
         height:250
     },
     timeBeContainer0:{
-        opacity:1,
+        opacity:0,
         position:'absolute',
         borderWidth:1,
         borderColor:'#fff',
