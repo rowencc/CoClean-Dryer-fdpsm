@@ -10,7 +10,7 @@ import {MessageDialog} from "miot/ui";
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
 const { UIManager } = NativeModules;
-
+let requestStatus = 0;
 export default class App extends React.Component  {
     constructor(props) {
         super(props);
@@ -60,7 +60,7 @@ export default class App extends React.Component  {
             buttonPressedEiid:2,// 1:end-send, 2:button-pressed, 3:error-send
             errorSendEiid:3,// 1:end-send, 2:button-pressed, 3:error-send
 
-            requestStatus: true,
+            requestStatus: -1,
 
             did: Device.deviceID,
             method: 'get_properties',
@@ -158,12 +158,11 @@ export default class App extends React.Component  {
     setRun=(count)=>{
         if(!this.state.status){
             this.setState({status:true,count:this.state.count>0?this.state.count:120});
-            // alert('open : '+this.state.status);
+            console.log('open : '+this.state.status);
         }else{
             this.setState({status:false,count:0});
-            // alert('close : '+this.state.status+':'+this.state.count);
+            console.log('close : '+this.state.status+':'+this.state.count);
         }
-
     };
     setPlusNum=(num)=>{
 
@@ -172,7 +171,6 @@ export default class App extends React.Component  {
         }else{
             this.setState({count: this.state.max});
         }
-        this.requestClock();
     };
     setLongPlusNum=()=>{
         this.timerCount && clearInterval(this.timerCount);
@@ -192,7 +190,6 @@ export default class App extends React.Component  {
         }else{
             this.setState({count: this.state.min});
         }
-        this.requestClock();
     };
     setLongReduceNum=()=>{
         this.timerCount && clearInterval(this.timerCount);
@@ -205,40 +202,54 @@ export default class App extends React.Component  {
         },25)
     };
     outRun=()=>{
-        this.setNum(this.state.count);
+        this.timerCount && clearInterval(this.timerCount);
+        this.requestClock();
         let value='';
-        setTimeout(()=>{
-            this.state.status?value='on':value='off';
-            this._sendRequests('setLeftTime',this.state.count);
-            this._sendRequests('setPower',value);
-        },0);
+        this.setNum(this.state.count);
+        this.runLoop = setInterval(()=>{
+            if(requestStatus == 0){
+                console.log('发送开关机请求');
+                this.state.status?value='on':value='off';
+                this._sendRequests('setLeftTime',this.state.count);
+                this._sendRequests('setPower',value);
+                this.runLoop && clearInterval(this.runLoop);
+            }
+        },1000)
     };
     longOut=()=>{
         this.timerCount && clearInterval(this.timerCount);
-        this.setNum(this.state.count);
-        if(!this.state.requestStatus){
-            console.log('发送请求');
-            setTimeout(()=>{
+        this.runLoop && clearInterval(this.runLoop);
+        this.requestClock();
+
+        this.runLoop = setInterval(()=>{
+            if(requestStatus == 0){
+                this.setNum(this.state.count);
+                console.log('发送时间请求');
                 this._sendRequests('setLeftTime',this.state.count);
                 this.setCountdown(this.state.count);
-            },1000);
-        }else{
-            console.log('执行跳过 : '+this.state.requestStatus);
-        }
+                this.runLoop && clearInterval(this.runLoop);
+            }else{
+                console.log('执行跳过 : '+requestStatus);
+            }
+        },1000)
     };
     requestClock =(t)=>{
         this.request && clearInterval(this.request);
-        let time = t || 50;
+        let time = 50;
         this.request = setInterval(()=>{
             time=time-1;
-            console.log(time+' : '+this.state.requestStatus);
-            this.setState({requestStatus:true});
+            // console.log(time+' : '+requestStatus);
+            // this.setState({requestStatus:time});
+            requestStatus = time;
             if(time<=0){
                 this.request && clearInterval(this.request);
-                this.setState({requestStatus:false});
-                console.log(time+' : '+this.state.requestStatus);
+                setTimeout(()=>{
+                    // this.setState({requestStatus:-1});
+                    requestStatus=-1
+                },5000);
+                // console.log(time-1+' : '+this.state.requestStatus);
             }
-        },1);
+        },10);
     };
 
     getRequest =(status)=>{
@@ -332,8 +343,9 @@ export default class App extends React.Component  {
 
                 Service.spec.setPropertiesValue([setLeftTime]).then(res => {
                     this.setCountdown(value);
-                    console.log('setValue', this.state.count);
-                    console.log('setPropertiesValue', res)
+                    console.log('setValue : ', this.state.count);
+                    console.log('setPropertiesValue : ', res);
+                    // this.getRequest();
                 }).catch(res => {
                     console.log(res, 'catch')
                 });
@@ -341,7 +353,8 @@ export default class App extends React.Component  {
             case 'setPower':
                 Service.spec.setPropertiesValue([setPower]).then(res => {
                     console.log('setPower : '+value);
-                    console.log('setPropertiesValue', res)
+                    console.log('setPropertiesValue', res);
+                    this.getRequest();
                 }).catch(res => {
                     console.log(res, 'catch')
                 });
@@ -561,7 +574,7 @@ export default class App extends React.Component  {
                         height={this.state.circleSize}
                         thickness={20}
                         borderRadius={10}
-                        strokeCap={this.state.count>0 ? 'round':'butt'}
+                        strokeCap={this.state.status && this.state.count>0 ? 'round':'butt'}
                         progress={ this.state.status ? this.state.count/this.state.max*100/100 : 0 }
                         // progress={ this.state.percents/100 }
                         borderWidth={0}
@@ -591,22 +604,22 @@ export default class App extends React.Component  {
                 <View style={style.rowContainer}>
                     {/*    功能按键*/}
                     <View style={style.butBox}>
-                        <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={this.setRun} onPressOut={this.outRun}>
+                        <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>
                             <Image source={ this.state.statusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={this.setRun} onPressOut={this.outRun}>{ this.state.statusText }</Text>
+                        <Text style={style.butLable} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>{ this.state.statusText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPress={this.setReduceNum} delayLongPress={2000} onLongPress={this.setLongReduceNum} onPressOut={this.longOut}>
+                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setReduceNum()} delayLongPress={2000} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>
                             <Image source={ this.state.reduceImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={this.setReduceNum} delayLongPress={2000} onLongPress={this.setLongReduceNum} onPressOut={this.longOut}>{ this.state.reduceText }</Text>
+                        <Text style={style.butLable} onPress={()=>this.setReduceNum()} delayLongPress={2000} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>{ this.state.reduceText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPress={this.setPlusNum} delayLongPress={2000} onLongPress={this.setLongPlusNum} onPressOut={this.longOut}>
+                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setPlusNum()} delayLongPress={2000} onLongPress={()=>this.setLongPlusNum()} onPressOut={()=>this.longOut()}>
                             <Image source={ this.state.plusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={this.setPlusNum} delayLongPress={2000} onPressOut={this.longOut} onLongPress={this.setLongPlusNum}>{ this.state.plusText }</Text>
+                        <Text style={style.butLable} onPress={()=>this.setPlusNum()} delayLongPress={2000} onPressOut={()=>this.longOut()} onLongPress={()=>this.setLongPlusNum()}>{ this.state.plusText }</Text>
                     </View>
                 </View>
                 <MessageDialog title={'title'}
@@ -626,7 +639,7 @@ export default class App extends React.Component  {
                                    this.setState({ visMessage: false });
                                }}
                                visible={this.state.visMessage} />
-            </View>
+                </View>
         )
     }
 
