@@ -76,8 +76,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
-              <caret line="121" column="21" selection-start-line="121" selection-start-column="21" selection-end-line="121" selection-end-column="21" />
+            <state relative-caret-position="668">
+              <caret line="132" column="22" selection-start-line="132" selection-start-column="22" selection-end-line="132" selection-end-column="22" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -574,7 +574,7 @@
       <workItem from="1566267460583" duration="17648000" />
       <workItem from="1566354111866" duration="14772000" />
       <workItem from="1566440592144" duration="8550000" />
-      <workItem from="1566873124260" duration="4980000" />
+      <workItem from="1566873124260" duration="5087000" />
     </task>
     <task id="LOCAL-00001" summary="初始化项目">
       <created>1563506477241</created>
@@ -755,7 +755,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="196529000" />
+    <option name="totallyTimeSpent" value="196636000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1786" y="-1057" width="1080" height="1530" extended-state="0" />
@@ -1245,8 +1245,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="121" column="21" selection-start-line="121" selection-start-column="21" selection-end-line="121" selection-end-column="21" />
+        <state relative-caret-position="668">
+          <caret line="132" column="22" selection-start-line="132" selection-start-column="22" selection-end-line="132" selection-end-column="22" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

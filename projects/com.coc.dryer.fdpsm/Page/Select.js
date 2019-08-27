@@ -130,8 +130,8 @@ export default class Selects extends React.Component{
             classList:classList,
             valueList:valueList
         });
-        alert(JSON.stringify(classList));
-        alert(JSON.stringify(valueList));
+        // alert(JSON.stringify(classList));
+        // alert(JSON.stringify(valueList));
     };
     onChange(arr) { // 选中项改变时触发, arr为当前每一级选中项索引，如选中B和Y，此时的arr就等于[1,1]
         console.log(arr)
