@@ -12,14 +12,16 @@ import {PackageEvent} from "miot";
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
 let param = 0;
+let classList=[];
+let valueList=[];
 export default class Selects extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
             param:0,
             visMessage:false,
-            classList:[],
-            valueList:[],
+            classList:[''],
+            valueList:[''],
             contentList:[
                 {id:1, name:'内衣裤', list:[
                     {id:100,name:'女士内衣',value:10},
@@ -94,7 +96,7 @@ export default class Selects extends React.Component{
             header:
                 <TitleBar
                     type='dark'
-                    title='烘干时间表'
+                    title='干衣时间'
                     style={{ backgroundColor: '#fff' }}
                     onPressLeft={_ => {
                         navigation.goBack();
@@ -103,6 +105,7 @@ export default class Selects extends React.Component{
         };
     };
     componentDidMount() {
+        this.selectData();
         this.setState({visMessage:true});
     }
     confirmProps =()=>{
@@ -110,15 +113,25 @@ export default class Selects extends React.Component{
         DeviceEventEmitter.emit("EventType", param);
     };
     updateOneValue = (data)=>{
+        alert(JSON.stringify(data));
         this.setState({param:data.newValue});
     };
     selectData =()=>{
         let mainList = this.state.contentList;
-        for(let i=0; i<mainList.length; i++)
-        {
-            alert(mainList[i].text+" " + mainList[i].name)
+        classList=[];
+        valueList=[];
+        for(let i=0; i<mainList.length; i++){
+            classList.push(mainList[i].name);
+            for(let v=0; v<mainList[i].list.length; v++){
+                valueList.push(mainList[i].list[v].name);
+            }
         }
-
+        this.setState({
+            classList:classList,
+            valueList:valueList
+        });
+        alert(JSON.stringify(classList));
+        alert(JSON.stringify(valueList));
     };
     onChange(arr) { // 选中项改变时触发, arr为当前每一级选中项索引，如选中B和Y，此时的arr就等于[1,1]
         console.log(arr)
@@ -128,22 +141,23 @@ export default class Selects extends React.Component{
     }
     render(){
         return (
-            <View style={{flex: 1,justifyContent: 'center',alignContent: 'center'}}>
-                <View style={{ flexDirection: 'row' }}>
+            <View style={{flex: 1,justifyContent: 'center',alignContent: 'center',backgroundColor:'#0e62bd'}}>
+                <View style={{ flexDirection: 'row' ,flex:1,justifyContent: 'center',alignContent: 'center',}}>
 
                     <StringSpinner
-                        style={{ width: 120, height: 200, backgroundColor: '#ffffff', }}
-                        dataSource={['a', 'b', 'c', 'd', 'e', 'f', 'g']}
-                        defaultValue={'c'}
+                        style={{ width: 120, height: 200, marginLeft: 10,backgroundColor: 'transparent', }}
+                        dataSource={this.state.classList}
+                        defaultValue={this.state.classList[0]}
+                        pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", textColor: "rgba(255,255,255,.5)", selectTextColor: "#fff", fontSize: 18, selectFontSize: 18, rowHeight: 40}}
                         onValueChanged={(data) => { this.updateOneValue(data) }}
                     />
 
                     <StringSpinner
-                        style={{ width: 120, height: 200, marginLeft: 10, backgroundColor: '#ffffff', }}
-                        dataSource={['a', 'b', 'c', 'd', 'e', 'f', 'g']}
-                        defaultValue={'c'}
+                        style={{ width: 120, height: 200, marginRight: 10,backgroundColor: 'transparent', }}
+                        dataSource={this.state.valueList}
+                        defaultValue={this.state.valueList[0]}
                         // unit={"斤"}
-                        pickerInnerStyle={{ lineColor: "#fff", textColor: "rgba(255,255,255,.5)", selectTextColor: "#fff", fontSize: 14, selectFontSize: 18, rowHeight: 24, selectBgColor: "#eeeeee", unitFontSize: 12, unitTextColor: '#f7632a' }}
+                        pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", textColor: "rgba(255,255,255,.8)", selectTextColor: "#fff", fontSize: 18, selectFontSize: 18, rowHeight: 40}}
                         onValueChanged={(data) => { this.updateOneValue(data) }}
                     />
                 </View>
