@@ -20,6 +20,8 @@ export default class Selects extends React.Component{
         this.state = {
             param:0,
             visMessage:false,
+            defaultClass:'内衣裤',
+            defaultValue:'女士内衣',
             classList:[''],
             valueList:[''],
             contentList:[
@@ -114,7 +116,11 @@ export default class Selects extends React.Component{
     };
     updateOneValue = (data)=>{
         alert(JSON.stringify(data));
-        this.setState({param:data.newValue});
+        this.setState({
+            param:data.newValue,
+            defaultClass:data.newValue,
+        });
+
     };
     selectData =()=>{
         let mainList = this.state.contentList;
@@ -147,21 +153,20 @@ export default class Selects extends React.Component{
                     <StringSpinner
                         style={{ width: 120, height: 200, marginLeft: 10,backgroundColor: 'transparent', }}
                         dataSource={this.state.classList}
-                        defaultValue={this.state.classList[0]}
-                        pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", textColor: "rgba(255,255,255,.5)", selectTextColor: "#fff", fontSize: 18, selectFontSize: 18, rowHeight: 40}}
+                        defaultValue={this.state.defaultClass}
+                        pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
                         onValueChanged={(data) => { this.updateOneValue(data) }}
                     />
 
                     <StringSpinner
                         style={{ width: 120, height: 200, marginRight: 10,backgroundColor: 'transparent', }}
                         dataSource={this.state.valueList}
-                        defaultValue={this.state.valueList[0]}
+                        defaultValue={this.state.defaultValue}
                         // unit={"斤"}
-                        pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", textColor: "rgba(255,255,255,.8)", selectTextColor: "#fff", fontSize: 18, selectFontSize: 18, rowHeight: 40}}
+                        pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
                         onValueChanged={(data) => { this.updateOneValue(data) }}
                     />
                 </View>
-                <Text style={{textAlign: 'center'}}>有本事你选个数</Text>
                 <View style={style.butBox}>
                     <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={this.confirmProps()} >
                         <Image source={ this.state.statusImg } />
@@ -171,8 +176,8 @@ export default class Selects extends React.Component{
                                message={'1.请确保衣物间留有一定空隙；\n2.根据最厚的一件衣物，来选择相应时间吧。'}
                                cancelable={true}
                     // cancel={'取消'}
-                               confirm={'确认'}
-                               timeout={10000}
+                               confirm={'我知道了'}
+                               // timeout={10000}
                                onCancel={(e) => {
                                    console.log('onCancel', e);
                                }}
