@@ -21,6 +21,7 @@ export default class App extends React.Component  {
             defaultNum: 120,//默认开机时间
             percents:0, //百分比默认值
             getParam: 0,  //传入值
+            getParamText: '工作中......',
             step: 10,  //步进
             longStep:40,
             status: false, //开关状态
@@ -160,7 +161,8 @@ export default class App extends React.Component  {
             this.setState({status:true,count:this.state.count>0?this.state.count:120});
             console.log('open : '+this.state.status);
         }else{
-            this.setState({status:false,count:0});
+            this.setState({status:false,count:0,getParam:0,o:0});
+            this.setAnimateStop();//动画停止
             console.log('close : '+this.state.status+':'+this.state.count);
         }
     };
@@ -201,17 +203,14 @@ export default class App extends React.Component  {
             }
         },25)
     };
-    outRun=()=>{
+    outRun=(num)=>{
         this.timerCount && clearInterval(this.timerCount);
         this.requestClock();
-        let value='';
         this.setNum(this.state.count);
         this.runLoop = setInterval(()=>{
             if(requestStatus == 0){
                 console.log('发送开关机请求');
-                this.state.status?value='on':value='off';
-                this._sendRequests('setLeftTime',this.state.count);
-                this._sendRequests('setPower',value);
+                this._sendRequests('setPower',num>0? num: this.state.count);
                 this.runLoop && clearInterval(this.runLoop);
             }
         },1000)
@@ -328,7 +327,7 @@ export default class App extends React.Component  {
 
         let setLeftTime = { did, siid: 3, piid: 1, value: value };
         let setMode = { did, siid: 3, piid: 2, value: value };
-        let setPower = { did, siid: 3, piid: 3, value: value };
+        let setPower = { did, siid: 3, piid: 3, value: value>0? 'on':'off' };
 
         let getLeftTime = { did, siid: 3, piid: 1};
         let getErrorCode = { did, siid: 3, piid: 2};
@@ -351,7 +350,7 @@ export default class App extends React.Component  {
                 });
                 break;
             case 'setPower':
-                Service.spec.setPropertiesValue([setPower]).then(res => {
+                Service.spec.setPropertiesValue([setLeftTime,setPower]).then(res => {
                     console.log('setPower : '+value);
                     console.log('setPropertiesValue', res);
                     this.getRequest();
@@ -507,11 +506,16 @@ export default class App extends React.Component  {
         //获取设备状态-
         this.subscription = DeviceEventEmitter.addListener("EventType", (param)=>{
             // 接收传参并执行写入
-            this.setNum(param);
+
             if(param>0){
+                this.setNum(param);
                 setTimeout(()=>{
-                    this.setCountdown(this.state.count);
+                    this.setCountdown(param);
                 },100);
+                this.setState({
+                    getParam:param
+                });
+                this.outRun(param)
             }
         });
 
@@ -599,7 +603,7 @@ export default class App extends React.Component  {
                 </View>
                 <View style={style.rowContainer}>
                     {/*    选择按钮*/}
-                    <Text style={style.tabLable} onPress={() => this.props.navigation.navigate('Selects', { 'title': '烘干时间表' })}>帮我计算干衣时间 ></Text>
+                    <Text style={style.tabLable} onPress={() => this.state.getParam<=0?this.props.navigation.navigate('Selects', { 'title': '烘干时间表' }):''}>{this.state.getParam<=0?'帮我计算干衣时间 >': this.state.getParamText}</Text>
                 </View>
                 <View style={style.rowContainer}>
                     {/*    功能按键*/}

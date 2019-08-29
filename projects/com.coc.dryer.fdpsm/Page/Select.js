@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import TitleBar from "miot/ui/TitleBar";
 import {strings} from "miot/resources";
-import {MessageDialog, NumberSpinner, StringSpinner} from 'miot/ui'
+import {NumberSpinner, StringSpinner} from 'miot/ui'
+import { AbstractDialog, ActionSheet, ChoiceDialog, InputDialog, LoadingDialog, MessageDialog, PinCodeDialog, ProgressDialog, ShareDialog } from 'miot/ui/Dialog';
 import {PackageEvent} from "miot";
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
@@ -97,9 +98,9 @@ export default class Selects extends React.Component{
         return {
             header:
                 <TitleBar
-                    type='dark'
+                    // type='dark'
                     title='干衣时间'
-                    style={{ backgroundColor: '#fff' }}
+                    style={{ backgroundColor: '#0e62bd' }}
                     onPressLeft={_ => {
                         navigation.goBack();
                     }}
@@ -107,22 +108,23 @@ export default class Selects extends React.Component{
         };
     };
     componentDidMount() {
-        this.selectData();
+        this.formatData();
+        this.selectData(this.state.defaultValue);
         this.setState({visMessage:true});
     }
     confirmProps =()=>{
-        // this.props.navigation.goBack();
+        this.props.navigation.goBack();
         DeviceEventEmitter.emit("EventType", param);
     };
     updateOneValue = (data)=>{
-        alert(JSON.stringify(data));
         this.setState({
             param:data.newValue,
             defaultClass:data.newValue,
         });
+        this.selectData(data.newValue)
 
     };
-    selectData =()=>{
+    formatData =()=>{
         let mainList = this.state.contentList;
         classList=[];
         valueList=[];
@@ -136,6 +138,31 @@ export default class Selects extends React.Component{
             classList:classList,
             valueList:valueList
         });
+    };
+    selectData =(value)=>{
+        let mainList = this.state.contentList;
+        for(let i=0; i<mainList.length; i++){
+            if(mainList[i].name == value){
+                this.setState({
+                    defaultValue:mainList[i].list[0].name
+                });
+                param = mainList[i].list[0].value;
+                alert(param);
+                // return
+            }
+            for(let v=0; v<mainList[i].list.length; v++){
+                if(mainList[i].list[v].name == value){
+                    this.setState({
+                        defaultClass:mainList[i].name,
+                        param:mainList[i].list[v].value
+                        // defaultValue:mainList[i].list[v].name
+                    });
+                    param = mainList[i].list[v].value;
+                    alert(param);
+                }
+            }
+        }
+
         // alert(JSON.stringify(classList));
         // alert(JSON.stringify(valueList));
     };
@@ -144,6 +171,10 @@ export default class Selects extends React.Component{
     }
     onOk(arr) { // 最终确认时触发，arr同上
         console.log(arr)
+    }
+    onDismiss(index) {
+        // if (index === '2') console.log('loadingdialog dismiss');
+        // this.state['visible' + index] = false;
     }
     render(){
         return (
@@ -154,7 +185,7 @@ export default class Selects extends React.Component{
                         style={{ width: 120, height: 200, marginLeft: 10,backgroundColor: 'transparent', }}
                         dataSource={this.state.classList}
                         defaultValue={this.state.defaultClass}
-                        pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
+                        pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", textClolor:'rgba(255,255,255,.8)', selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
                         onValueChanged={(data) => { this.updateOneValue(data) }}
                     />
 
@@ -163,30 +194,27 @@ export default class Selects extends React.Component{
                         dataSource={this.state.valueList}
                         defaultValue={this.state.defaultValue}
                         // unit={"斤"}
-                        pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
+                        pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", textClolor:'rgba(255,255,255,.8)', selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
                         onValueChanged={(data) => { this.updateOneValue(data) }}
                     />
                 </View>
                 <View style={style.butBox}>
-                    <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={this.confirmProps()} >
+                    <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={()=>this.confirmProps()} >
                         <Image source={ this.state.statusImg } />
                     </TouchableOpacity>
                 </View>
-                <MessageDialog title={'提示'}
-                               message={'1.请确保衣物间留有一定空隙；\n2.根据最厚的一件衣物，来选择相应时间吧。'}
-                               cancelable={true}
-                    // cancel={'取消'}
-                               confirm={'我知道了'}
-                               // timeout={10000}
-                               onCancel={(e) => {
-                                   console.log('onCancel', e);
-                               }}
-                               onConfirm={(e) => {}}
-                               onDismiss={() => {
-                                   console.log('onDismiss');
-                                   this.setState({ visMessage: false });
-                               }}
-                               visible={this.state.visMessage} />
+                {/*<MessageDialog*/}
+                {/*    visible={this.state.visMessage}*/}
+                {/*    message={'1.请确保衣物间留有一定空隙；\n2.根据最厚的一件衣物，来选择相应时间吧。'}*/}
+                {/*    buttons={[*/}
+                {/*        {*/}
+                {/*            text: '我知道了',*/}
+                {/*            // style: { color: 'lightpink' },*/}
+                {/*            callback: _ => this.setState({ visMessage: false })*/}
+                {/*        },*/}
+                {/*    ]}*/}
+                {/*    // onDismiss={_ => this.onDismiss('4')}*/}
+                {/*/>*/}
             </View>
         )
     }
