@@ -158,7 +158,7 @@ export default class Selects extends React.Component{
                         // defaultValue:mainList[i].list[v].name
                     });
                     param = mainList[i].list[v].value;
-                    alert(param);
+                    // alert(param);
                 }
             }
         }

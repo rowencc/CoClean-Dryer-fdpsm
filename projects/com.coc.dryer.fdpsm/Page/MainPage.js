@@ -206,11 +206,11 @@ export default class App extends React.Component  {
     outRun=(num)=>{
         this.timerCount && clearInterval(this.timerCount);
         this.requestClock();
-        this.setNum(this.state.count);
+        this.setNum(num>0 ? num : this.state.count);
         this.runLoop = setInterval(()=>{
             if(requestStatus == 0){
                 console.log('发送开关机请求');
-                this._sendRequests('setPower',num>0? num: this.state.count);
+                this._sendRequests('setPower',num>0 ? num : this.state.count);
                 this.runLoop && clearInterval(this.runLoop);
             }
         },1000)
