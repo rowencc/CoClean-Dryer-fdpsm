@@ -36,15 +36,16 @@ export default class Selects extends React.Component{
                 ]},
                 {id:2,name:'上装',list:[
                     {id:200,name:'衬衫',value:20},
-                    {id:201,name:'T恤',value:21},
-                    {id:202,name:'轻薄睡衣',value:22},
-                    {id:203,name:'纯棉睡衣',value:23},
-                    {id:204,name:'卫衣',value:24},
-                    {id:205,name:'风衣',value:25},
-                    {id:206,name:'棒球服',value:26},
-                    {id:207,name:'短外套',value:27},
-                    {id:208,name:'长外套',value:28},
-                    {id:209,name:'牛仔外套',value:29}
+                    {id:201,name:'Polo衫',value:40},
+                    {id:202,name:'T恤',value:21},
+                    {id:203,name:'轻薄睡衣',value:22},
+                    {id:204,name:'纯棉睡衣',value:23},
+                    {id:205,name:'卫衣',value:24},
+                    {id:206,name:'风衣',value:25},
+                    {id:207,name:'棒球服',value:26},
+                    {id:208,name:'短外套',value:27},
+                    {id:209,name:'长外套',value:28},
+                    {id:210,name:'牛仔外套',value:29}
                 ]},
                 {id:3,name:'下装',list:[
                     {id:300,name:'速干运动短裤',value:30},
@@ -57,7 +58,7 @@ export default class Selects extends React.Component{
                     {id:307,name:'牛仔长裤',value:37},
                     {id:308,name:'西裤',value:38},
                     {id:309,name:'棉质打底裤',value:39},
-                    {id:310,name:'Polo衫',value:40},
+
                 ]},
                 {id:4,name:'毛巾',list:[
                     {id:400,name:'婴儿口水巾',value:40},
