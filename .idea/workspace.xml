@@ -1,51 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="28e4c28b-4881-436c-bbb0-993af0f2bc23" name="Default Changelist" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Resources/dryer/confirm-focus.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Resources/dryer/confirm.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/CoClean_Dryer_fdpsm_node_modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Resources/dryer/confirm-focus.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Resources/dryer/confirm.svg" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/.npmignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/node_modules/react/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/node_modules/react/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/node_modules/react/build-info.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/node_modules/react/cjs/react.development.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/node_modules/react/cjs/react.production.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/node_modules/react/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/node_modules/react/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/node_modules/react/umd/react.development.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/node_modules/react/umd/react.production.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/node_modules/react/umd/react.profiling.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/react-native-percentage-circle/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/build-info.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/cjs/scheduler-tracing.development.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/cjs/scheduler-tracing.production.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/cjs/scheduler-tracing.profiling.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/cjs/scheduler.development.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/cjs/scheduler.production.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/tracing-profiling.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/tracing.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/umd/scheduler-tracing.development.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/umd/scheduler-tracing.production.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/umd/scheduler-tracing.profiling.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/umd/scheduler.development.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/umd/scheduler.production.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/scheduler/umd/scheduler.profiling.min.js" afterPath="" />
+    <list default="true" id="28e4c28b-4881-436c-bbb0-993af0f2bc23" name="Default Changelist" comment="UI Updata">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CoClean-Dryer-fdpsm.iml" afterPath="$PROJECT_DIR$/CoClean-Dryer-fdpsm.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -97,8 +54,8 @@
       <file leaf-file-name="Select.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="228" column="120" selection-start-line="228" selection-start-column="120" selection-end-line="228" selection-end-column="120" />
+            <state relative-caret-position="211">
+              <caret line="84" column="50" selection-start-line="84" selection-start-column="50" selection-end-line="84" selection-end-column="50" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -959,7 +916,7 @@
       <workItem from="1566960357819" duration="11041000" />
       <workItem from="1567132735250" duration="1488000" />
       <workItem from="1567434778317" duration="286000" />
-      <workItem from="1567522801290" duration="4092000" />
+      <workItem from="1567522801290" duration="4812000" />
     </task>
     <task id="LOCAL-00001" summary="初始化项目">
       <created>1563506477241</created>
@@ -1164,11 +1121,18 @@
       <option name="project" value="LOCAL" />
       <updated>1567074301763</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="UI Updata">
+      <created>1567528225441</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1567528225441</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="213639000" />
+    <option name="totallyTimeSpent" value="214359000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="200" y="23" width="1080" height="777" extended-state="0" />
@@ -1176,6 +1140,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -1214,7 +1179,8 @@
     <MESSAGE value="demo 修复分享BUG" />
     <MESSAGE value="demo UI优化 BUG修复" />
     <MESSAGE value="demo 功能测试" />
-    <option name="LAST_COMMIT_MESSAGE" value="demo 功能测试" />
+    <MESSAGE value="UI Updata" />
+    <option name="LAST_COMMIT_MESSAGE" value="UI Updata" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1626,8 +1592,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="228" column="120" selection-start-line="228" selection-start-column="120" selection-end-line="228" selection-end-column="120" />
+        <state relative-caret-position="211">
+          <caret line="84" column="50" selection-start-line="84" selection-start-column="50" selection-end-line="84" selection-end-column="50" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
