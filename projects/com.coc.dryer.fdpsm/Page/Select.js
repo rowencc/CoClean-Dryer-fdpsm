@@ -21,6 +21,8 @@ export default class Selects extends React.Component{
         this.state = {
             param:0,
             visMessage:false,
+            overTimeText: '待开机',
+            time: this.setTime(0), // 获取预计完成时间
             defaultClass:'内衣裤',
             defaultValue:'女士内衣',
             classList:[''],
@@ -85,9 +87,43 @@ export default class Selects extends React.Component{
                 ]}
             ],
             defaultIndexs: [1, 0], // 指定选择每一级的第几项，可以不填不传，默认为0(第一项)
+            confirmImg: require('../Resources/dryer/confirm.png'),
+            confirmFocusImg: require('../Resources/dryer/confirm-focus.png'),
+            confirmNullImg: require('../Resources/dryer/confirm.png'),
             visible: true,
         };
     }
+    setTime = (param) => {
+        // if(param != 0){
+        //     params = this.state.getParam;
+        // }
+        // let paramTime = {
+        //     hours:Math.floor(param/60),
+        //     minute:Math.floor(Math.floor(param%60))
+        // };
+        // let tomorrow = '';
+        // let date = new Date();
+        // let year = date.getFullYear().toString();
+        // let month = (date.getMonth()+1).toString();
+        // let day = date.getDate().toString();
+        // let hourNumber =  date.getHours()+paramTime.hours;
+        // let minuteNumber = date.getMinutes()+paramTime.minute;
+        // if(minuteNumber>0) {
+        //     hourNumber = hourNumber + Math.floor(minuteNumber/60);
+        //     minuteNumber = minuteNumber%60;
+        // }
+        // if(hourNumber>=24){
+        //     hourNumber = hourNumber%24;
+        //     if(hourNumber.toString()===1) hourNumber='0'+hourNumber.toString();
+        //     tomorrow = '明天 ';
+        // }
+        // let hour =  hourNumber.toString();
+        // let minute = minuteNumber.toString();
+        // if(hour.length===1) hour = '0'+hour;
+        // if(minute.length===1) minute = '0'+minute;
+        // return hour+':'+minute;
+        return param
+    };
     paramNum =(num) => {
         // let num = this.state.param+1;
         this.setState({
@@ -114,13 +150,16 @@ export default class Selects extends React.Component{
         this.setState({visMessage:true});
     }
     confirmProps =()=>{
+        this.setState({
+            confirmImg: require('../Resources/dryer/confirm-focus.png')
+        });
         this.props.navigation.goBack();
         DeviceEventEmitter.emit("EventType", param);
     };
     updateOneValue = (data)=>{
         this.setState({
             param:data.newValue,
-            defaultClass:data.newValue,
+            defaultClass:data.newValue
         });
         this.selectData(data.newValue)
 
@@ -148,15 +187,17 @@ export default class Selects extends React.Component{
                     defaultValue:mainList[i].list[0].name
                 });
                 param = mainList[i].list[0].value;
-                alert(param);
+                // alert(param);
                 // return
             }
             for(let v=0; v<mainList[i].list.length; v++){
                 if(mainList[i].list[v].name == value){
                     this.setState({
                         defaultClass:mainList[i].name,
-                        param:mainList[i].list[v].value
+                        param:mainList[i].list[v].value,
                         // defaultValue:mainList[i].list[v].name
+                        time:this.setTime(mainList[i].list[v].value),
+                        confirmImg: mainList[i].list[v].value>0? this.state.confirmFocusImg: this.state.confirmImg
                     });
                     param = mainList[i].list[v].value;
                     // alert(param);
@@ -180,11 +221,17 @@ export default class Selects extends React.Component{
     render(){
         return (
             <View style={{flex: 1,justifyContent: 'center',alignContent: 'center',backgroundColor:'#0e62bd'}}>
-                <View style={{ flexDirection: 'row' ,flex:1,justifyContent: 'center',alignContent: 'center',}}>
+                <View style={style.overTimeBox}>
+                    <View style={style.overTime}>
+                        <Text style={style.overTimeText}>{ this.state.count <= 0 ?this.state.overTimeText : '约 '+this.state.time+'min 完成'}</Text>
+                    </View>
+                </View>
+                <View style={{ flexDirection: 'row' ,flex:1,justifyContent: 'center',alignContent: 'center',marginTop:-150}}>
 
                     <StringSpinner
-                        style={{ width: 120, height: 200, marginLeft: 10,backgroundColor: 'transparent', }}
+                        style={{ width: 120, height: 200, marginLeft: 10,backgroundColor: 'transparent' }}
                         dataSource={this.state.classList}
+                        textColor="#ffffff"
                         defaultValue={this.state.defaultClass}
                         pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", textClolor:'rgba(255,255,255,.8)', selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
                         onValueChanged={(data) => { this.updateOneValue(data) }}
@@ -194,14 +241,16 @@ export default class Selects extends React.Component{
                         style={{ width: 120, height: 200, marginRight: 10,backgroundColor: 'transparent', }}
                         dataSource={this.state.valueList}
                         defaultValue={this.state.defaultValue}
+                        textColor="#ffffff"
                         // unit={"斤"}
                         pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", textClolor:'rgba(255,255,255,.8)', selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
                         onValueChanged={(data) => { this.updateOneValue(data) }}
                     />
                 </View>
                 <View style={style.butBox}>
-                    <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={()=>this.confirmProps()} >
-                        <Image source={ this.state.statusImg } />
+                    {/*style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]}*/}
+                    <TouchableOpacity  onPress={()=>this.confirmProps()} >
+                        <Image source={ this.state.confirmImg } />
                     </TouchableOpacity>
                 </View>
                 {/*<MessageDialog*/}
@@ -392,7 +441,7 @@ const style = StyleSheet.create({
         flex:1,
         alignItems: 'center',
         justifyContent:'center',
-        height:60,
+        height:115,
     },
     butIcon:{
         height:60,
@@ -435,13 +484,14 @@ const style = StyleSheet.create({
     overTimeBox:{
         flex:1,
         height:26,
-        marginTop:40,
+        marginTop:60,
         alignItems:'center',
         justifyContent:'flex-start'
     },
     overTime:{
         borderWidth:1,
-        borderColor:'#fff',
+        borderColor:'#ffffff',
+        backgroundColor:'#ffffff',
         borderRadius:16,
         height:26,
         width:110,
@@ -449,7 +499,8 @@ const style = StyleSheet.create({
         justifyContent:'center'
     },
     overTimeText:{
-        color:'#fff',
+        color:'#0e62bd',
+
         height: 26,
         textAlign:'center',
         alignItems:'center',
@@ -466,44 +517,7 @@ const style = StyleSheet.create({
     }
 });
 
-var styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        borderTopColor: '#f1f1f1',
-        borderTopWidth: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#ffffff',
-        marginBottom: 0,
-        marginTop: 0,
-    },
-    rowContainer: {
-        height: 52,
-        alignSelf: 'stretch',
-        flexDirection: 'row',
-        paddingLeft: 23,
-        paddingRight: 23,
-        alignItems: 'center',
-        flex: 1,
-    },
-    list: {
-        alignSelf: 'stretch',
-    },
-
-    title: {
-        fontSize: 15,
-        color: '#333333',
-        alignItems: 'center',
-        flex: 1,
-    },
-    subArrow: {
-        width: 7,
-        height: 14,
-    },
-    separator: {
-        height: 1 / PixelRatio.get(),
-        backgroundColor: '#e5e5e5',
-        marginLeft: 20,
-    }
-});
+// var styles = StyleSheet.create({
+//         cls2:{fill:'none',stroke:'#ffffff',strokeMiterlimit:10,strokeWidth:'0.5px'},
+//         cls3:{fill:'none',stroke:'#ffffff',strokeMiterlimit:10,strokeLinecap:'round',strokeWidth:'2px'}
+// });
