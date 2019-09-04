@@ -24,6 +24,8 @@ export default class App extends React.Component  {
             getParamText: '工作中......',
             selectTitle: '烘干时间表',
             selectText: '帮我计算干衣时间 >',
+            closeOneMin: '为保护主机,风扇将在一分钟后关闭......',
+            closing: '设备正在关机......',
             step: 10,  //步进
             longStep:40,
             status: false, //开关状态
@@ -213,6 +215,11 @@ export default class App extends React.Component  {
             if(requestStatus == 0){
                 console.log('发送开关机请求');
                 this._sendRequests('setPower',num>0 ? num : this.state.count);
+                if(num==0 || this.state.count==0){
+                    this.setState({
+                        getParam:0
+                    })
+                }
                 this.runLoop && clearInterval(this.runLoop);
             }
         },1000)
@@ -356,6 +363,7 @@ export default class App extends React.Component  {
                     console.log('setPower : '+value);
                     console.log('setPropertiesValue', res);
                     this.getRequest();
+                    value=='off' ? this.setState({visMessage:true}):'';
                 }).catch(res => {
                     console.log(res, 'catch')
                 });
@@ -613,7 +621,7 @@ export default class App extends React.Component  {
                         <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={()=>this.outRun()}>
                             <Image source={ this.state.statusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>{ this.state.statusText }</Text>
+                        <Text style={style.butLable} onPress={()=>this.outRun()}>{ this.state.statusText }</Text>
                     </View>
                     <View style={style.butBox}>
                         <TouchableOpacity style={style.butIcon} onPress={()=>this.setReduceNum()} delayLongPress={2000} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>
@@ -628,11 +636,11 @@ export default class App extends React.Component  {
                         <Text style={style.butLable} onPress={()=>this.setPlusNum()} delayLongPress={2000} onPressOut={()=>this.longOut()} onLongPress={()=>this.setLongPlusNum()}>{ this.state.plusText }</Text>
                     </View>
                 </View>
-                <MessageDialog title={'title'}
-                               message={'message'}
+                <MessageDialog {/*title={'title'}*/}
+                               message={this.state.closeOneMin}
                                cancelable={true}
                                // cancel={'取消'}
-                               confirm={'确认'}
+                               confirm={'我知道了'}
                                timeout={10000}
                                onCancel={(e) => {
                                    console.log('onCancel', e);
