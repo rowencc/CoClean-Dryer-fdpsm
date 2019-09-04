@@ -22,6 +22,8 @@ export default class App extends React.Component  {
             percents:0, //百分比默认值
             getParam: 0,  //传入值
             getParamText: '工作中......',
+            selectTitle: '烘干时间表',
+            selectText: '帮我计算干衣时间 >',
             step: 10,  //步进
             longStep:40,
             status: false, //开关状态
@@ -31,7 +33,7 @@ export default class App extends React.Component  {
             statusImg: require('../Resources/dryer/switch.png'), //开关文字描述
             plusText: '加时', //加时文字描述
             plusImg: require('../Resources/dryer/plus.png'), //加时按钮图片
-            reduceText: '加时', //减时文字描述
+            reduceText: '减时', //减时文字描述
             reduceImg: require('../Resources/dryer/reduce.png'), //减时按钮图片
             overTimeText: '待开机',
             time: this.setTime(0), // 获取预计完成时间
@@ -109,7 +111,8 @@ export default class App extends React.Component  {
         this.setState({
             count: param,
             percents: this.state.status ? param/this.state.max*100 : 0,
-            time: this.setTime(param)
+            time: this.setTime(param),
+            getParam: param
         });
     };
     setCountdown = (number) => {
@@ -130,13 +133,12 @@ export default class App extends React.Component  {
                     });
                     if(this.state.count<=0){
                         this.timer && clearInterval(this.timer);
+                        this.outRun(0);//设置开关机
                         this.setNum(0);
                         this.setState({
                             status: false,
                             statusText: this.state.onText,
-                            // o: 0,
                             scaleValue : new Animated.Value(0)
-                            // statusImg: require('../Resources/dryer/switch.png')
                         });
                         this.setAnimateStop()
                     }
@@ -603,12 +605,12 @@ export default class App extends React.Component  {
                 </View>
                 <View style={style.rowContainer}>
                     {/*    选择按钮*/}
-                    <Text style={style.tabLable} onPress={() => this.state.getParam<=0?this.props.navigation.navigate('Selects', { 'title': '烘干时间表' }):''}>{this.state.getParam<=0?'帮我计算干衣时间 >': this.state.getParamText}</Text>
+                    <Text style={style.tabLable} onPress={() => this.state.getParam<=0?this.props.navigation.navigate('Selects', { 'title': this.state.selectTitle }):''}>{this.state.getParam<=0 ? this.state.selectText : this.state.getParamText}</Text>
                 </View>
                 <View style={style.rowContainer}>
                     {/*    功能按键*/}
                     <View style={style.butBox}>
-                        <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>
+                        <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={()=>this.outRun()}>
                             <Image source={ this.state.statusImg } />
                         </TouchableOpacity>
                         <Text style={style.butLable} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>{ this.state.statusText }</Text>
