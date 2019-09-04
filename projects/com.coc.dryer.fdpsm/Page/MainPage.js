@@ -613,7 +613,7 @@ export default class App extends React.Component  {
                 </View>
                 <View style={style.rowContainer}>
                     {/*    选择按钮*/}
-                    <Text style={style.tabLable} onPress={() => this.state.getParam<=0?this.props.navigation.navigate('Selects', { 'title': this.state.selectTitle }):''}>{this.state.getParam<=0 ? this.state.selectText : this.state.getParamText}</Text>
+                    <Text style={style.tabLable} onPress={() => this.state.getParam<=0?this.props.navigation.navigate('Selects', { 'title': this.state.selectTitle }):''}>{this.state.getParam<=0 && this.state.status==true ? this.state.selectText : this.state.getParamText}</Text>
                 </View>
                 <View style={style.rowContainer}>
                     {/*    功能按键*/}
@@ -636,7 +636,7 @@ export default class App extends React.Component  {
                         <Text style={style.butLable} onPress={()=>this.setPlusNum()} delayLongPress={2000} onPressOut={()=>this.longOut()} onLongPress={()=>this.setLongPlusNum()}>{ this.state.plusText }</Text>
                     </View>
                 </View>
-                <MessageDialog {/*title={'title'}*/}
+                <MessageDialog
                                message={this.state.closeOneMin}
                                cancelable={true}
                                // cancel={'取消'}

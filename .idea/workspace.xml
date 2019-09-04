@@ -44,8 +44,8 @@
       <file leaf-file-name="MainPage.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="365" column="69" selection-start-line="365" selection-start-column="69" selection-end-line="365" selection-end-column="69" />
+            <state relative-caret-position="-6402">
+              <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -924,7 +924,7 @@
       <workItem from="1567132735250" duration="1488000" />
       <workItem from="1567434778317" duration="286000" />
       <workItem from="1567522801290" duration="5243000" />
-      <workItem from="1567602845257" duration="2978000" />
+      <workItem from="1567602845257" duration="3238000" />
     </task>
     <task id="LOCAL-00001" summary="初始化项目">
       <created>1563506477241</created>
@@ -1150,11 +1150,18 @@
       <option name="project" value="LOCAL" />
       <updated>1567604181625</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="UI Updata">
+      <created>1567605868077</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1567605868077</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="217768000" />
+    <option name="totallyTimeSpent" value="218028000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="200" y="23" width="1080" height="777" extended-state="0" />
@@ -1600,8 +1607,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="365" column="69" selection-start-line="365" selection-start-column="69" selection-end-line="365" selection-end-column="69" />
+        <state relative-caret-position="-6402">
+          <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
           <folding />
         </state>
       </provider>
