@@ -114,7 +114,6 @@ export default class App extends React.Component  {
             count: param,
             percents: this.state.status ? param/this.state.max*100 : 0,
             time: this.setTime(param),
-            getParam: param
         });
     };
     setCountdown = (number) => {
@@ -140,6 +139,7 @@ export default class App extends React.Component  {
                         this.setState({
                             status: false,
                             statusText: this.state.onText,
+                            getParam: 0,
                             scaleValue : new Animated.Value(0)
                         });
                         this.setAnimateStop()
@@ -169,6 +169,23 @@ export default class App extends React.Component  {
             this.setAnimateStop();//动画停止
             console.log('close : '+this.state.status+':'+this.state.count);
         }
+    };
+    outRun=(num)=>{
+        this.timerCount && clearInterval(this.timerCount);
+        this.requestClock();
+        this.setNum(num>0 ? num : this.state.count);
+        this.runLoop = setInterval(()=>{
+            if(requestStatus == 0){
+                console.log('发送开关机请求');
+                this._sendRequests('setPower',num>0 ? num : this.state.count);
+                if(num==0 || this.state.count==0){
+                    this.setState({
+                        getParam:0
+                    })
+                }
+                this.runLoop && clearInterval(this.runLoop);
+            }
+        },1000)
     };
     setPlusNum=(num)=>{
 
@@ -206,23 +223,6 @@ export default class App extends React.Component  {
                 this.setState({count: this.state.min});
             }
         },25)
-    };
-    outRun=(num)=>{
-        this.timerCount && clearInterval(this.timerCount);
-        this.requestClock();
-        this.setNum(num>0 ? num : this.state.count);
-        this.runLoop = setInterval(()=>{
-            if(requestStatus == 0){
-                console.log('发送开关机请求');
-                this._sendRequests('setPower',num>0 ? num : this.state.count);
-                if(num==0 || this.state.count==0){
-                    this.setState({
-                        getParam:0
-                    })
-                }
-                this.runLoop && clearInterval(this.runLoop);
-            }
-        },1000)
     };
     longOut=()=>{
         this.timerCount && clearInterval(this.timerCount);
@@ -613,15 +613,15 @@ export default class App extends React.Component  {
                 </View>
                 <View style={style.rowContainer}>
                     {/*    选择按钮*/}
-                    <Text style={style.tabLable} onPress={() => this.state.getParam<=0?this.props.navigation.navigate('Selects', { 'title': this.state.selectTitle }):''}>{this.state.getParam<=0 && this.state.status==true ? this.state.selectText : this.state.getParamText}</Text>
+                    <Text style={style.tabLable} onPress={() => this.state.getParam<=0?this.props.navigation.navigate('Selects', { 'title': this.state.selectTitle }):''}>{this.state.getParam<=0 ? this.state.selectText : this.state.getParamText}</Text>
                 </View>
                 <View style={style.rowContainer}>
                     {/*    功能按键*/}
                     <View style={style.butBox}>
-                        <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={()=>this.outRun()}>
+                        <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>
                             <Image source={ this.state.statusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={()=>this.outRun()}>{ this.state.statusText }</Text>
+                        <Text style={style.butLable} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>{ this.state.statusText }</Text>
                     </View>
                     <View style={style.butBox}>
                         <TouchableOpacity style={style.butIcon} onPress={()=>this.setReduceNum()} delayLongPress={2000} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>
