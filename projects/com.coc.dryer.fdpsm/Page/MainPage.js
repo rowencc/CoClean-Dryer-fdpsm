@@ -139,9 +139,11 @@ export default class App extends React.Component  {
                         this.setState({
                             status: false,
                             statusText: this.state.onText,
-                            getParam:0,
                             scaleValue : new Animated.Value(0)
                         });
+                        let getParamTime = setTimeout(()=>{
+                            this.setState({getParam:0})
+                        },50);
                         this.setAnimateStop()
                     }
                 },
@@ -177,9 +179,7 @@ export default class App extends React.Component  {
             if(requestStatus == 0){
                 console.log('发送开关机请求');
                 this._sendRequests('setPower',num>0 ? num : this.state.count);
-                if(num<=0){
-                    this.setState({getParam:0})
-                }
+                setTimeout(()=>{if(num<=0){this.setState({getParam:0})}},500);
                 this.runLoop && clearInterval(this.runLoop);
             }
         },1000)
@@ -208,7 +208,8 @@ export default class App extends React.Component  {
         if(this.state.count>=this.state.min+this.state.step){
             this.setNum(this.state.count-this.state.step);
         }else{
-            this.setState({count: this.state.min,getParam:0});
+            this.setState({count: this.state.min});
+            setTimeout(()=>{this.setState({getParam:0})},500);
         }
     };
     setLongReduceNum=()=>{
@@ -217,7 +218,8 @@ export default class App extends React.Component  {
             if(this.state.count>=this.state.min+this.state.longStep){
                 this.setNum(this.state.count-1);
             }else{
-                this.setState({count: this.state.min,getParam:0});
+                this.setState({count: this.state.min});
+                setTimeout(()=>{this.setState({getParam:0})},500);
             }
         },25)
     };
@@ -282,6 +284,10 @@ export default class App extends React.Component  {
             setTimeout(()=>{
                 this.setCountdown(this.state.count);
             },10);
+            // alert(arrys.result[2].value);
+            if(arrys.result[2].value=='off'){
+                setTimeout(()=>{this.setState({getParam:0})},500);
+            }
             console.log('成功 '+':'+this.state.result);
             // if(Host.isIOS){alert('成功 '+':'+this.state.result)}
         }).catch(err => {
@@ -346,12 +352,15 @@ export default class App extends React.Component  {
         switch (type) {
             case 'setLeftTime':
                 this.on = !this.on;
-
                 Service.spec.setPropertiesValue([setLeftTime]).then(res => {
                     this.setCountdown(value);
                     console.log('setValue : ', this.state.count);
                     console.log('setPropertiesValue : ', res);
                     // this.getRequest();
+                    if(value==0){
+                        this.setState({visMessage:true});
+                        this.setState({getParam:0});
+                    }
                 }).catch(res => {
                     console.log(res, 'catch')
                 });
@@ -361,7 +370,10 @@ export default class App extends React.Component  {
                     console.log('setPower : '+value);
                     console.log('setPropertiesValue', res);
                     this.getRequest();
-                    value=='off' ? this.setState({visMessage:true}):'';
+                    if(value==0){
+                        this.setState({visMessage:true});
+                        this.setState({getParam:0});
+                    }
                 }).catch(res => {
                     console.log(res, 'catch')
                 });
