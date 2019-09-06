@@ -139,7 +139,7 @@ export default class App extends React.Component  {
                         this.setState({
                             status: false,
                             statusText: this.state.onText,
-                            getParam: 0,
+                            getParam:0,
                             scaleValue : new Animated.Value(0)
                         });
                         this.setAnimateStop()
@@ -155,7 +155,6 @@ export default class App extends React.Component  {
             this.setState({
                 status: false,
                 statusText: this.state.onText,
-                // o: 0,
                 scaleValue : new Animated.Value(0)
             });
         }
@@ -165,7 +164,7 @@ export default class App extends React.Component  {
             this.setState({status:true,count:this.state.count>0?this.state.count:120});
             console.log('open : '+this.state.status);
         }else{
-            this.setState({status:false,count:0,getParam:0,o:0});
+            this.setState({status:false,count:0,o:0});
             this.setAnimateStop();//动画停止
             console.log('close : '+this.state.status+':'+this.state.count);
         }
@@ -178,10 +177,8 @@ export default class App extends React.Component  {
             if(requestStatus == 0){
                 console.log('发送开关机请求');
                 this._sendRequests('setPower',num>0 ? num : this.state.count);
-                if(num==0 || this.state.count==0){
-                    this.setState({
-                        getParam:0
-                    })
+                if(num<=0){
+                    this.setState({getParam:0})
                 }
                 this.runLoop && clearInterval(this.runLoop);
             }
@@ -211,7 +208,7 @@ export default class App extends React.Component  {
         if(this.state.count>=this.state.min+this.state.step){
             this.setNum(this.state.count-this.state.step);
         }else{
-            this.setState({count: this.state.min});
+            this.setState({count: this.state.min,getParam:0});
         }
     };
     setLongReduceNum=()=>{
@@ -220,7 +217,7 @@ export default class App extends React.Component  {
             if(this.state.count>=this.state.min+this.state.longStep){
                 this.setNum(this.state.count-1);
             }else{
-                this.setState({count: this.state.min});
+                this.setState({count: this.state.min,getParam:0});
             }
         },25)
     };
@@ -278,6 +275,7 @@ export default class App extends React.Component  {
             this.setState({
                 status: arrys.result[2].value=='on' ? true:false,
                 aniStatus: arrys.result[2].value=='on' ? true:false,
+                // getParam: arrys.result[2].value=='off'? 0 : 1,
                 result
             });
             this.setNum(arrys.result[0].value);
@@ -295,21 +293,21 @@ export default class App extends React.Component  {
             // if(Host.isIOS){alert('失败 '+result)}
         })
     };
-    async setPower(value){
-        const did = Device.deviceID;
-        let setPower = { did, siid: 3, piid: 3, value: value };
-        Service.spec.setPropertiesValue([setPower]).then(res => {
-            this.setNum(value);
-            if(value>0){
-                setTimeout(()=>{
-                    this.setCountdown(value);
-                },100);
-            }
-            console.log('setPropertiesValue', res)
-        }).catch(res => {
-            console.log(res, 'catch')
-        });
-    };
+    // async setPower(value){
+    //     const did = Device.deviceID;
+    //     let setPower = { did, siid: 3, piid: 3, value: value };
+    //     Service.spec.setPropertiesValue([setPower]).then(res => {
+    //         this.setNum(value);
+    //         if(value>0){
+    //             setTimeout(()=>{
+    //                 this.setCountdown(value);
+    //             },100);
+    //         }
+    //         console.log('setPropertiesValue', res)
+    //     }).catch(res => {
+    //         console.log(res, 'catch')
+    //     });
+    // };
     async _sendRequests(type,value) {
         /*
         * 功能定义ID
