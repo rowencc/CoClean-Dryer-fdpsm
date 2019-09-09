@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_LEVEL, Package, Device, Service, Host, PackageEvent,ISpecProperty } from 'miot';
+import { API_LEVEL, Package, Device, Service, Host, PackageEvent, DeviceEvent,ISpecProperty } from 'miot';
 import Selects from './Select';
 import { DeviceEventEmitter, NativeModules, Animated, Easing, Image, ListView, PixelRatio, StyleSheet, Text, View ,TouchableOpacity, Platform } from 'react-native';
 // import ProgressCircle from '../CommonModules/progress-circle';
@@ -11,6 +11,13 @@ let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
 const { UIManager } = NativeModules;
 let requestStatus = 0;
+
+// const getEvents = DeviceEvent.deviceReceivedMessages.addListener((device, messages)=>{
+//     if(messages.has('prop.power')){
+//         const power = messages.get('prop.power');
+//     }
+//     console.log(JSON.stringify(messages))
+// });
 export default class App extends React.Component  {
     constructor(props) {
         super(props);
@@ -74,6 +81,9 @@ export default class App extends React.Component  {
             paramsString: '',
             extraString: {},
             result: 'None',
+
+            //监听事件
+            getEvent:''
             };
         // this.setAnimation = this.setAnimation.bind(this);
     }
@@ -514,6 +524,7 @@ export default class App extends React.Component  {
         Animated.loop(this.animateInfo()).start();
         PackageEvent.packageWillPause.addListener(()=>{
             console.log('我离开了');
+            this.setState({o:0})
             // if(Host.isIOS){alert('我离开了')}
         });
         PackageEvent.packageDidResume.addListener(()=>{
@@ -538,10 +549,17 @@ export default class App extends React.Component  {
                 this.outRun(param)
             }
         });
+        this.getEvents = DeviceEvent.deviceReceivedMessages.addListener((device, messages)=>{
+            if(messages.has('prop.power')){
+                const power = messages.get('prop.power');
+            }
+            console.log(JSON.stringify(messages))
+        });
 
     }
     componentWillUnmount() {
-        this.subscription.remove();
+        this.subscription&&this.subscription.remove();
+        this.getEvents&&this.getEvents.remove();
     }
     setTime = (param) => {
         // if(param != 0){

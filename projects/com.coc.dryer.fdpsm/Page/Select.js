@@ -232,7 +232,7 @@ export default class Selects extends React.Component{
                         dataSource={this.state.classList}
                         textColor="#ffffff"
                         defaultValue={this.state.defaultClass}
-                        pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", textClolor:'rgba(255,255,255,.8)', selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
+                        pickerInnerStyle={{ lineColor: "#ffffff", textClolor:'rgba(255,255,255,.8)', selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
                         onValueChanged={(data) => { this.updateOneValue(data) }}
                     />
 
@@ -242,7 +242,8 @@ export default class Selects extends React.Component{
                         defaultValue={this.state.defaultValue}
                         textColor="#ffffff"
                         // unit={"斤"}
-                        pickerInnerStyle={{ lineColor: "rgba(255,255,255,.8)", textClolor:'rgba(255,255,255,.8)', selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
+                        // rgba(255,255,255,.8)
+                        pickerInnerStyle={{ lineColor: "#ffffff", textClolor:'rgba(255,255,255,.8)', selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
                         onValueChanged={(data) => { this.updateOneValue(data) }}
                     />
                 </View>
@@ -252,18 +253,18 @@ export default class Selects extends React.Component{
                         <Image source={ this.state.confirmImg } />
                     </TouchableOpacity>
                 </View>
-                {/*<MessageDialog*/}
-                {/*    visible={this.state.visMessage}*/}
-                {/*    message={'1.请确保衣物间留有一定空隙；\n2.根据最厚的一件衣物，来选择相应时间吧。'}*/}
-                {/*    buttons={[*/}
-                {/*        {*/}
-                {/*            text: '我知道了',*/}
-                {/*            // style: { color: 'lightpink' },*/}
-                {/*            callback: _ => this.setState({ visMessage: false })*/}
-                {/*        },*/}
-                {/*    ]}*/}
-                {/*    // onDismiss={_ => this.onDismiss('4')}*/}
-                {/*/>*/}
+                <MessageDialog
+                    visible={this.state.visMessage}
+                    message={'1.请确保衣物间留有一定空隙；\n2.根据最厚的一件衣物，来选择相应时间吧。'}
+                    buttons={[
+                        {
+                            text: '我知道了',
+                            // style: { color: 'lightpink' },
+                            callback: _ => this.setState({ visMessage: false })
+                        },
+                    ]}
+                    // onDismiss={_ => this.onDismiss('4')}
+                />
             </View>
         )
     }
@@ -493,7 +494,7 @@ const style = StyleSheet.create({
         backgroundColor:'#ffffff',
         borderRadius:16,
         height:26,
-        width:110,
+        width:120,
         alignItems:'center',
         justifyContent:'center'
     },
@@ -507,7 +508,7 @@ const style = StyleSheet.create({
         textAlignVertical:'center',
         // lineHeight:30,
         ...Platform.select({
-            ios:{lineHeight:30},
+            ios:{lineHeight:34},
             android:{}
         })
         // textAlign: 'center',

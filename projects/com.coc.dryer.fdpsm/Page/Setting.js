@@ -94,7 +94,7 @@ export default class Setting extends React.Component {
                     <CommonSetting
                         navigation={this.props.navigation}
                         firstOptions={firstOptions}
-                        showDot={this.state.showDot}
+                        // showDot={this.state.showDot}
                         secondOptions={secondOptions}
                         extraOptions={extraOptions}
                     />
