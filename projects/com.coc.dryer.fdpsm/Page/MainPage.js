@@ -72,7 +72,7 @@ export default class App extends React.Component  {
             buttonPressedEiid:2,// 1:end-send, 2:button-pressed, 3:error-send
             errorSendEiid:3,// 1:end-send, 2:button-pressed, 3:error-send
 
-            requestStatus: -1,
+            requestStatus: null,
 
             did: Device.deviceID,
             method: 'get_properties',
@@ -186,7 +186,7 @@ export default class App extends React.Component  {
         this.requestClock();
         this.setNum(num>0 ? num : this.state.count);
         this.runLoop = setInterval(()=>{
-            if(requestStatus == 0){
+            if(requestStatus <= 0){
                 console.log('发送开关机请求');
                 this._sendRequests('setPower',num>0 ? num : this.state.count);
                 setTimeout(()=>{if(num<=0){this.setState({getParam:0})}},500);
@@ -239,7 +239,7 @@ export default class App extends React.Component  {
         this.requestClock();
 
         this.runLoop = setInterval(()=>{
-            if(requestStatus == 0){
+            if(requestStatus <= 0){
                 this.setNum(this.state.count);
                 console.log('发送时间请求');
                 this._sendRequests('setLeftTime',this.state.count);
@@ -262,7 +262,7 @@ export default class App extends React.Component  {
                 this.request && clearInterval(this.request);
                 setTimeout(()=>{
                     // this.setState({requestStatus:-1});
-                    requestStatus=-1
+                    requestStatus=null
                 },5000);
                 // console.log(time-1+' : '+this.state.requestStatus);
             }
@@ -600,7 +600,7 @@ export default class App extends React.Component  {
             <View style={style.container}>
                 <View style={style.overTimeBox}>
                     <View style={style.overTime}>
-                        <Text style={style.overTimeText}>{ this.state.count <= 0 ?this.state.overTimeText : '约'+this.state.time+'完成'}</Text>
+                        <Text style={style.overTimeText}>{ !this.state.status ?this.state.overTimeText : '约'+this.state.time+'完成'}</Text>
                     </View>
                 </View>
                 <View style={{flex:1,justifyContent: 'center',
@@ -652,16 +652,16 @@ export default class App extends React.Component  {
                         <Text style={style.butLable} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>{ this.state.statusText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setReduceNum()} delayLongPress={2000} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>
+                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setReduceNum()} delayLongPress={500} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>
                             <Image source={ this.state.reduceImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={()=>this.setReduceNum()} delayLongPress={2000} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>{ this.state.reduceText }</Text>
+                        <Text style={style.butLable} onPress={()=>this.setReduceNum()} delayLongPress={500} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>{ this.state.reduceText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setPlusNum()} delayLongPress={2000} onLongPress={()=>this.setLongPlusNum()} onPressOut={()=>this.longOut()}>
+                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setPlusNum()} delayLongPress={500} onLongPress={()=>this.setLongPlusNum()} onPressOut={()=>this.longOut()}>
                             <Image source={ this.state.plusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={()=>this.setPlusNum()} delayLongPress={2000} onPressOut={()=>this.longOut()} onLongPress={()=>this.setLongPlusNum()}>{ this.state.plusText }</Text>
+                        <Text style={style.butLable} onPress={()=>this.setPlusNum()} delayLongPress={500} onPressOut={()=>this.longOut()} onLongPress={()=>this.setLongPlusNum()}>{ this.state.plusText }</Text>
                     </View>
                 </View>
                 <MessageDialog
@@ -948,7 +948,7 @@ const style = StyleSheet.create({
         textAlignVertical:'center',
         // lineHeight:30,
         ...Platform.select({
-            ios:{lineHeight:30},
+            ios:{lineHeight:34},
             android:{}
         })
         // textAlign: 'center',
