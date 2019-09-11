@@ -19,6 +19,7 @@ let devieStatus = false;
 //     }
 //     console.log(JSON.stringify(messages))
 // });
+
 export default class App extends React.Component  {
     constructor(props) {
         super(props);
@@ -540,11 +541,13 @@ export default class App extends React.Component  {
                 this.outRun(param)
             }
         });
-        this.getEvents = DeviceEvent.deviceReceivedMessages.addListener((device, messages)=>{
+        this.getEvents = DeviceEvent.deviceReceivedMessages.addListener((device, messages, originData)=>{
             if(messages.has('prop.power')){
                 const power = messages.get('prop.power');
             }
-            console.log(JSON.stringify(messages))
+            console.log('异常提醒');
+            console.log(JSON.stringify(messages));
+            console.log(JSON.stringify(originData));
         });
 
     }
