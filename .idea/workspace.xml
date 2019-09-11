@@ -40,8 +40,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="592" column="77" selection-start-line="592" selection-start-column="71" selection-end-line="592" selection-end-column="77" />
+            <state relative-caret-position="307">
+              <caret line="188" column="52" selection-start-line="188" selection-start-column="52" selection-end-line="188" selection-end-column="52" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -191,6 +191,8 @@
       <find>ios</find>
       <find>requestStatus</find>
       <find>status</find>
+      <find>console.log</find>
+      <find>runLoop</find>
     </findStrings>
     <replaceStrings>
       <replace>{this.state.svgSize}</replace>
@@ -638,7 +640,7 @@
       <workItem from="1566960357819" duration="11041000" />
       <workItem from="1567132735250" duration="3208000" />
       <workItem from="1567993590399" duration="6007000" />
-      <workItem from="1568168253070" duration="4100000" />
+      <workItem from="1568168253070" duration="6177000" />
     </task>
     <task id="LOCAL-00001" summary="初始化项目">
       <created>1563506477241</created>
@@ -871,11 +873,25 @@
       <option name="project" value="LOCAL" />
       <updated>1568024971973</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="demo 功能测试">
+      <created>1568182935974</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1568182935974</updated>
+    </task>
+    <task id="LOCAL-00035" summary="demo 功能测试">
+      <created>1568183107731</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1568183107731</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="221088000" />
+    <option name="totallyTimeSpent" value="223165000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1786" y="-1057" width="1080" height="1530" extended-state="0" />
@@ -1273,8 +1289,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="592" column="77" selection-start-line="592" selection-start-column="71" selection-end-line="592" selection-end-column="77" />
+        <state relative-caret-position="307">
+          <caret line="188" column="52" selection-start-line="188" selection-start-column="52" selection-end-line="188" selection-end-column="52" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

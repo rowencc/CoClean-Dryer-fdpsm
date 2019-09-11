@@ -186,11 +186,12 @@ export default class App extends React.Component  {
     };
     outRun=(num)=>{
         this.timerCount && clearInterval(this.timerCount);
+        this.runLoop && clearInterval(this.runLoop);
         this.requestClock();
         this.setNum(num>0 ? num : this.state.count);
         this.runLoop = setInterval(()=>{
             if(requestStatus <= 0){
-                console.log('发送开关机请求');
+                console.log('发送开关机请求 outRun');
                 this._sendRequests('setPower',num>0 ? num : this.state.count);
                 setTimeout(()=>{if(num<=0){this.setState({getParam:0})}},500);
                 this.runLoop && clearInterval(this.runLoop);
@@ -238,21 +239,21 @@ export default class App extends React.Component  {
     };
     longOut=()=>{
         this.timerCount && clearInterval(this.timerCount);
-        this.runLoop && clearInterval(this.runLoop);
+        this.timeLoop && clearInterval(this.timeLoop);
         this.requestClock();
 
-        this.runLoop = setInterval(()=>{
-            if(requestStatus <= 0){
+        this.timeLoop = setInterval(()=>{
+            if(requestStatus <= 0 || requestStatus != null){
                 this.setNum(this.state.count);
 
-                if(devieStatus){
+                if(devieStatus==true){
                     console.log('发送时间请求');
                     this._sendRequests('setLeftTime',this.state.count);
                     this.setCountdown(this.state.count);
+                    this.timeLoop && clearInterval(this.timeLoop);
                 }
-
-                this.runLoop && clearInterval(this.runLoop);
-                // console.log(requestStatus)
+                this.timeLoop && clearInterval(this.timeLoop);
+                console.log(requestStatus)
             }else{
                 // this.runLoop && clearInterval(this.runLoop);
                 console.log('执行跳过 : '+requestStatus);
@@ -264,14 +265,14 @@ export default class App extends React.Component  {
         let time = 50;
         this.request = setInterval(()=>{
             time=time-1;
-            // console.log(time+' : '+requestStatus);
+            console.log(time+' : '+requestStatus);
             // this.setState({requestStatus:time});
             requestStatus = time;
             if(requestStatus<=0){
                 this.request && clearInterval(this.request);
                 setTimeout(()=>{
                     // this.setState({requestStatus:-1});
-                    requestStatus=0
+                    requestStatus=null
                 },5000);
                 // console.log(time-1+' : '+this.state.requestStatus);
             }
