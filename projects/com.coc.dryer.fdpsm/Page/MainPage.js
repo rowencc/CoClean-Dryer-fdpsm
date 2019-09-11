@@ -105,14 +105,14 @@ export default class App extends React.Component  {
         if(this.state.aniStatus && this.state.count>0) {
             this.setState({aniStatus:false,o:1,scaleValue:new Animated.Value(0)});
             Animated.loop(this.animateInfo()).start();
-            console.log('loop true '+this.state.aniStatus)
+            // console.log('loop true '+this.state.aniStatus)
         }
     };
     setAnimateStop =()=>{
         if(!this.state.aniStatus &&  this.state.count<=0) {
             this.setState({aniStatus:true,o:0,scaleValue:new Animated.Value(0)});
             Animated.loop(this.animateInfo()).stop();
-            console.log('loop false '+this.state.aniStatus)
+            // console.log('loop false '+this.state.aniStatus)
         }
     };
     //设置时间值
@@ -176,12 +176,12 @@ export default class App extends React.Component  {
         if(!this.state.status){
             this.setState({status:true,count:this.state.count>0?this.state.count:120});
             devieStatus = true;
-            console.log('open : '+this.state.status);
+            // console.log('open : '+this.state.status);
         }else{
             this.setState({status:false,count:0,o:0});
             devieStatus = false;
             this.setAnimateStop();//动画停止
-            console.log('close : '+this.state.status+':'+this.state.count);
+            // console.log('close : '+this.state.status+':'+this.state.count);
         }
     };
     outRun=(num)=>{
@@ -252,7 +252,7 @@ export default class App extends React.Component  {
                 }
 
                 this.runLoop && clearInterval(this.runLoop);
-                console.log(requestStatus)
+                // console.log(requestStatus)
             }else{
                 // this.runLoop && clearInterval(this.runLoop);
                 console.log('执行跳过 : '+requestStatus);
@@ -264,7 +264,7 @@ export default class App extends React.Component  {
         let time = 50;
         this.request = setInterval(()=>{
             time=time-1;
-            console.log(time+' : '+requestStatus);
+            // console.log(time+' : '+requestStatus);
             // this.setState({requestStatus:time});
             requestStatus = time;
             if(requestStatus<=0){
@@ -308,14 +308,14 @@ export default class App extends React.Component  {
             if(arrys.result[2].value=='off'){
                 setTimeout(()=>{this.setState({getParam:0})},500);
             }
-            console.log('成功 '+':'+this.state.result);
+            // console.log('成功 '+':'+this.state.result);
             // if(Host.isIOS){alert('成功 '+':'+this.state.result)}
         }).catch(err => {
             console.log('error:', err);
             let result = JSON.stringify(err);
             result = "Error: \n" + result;
             this.setState({ result });
-            console.log('失败 '+result);
+            // console.log('失败 '+result);
             // if(Host.isIOS){alert('失败 '+result)}
         })
     };
@@ -374,8 +374,8 @@ export default class App extends React.Component  {
                 this.on = !this.on;
                 Service.spec.setPropertiesValue([setLeftTime]).then(res => {
                     this.setCountdown(value);
-                    console.log('setValue : ', this.state.count);
-                    console.log('setPropertiesValue : ', res);
+                    // console.log('setValue : ', this.state.count);
+                    // console.log('setPropertiesValue : ', res);
                     // this.getRequest();
                     if(value==0){
                         this.setState({visMessage:true});
@@ -387,8 +387,8 @@ export default class App extends React.Component  {
                 break;
             case 'setPower':
                 Service.spec.setPropertiesValue([setLeftTime,setPower]).then(res => {
-                    console.log('setPower : '+value);
-                    console.log('setPropertiesValue', res);
+                    // console.log('setPower : '+value);
+                    // console.log('setPropertiesValue', res);
                     this.getRequest();
                     if(value==0){
                         this.setState({visMessage:true});
