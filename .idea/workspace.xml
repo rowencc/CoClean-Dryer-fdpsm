@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28e4c28b-4881-436c-bbb0-993af0f2bc23" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/CoClean_Dryer_fdpsm_node_modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoClean-Dryer-fdpsm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CoClean-Dryer-fdpsm.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/build/publish.mpkg" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/build/publish.mpkg" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,14 +37,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="952" column="10" lean-forward="true" selection-start-line="949" selection-start-column="8" selection-end-line="952" selection-end-column="10" />
+            <state relative-caret-position="337">
+              <caret line="592" column="77" selection-start-line="592" selection-start-column="71" selection-end-line="592" selection-end-column="77" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <element signature="e#384#434#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -68,8 +64,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/StringSpinnerDemo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="645">
-              <caret line="43" column="9" lean-forward="true" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+            <state relative-caret-position="525">
+              <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -77,11 +73,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="769">
-              <caret line="510" column="30" selection-start-line="510" selection-start-column="30" selection-end-line="510" selection-end-column="30" />
+            <state relative-caret-position="6915">
+              <caret line="472" column="10" selection-start-line="472" selection-start-column="10" selection-end-line="472" selection-end-column="10" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -92,7 +88,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
+            <state relative-caret-position="375">
               <caret line="27" selection-start-line="27" selection-end-line="27" />
               <folding>
                 <element signature="e#0#69#0" expanded="true" />
@@ -104,8 +100,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="27" selection-end-line="49" selection-end-column="29" />
+            <state relative-caret-position="600">
+              <caret line="47" column="24" selection-start-line="47" selection-start-column="27" selection-end-line="49" selection-end-column="29" />
               <folding>
                 <element signature="e#15#55#0" expanded="true" />
                 <element signature="e#150#185#0" expanded="true" />
@@ -117,8 +113,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="563">
-              <caret line="97" column="53" lean-forward="true" selection-start-line="97" selection-start-column="53" selection-end-line="97" selection-end-column="53" />
+            <state relative-caret-position="1335">
+              <caret line="97" column="53" selection-start-line="97" selection-start-column="53" selection-end-line="97" selection-end-column="53" />
               <folding>
                 <element signature="e#16#65#0" expanded="true" />
               </folding>
@@ -183,7 +179,6 @@
       <find>&quot;155&quot;</find>
       <find>aniStatus</find>
       <find>setCountdown</find>
-      <find>status</find>
       <find>CustomCompDemo</find>
       <find>scale</find>
       <find>this.timerCount &amp;&amp; clearInterval(this.timerCount);</find>
@@ -191,10 +186,11 @@
       <find>setAnimate</find>
       <find>alert</find>
       <find>requestClock</find>
-      <find>requestStatus</find>
       <find>selectData</find>
       <find>setPower</find>
       <find>ios</find>
+      <find>requestStatus</find>
+      <find>status</find>
     </findStrings>
     <replaceStrings>
       <replace>{this.state.svgSize}</replace>
@@ -227,8 +223,8 @@
         <option value="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/AnimationComponentDemo/AnimCustomCompDemo.js" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/CommonModules/pickers.js" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js" />
-        <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" />
+        <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" />
       </list>
     </option>
   </component>
@@ -246,6 +242,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -567,8 +565,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -641,7 +637,8 @@
       <workItem from="1566873124260" duration="5183000" />
       <workItem from="1566960357819" duration="11041000" />
       <workItem from="1567132735250" duration="3208000" />
-      <workItem from="1567993590399" duration="3457000" />
+      <workItem from="1567993590399" duration="6007000" />
+      <workItem from="1568168253070" duration="4100000" />
     </task>
     <task id="LOCAL-00001" summary="初始化项目">
       <created>1563506477241</created>
@@ -860,17 +857,31 @@
       <option name="project" value="LOCAL" />
       <updated>1567162054688</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="demo 功能测试">
+      <created>1568016278565</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1568016278565</updated>
+    </task>
+    <task id="LOCAL-00033" summary="demo 功能测试">
+      <created>1568024971973</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1568024971973</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="214438000" />
+    <option name="totallyTimeSpent" value="221088000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1786" y="-1057" width="1080" height="1530" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.39691713" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.40462428" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -885,7 +896,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.23504868" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.23504868" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
@@ -1260,12 +1271,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="592" column="77" selection-start-line="592" selection-start-column="71" selection-end-line="592" selection-end-column="77" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/ThirdPartDemo/ProgressDemo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
           <caret line="41" selection-start-line="41" selection-end-line="41" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/StringSpinnerDemo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6915">
+          <caret line="472" column="10" selection-start-line="472" selection-start-column="10" selection-end-line="472" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#0#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="47" column="24" selection-start-line="47" selection-start-column="27" selection-end-line="49" selection-end-column="29" />
+          <folding>
+            <element signature="e#15#55#0" expanded="true" />
+            <element signature="e#150#185#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1335">
+          <caret line="97" column="53" selection-start-line="97" selection-start-column="53" selection-end-line="97" selection-end-column="53" />
+          <folding>
+            <element signature="e#16#65#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1293,68 +1365,6 @@
           <caret line="332" column="18" selection-start-line="332" selection-start-column="18" selection-end-line="332" selection-end-column="18" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-          <folding>
-            <element signature="e#0#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="27" selection-end-line="49" selection-end-column="29" />
-          <folding>
-            <element signature="e#15#55#0" expanded="true" />
-            <element signature="e#150#185#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="97" column="53" lean-forward="true" selection-start-line="97" selection-start-column="53" selection-end-line="97" selection-end-column="53" />
-          <folding>
-            <element signature="e#16#65#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/StringSpinnerDemo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="43" column="9" lean-forward="true" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="952" column="10" lean-forward="true" selection-start-line="949" selection-start-column="8" selection-end-line="952" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#384#434#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="769">
-          <caret line="510" column="30" selection-start-line="510" selection-start-column="30" selection-end-line="510" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
