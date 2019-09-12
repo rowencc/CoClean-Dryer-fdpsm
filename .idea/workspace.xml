@@ -4,7 +4,6 @@
     <list default="true" id="28e4c28b-4881-436c-bbb0-993af0f2bc23" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/build/publish.mpkg" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/build/publish.mpkg" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,8 +39,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="188" column="52" selection-start-line="188" selection-start-column="52" selection-end-line="188" selection-end-column="52" />
+            <state relative-caret-position="620">
+              <caret line="540" column="24" lean-forward="true" selection-start-line="540" selection-start-column="24" selection-end-line="540" selection-end-column="24" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -50,24 +49,21 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/ThirdPartDemo/ProgressDemo.js">
+        <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Device/ControlDemo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="41" selection-start-line="41" selection-end-line="41" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="420">
+              <caret line="31" column="24" lean-forward="true" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/StringSpinnerDemo.js">
+        <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Service/MiotSpecDemo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+            <state relative-caret-position="315">
+              <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#0#52#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -76,8 +72,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6915">
-              <caret line="472" column="10" selection-start-line="472" selection-start-column="10" selection-end-line="472" selection-end-column="10" />
+            <state relative-caret-position="7485">
+              <caret line="510" column="32" selection-start-line="510" selection-start-column="32" selection-end-line="510" selection-end-column="32" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -193,6 +189,8 @@
       <find>status</find>
       <find>console.log</find>
       <find>runLoop</find>
+      <find>MiotSpecDemo.js</find>
+      <find>getLoop</find>
     </findStrings>
     <replaceStrings>
       <replace>{this.state.svgSize}</replace>
@@ -203,6 +201,7 @@
       <dir>$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page</dir>
       <dir>$PROJECT_DIR$/projects/com.coc.dryer.fdpsm</dir>
       <dir>$PROJECT_DIR$/projects/com.xiaomi.demo</dir>
+      <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -244,8 +243,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -263,13 +260,6 @@
               <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
               <item name="projects" type="462c0819:PsiDirectoryNode" />
               <item name="com.coc.dryer.fdpsm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="miot-sdk" type="462c0819:PsiDirectoryNode" />
-              <item name="projects" type="462c0819:PsiDirectoryNode" />
-              <item name="com.coc.dryer.fdpsm" type="462c0819:PsiDirectoryNode" />
-              <item name="CommonModules" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="miot-sdk" type="b2602c69:ProjectViewProjectNode" />
@@ -567,6 +557,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -640,7 +632,8 @@
       <workItem from="1566960357819" duration="11041000" />
       <workItem from="1567132735250" duration="3208000" />
       <workItem from="1567993590399" duration="6007000" />
-      <workItem from="1568168253070" duration="6177000" />
+      <workItem from="1568168253070" duration="8482000" />
+      <workItem from="1568259435871" duration="7397000" />
     </task>
     <task id="LOCAL-00001" summary="初始化项目">
       <created>1563506477241</created>
@@ -887,17 +880,31 @@
       <option name="project" value="LOCAL" />
       <updated>1568183107731</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="demo 功能测试">
+      <created>1568185045790</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1568185045790</updated>
+    </task>
+    <task id="LOCAL-00037" summary="demo 功能测试">
+      <created>1568196569249</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1568196569249</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="223165000" />
+    <option name="totallyTimeSpent" value="232867000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1786" y="-1057" width="1080" height="1530" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.40462428" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.4123314" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -912,7 +919,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.23504868" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.23504868" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
@@ -985,9 +992,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/unuse/navigation/ui.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/ThirdPartDemo/ParticleDemo.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1166,16 +1170,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Service/MiotSpecDemo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="56" column="25" selection-start-line="56" selection-start-column="25" selection-end-line="56" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -1243,13 +1237,6 @@
     <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/ThirdPartDemo/CircularSliderDemo.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="306" column="8" selection-start-line="306" selection-start-column="8" selection-end-line="306" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/DialogTest.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1287,16 +1274,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="188" column="52" selection-start-line="188" selection-start-column="52" selection-end-line="188" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/ThirdPartDemo/ProgressDemo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
@@ -1319,8 +1296,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6915">
-          <caret line="472" column="10" selection-start-line="472" selection-start-column="10" selection-end-line="472" selection-end-column="10" />
+        <state relative-caret-position="7485">
+          <caret line="510" column="32" selection-start-line="510" selection-start-column="32" selection-end-line="510" selection-end-column="32" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -1381,6 +1358,40 @@
           <caret line="332" column="18" selection-start-line="332" selection-start-column="18" selection-end-line="332" selection-end-column="18" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="297" column="8" selection-start-line="297" selection-start-column="8" selection-end-line="297" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Service/MiotSpecDemo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Device/ControlDemo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="31" column="24" lean-forward="true" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="540" column="24" lean-forward="true" selection-start-line="540" selection-start-column="24" selection-end-line="540" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
