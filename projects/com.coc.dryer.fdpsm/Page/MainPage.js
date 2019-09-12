@@ -596,10 +596,9 @@ export default class App extends React.Component  {
             if(!this.state.status){this.getLoop&&clearInterval(this.getLoop);}
             loop = loop-1;
             if(loop<=0){
-                loop = 0;
+                loop = 3;
                 this.getRequest();
             }
-
             console.log('getLoop : '+loop);
         },1000)
     };
