@@ -33,7 +33,7 @@ export default class App extends React.Component  {
             getParamText: '工作中......',
             selectTitle: '烘干时间表',
             selectText: '帮我计算干衣时间 >',
-            closeOneMin: '为保护主机,风扇将在一分钟后关闭......',
+            closeOneMin: '为保护主机，风扇将在一分钟后关闭......',
             closing: '设备正在关机......',
             step: 10,  //步进
             longStep:40,
@@ -50,7 +50,7 @@ export default class App extends React.Component  {
             time: this.setTime(0), // 获取预计完成时间
             o: 0,//动画光环隐显  关闭状态下 隐藏，开启状态下  显示
             scaleValue : new Animated.Value(0),
-            aniStatus:true,//动画锁
+            aniClock:true,//动画锁
             circleSize:250,
             svgSize:312,
             svgCircleSize:156,
@@ -103,17 +103,18 @@ export default class App extends React.Component  {
         )
     };
     setAnimateStart =()=>{
-        if(this.state.aniStatus && this.state.count>0) {
-            this.setState({aniStatus:false,o:1,scaleValue:new Animated.Value(0)});
+        if(this.state.aniClock && this.state.count>0) {
+            this.setState({aniClock:false,o:1,scaleValue:new Animated.Value(0)});
             Animated.loop(this.animateInfo()).start();
-            // console.log('loop true '+this.state.aniStatus)
+            // console.log('loop true '+this.state.aniClock)
         }
     };
     setAnimateStop =()=>{
-        if(!this.state.aniStatus &&  this.state.count<=0) {
-            this.setState({aniStatus:true,o:0,scaleValue:new Animated.Value(0)});
+        // console.log(!this.state.aniClock+":"+this.state.count);
+        if(!this.state.aniClock &&  this.state.count<=0) {
+            this.setState({aniClock:true,o:0,scaleValue:new Animated.Value(0)});
             Animated.loop(this.animateInfo()).stop();
-            // console.log('loop false '+this.state.aniStatus)
+            // console.log('loop false '+this.state.aniClock)
         }
     };
     //设置时间值
@@ -130,57 +131,70 @@ export default class App extends React.Component  {
     };
     setCountdown = (number) => {
         this.timer && clearInterval(this.timer);
-        if(this.state.count>0){
+        // setTimeout(()=>{
+
+        console.log('运行状态：'+this.state.status);
+        if(number>0){
             let param = number || this.state.count;
             // this.setNum(param);
-            if(this.state.status){
-                this.setState({statusText: this.state.offText});
-                this.setAnimateStart()
-            } //动画开始
-            this.timer = setInterval(
-                () => {
-                    let count = this.state.count;
-                    this.setState({
-                        count: count-1,
-                        percents: (count-1)/this.state.max*100,
-                    });
-                    if(this.state.count<=0){
-                        this.timer && clearInterval(this.timer);
-                        this.outRun(0);//设置开关机
-                        this.setNum(0);
-                        this.setState({
-                            status: false,
-                            statusText: this.state.onText,
-                            scaleValue : new Animated.Value(0)
-                        });
-                        let getParamTime = setTimeout(()=>{
-                            this.setState({getParam:0})
-                        },50);
-                        this.setAnimateStop()
-                    }
-                },
-                60000
-            );
 
+                this.timer = setInterval(
+                    () => {
+                        let count = this.state.count;
+                        this.setState({
+                            count: count-1,
+                            percents: (count-1)/this.state.max*100,
+                        });
+                        if(this.state.count<=0){
+                            this.timer && clearInterval(this.timer);
+                            this.outRun(0);//设置开关机
+                            this.setNum(0);
+                            this.setState({
+                                status: false,
+                                statusText: this.state.onText,
+                                scaleValue : new Animated.Value(0),
+                                o:0
+                            });
+                            let getParamTime = setTimeout(()=>{
+                                this.setState({getParam:0})
+                            },50);
+                            this.setAnimateStop()
+                        }
+                    },
+                    60000
+                );
+        }
+        // else{
+        //     this.timer && clearInterval(this.timer);
+        //
+        //     this.setNum(this.state.min);
+        //     this.setState({
+        //         status: false,
+        //         statusText: this.state.onText,
+        //         scaleValue : new Animated.Value(0)
+        //     });
+        // }
+        if(this.state.status){
+            this.setState({statusText: this.state.offText});
+            this.setAnimateStart()
         }else{
-            this.timer && clearInterval(this.timer);
             this.setAnimateStop();//动画停止
-            this.setNum(this.state.min);
             this.setState({
                 status: false,
                 statusText: this.state.onText,
                 scaleValue : new Animated.Value(0)
             });
         }
+        // },1000)
     };
     setRun=(count)=>{
-        this.getLoop&&clearInterval(this.getLoop);
+        // this.getLoop&&clearInterval(this.getLoop);
         if(!this.state.status){
             this.setState({status:true,count:this.state.count>0?this.state.count:120});
             devieStatus = true;
             // console.log('open : '+this.state.status);
         }else{
-            this.setState({status:false,count:0,o:0});
+            this.setState({status:false,count:0});
             devieStatus = false;
             this.setAnimateStop();//动画停止
             // console.log('close : '+this.state.status+':'+this.state.count);
@@ -199,10 +213,10 @@ export default class App extends React.Component  {
                 this.runLoop && clearInterval(this.runLoop);
             }
         },1000);
-        setTimeout(()=>{this.getRequestLoop()},50);
+        // setTimeout(()=>{this.getRequestLoop()},50);//计时器循环请求
     };
     setPlusNum=(num)=>{
-        this.getLoop&&clearInterval(this.getLoop);
+        // this.getLoop&&clearInterval(this.getLoop);
         if(this.state.count<=this.state.max-this.state.step){
             this.setNum(this.state.count+this.state.step);
         }else{
@@ -211,7 +225,7 @@ export default class App extends React.Component  {
     };
     setLongPlusNum=()=>{
         this.timerCount && clearInterval(this.timerCount);
-        this.getLoop&&clearInterval(this.getLoop);
+        // this.getLoop&&clearInterval(this.getLoop);
         this.timerCount = setInterval(()=>{
             if(this.state.count<=this.state.max-this.state.longStep){
                 this.setNum(this.state.count+1);
@@ -222,7 +236,7 @@ export default class App extends React.Component  {
 
     };
     setReduceNum=(num)=>{
-        this.getLoop&&clearInterval(this.getLoop);
+        // this.getLoop&&clearInterval(this.getLoop);
         if(this.state.count>=this.state.min+this.state.step){
             this.setNum(this.state.count-this.state.step);
         }else{
@@ -232,7 +246,7 @@ export default class App extends React.Component  {
     };
     setLongReduceNum=()=>{
         this.timerCount && clearInterval(this.timerCount);
-        this.getLoop&&clearInterval(this.getLoop);
+        // this.getLoop&&clearInterval(this.getLoop);
         this.timerCount = setInterval(()=>{
             if(this.state.count>=this.state.min+this.state.longStep){
                 this.setNum(this.state.count-1);
@@ -264,7 +278,7 @@ export default class App extends React.Component  {
                 console.log('执行跳过 : '+requestStatus);
             }
         },1000);
-        setTimeout(()=>{this.getRequestLoop()},50);
+        // setTimeout(()=>{this.getRequestLoop()},50);//计时器循环请求
     };
     requestClock =(t)=>{
         this.request && clearInterval(this.request);
@@ -295,8 +309,6 @@ export default class App extends React.Component  {
             {"did":this.state.did,"piid":4,"siid":3},
             {"did":this.state.did,"piid":5,"siid":3}
         ];
-        let paramsString = JSON.stringify(params);
-        // if(Host.isIOS){alert(typeof params)}
         Device.getDeviceWifi().callMethod(method,params).then(res => {
             let result = JSON.stringify(res);
             let arrys = JSON.parse(result);
@@ -304,7 +316,7 @@ export default class App extends React.Component  {
             if(status != this.state.status || arrys.result[0].value != this.state.count){
                 this.setState({
                     status: arrys.result[2].value=='on' ? true:false,
-                    aniStatus: arrys.result[2].value=='on' ? true:false,
+                    aniClock: arrys.result[2].value=='on' ? true:false,
                     // getParam: arrys.result[2].value=='off'? 0 : 1,
                     result
                 });
@@ -317,9 +329,9 @@ export default class App extends React.Component  {
                 if(arrys.result[2].value=='off'){
                     setTimeout(()=>{this.setState({getParam:0})},500);
                 }
-                console.log('getLoop : change')
+                // console.log('getLoop : change')
             }else{
-                console.log('getLoop : pass')
+                // console.log('getLoop : pass')
             }
             // console.log('成功 '+':'+this.state.result);
             // if(Host.isIOS){alert('成功 '+':'+this.state.result)}
@@ -402,10 +414,11 @@ export default class App extends React.Component  {
                 Service.spec.setPropertiesValue([setLeftTime,setPower]).then(res => {
                     // console.log('setPower : '+value);
                     // console.log('setPropertiesValue', res);
-                    this.getRequest();
+                    setTimeout(()=>{this.getRequest()},0);
                     if(value==0){
-                        this.setState({visMessage:true});
-                        this.setState({getParam:0});
+                        this.setState({visMessage:true,getParam:0,o:0});
+                    }else{
+                        this.setState({visMessage:false,o:1});
                     }
                 }).catch(res => {
                     console.log(res, 'catch')
@@ -428,7 +441,7 @@ export default class App extends React.Component  {
                     let arrys = JSON.parse(result);
                     this.setState({
                         status: arrys.result[0].value>0 ? true:false,
-                        aniStatus: arrys.result[0].value>0 ? true:false,
+                        aniClock: arrys.result[0].value>0 ? true:false,
                         result
                     });
                     devieStatus = arrys.result[0].value>0 ? true:false
@@ -533,6 +546,9 @@ export default class App extends React.Component  {
         this.backPackage = PackageEvent.packageDidResume.addListener(()=>{
             console.log('我又回来了');
             // if(Host.isIOS){alert('我又回来了')}
+            if(this.state.status){
+                this.setState({o:1})
+            }
             this.getRequest()
         });
         //接收传参
@@ -551,26 +567,29 @@ export default class App extends React.Component  {
         });
 
         this.getRequest();
-        setTimeout(()=>{this.getRequestLoop()},50);
+        // setTimeout(()=>{this.getRequestLoop()},50);//计时器循环请求
         // this.sendRequests('setLeftTime',60);
-        //获取设备状态-
-        // Device.getDeviceWifi().subscribeMessages("left-time", "error-code", "power", "mode", "end-status").then(res => {
+        //订阅设备状态-
+        // Device.getDeviceWifi().subscribeMessages("prop.3.1", "prop.3.2", "prop.3.3", "prop.3.4", "prop.3.5").then(res => {
         //     this.getRequest();
-        //     console.log('subscribeMessages', res)
+        //     console.log('subscribeMessages');
+        //     alert('subscribeMessages');
         // }).catch(res => {
         //     console.log(res, 'catch')
         // });
+        Device.getDeviceWifi().subscribeMessages("event.3.1", "event.3.2", "event.3.3").then(res => {
+            this.getRequest();
+            console.log('subscribeMessages');
+        }).catch(res => {
+            console.log(res, 'catch')
+        });
 
-        // this._deviceStatusListener = DeviceEvent.deviceReceivedMessages.addListener(
-        //     (device, messages, res) => {
-        //         const { navigation } = this.props;
-        //         if(!navigation.isFocused()){
-        //             console.log('非焦点');
-        //             return;
-        //         }
-        //         console.log(JSON.stringify(messages));
-        //         console.log('Device.addListener', device, messages, res);
-        //     });
+        DeviceEvent.deviceReceivedMessages.addListener(
+            (device, map, res) => {
+                console.log(JSON.stringify(device));
+                console.log('Device.addListener', device, map, res);
+                this.getRequest();
+            });
         // this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener((device) => {
         //     console.log("不要以为你改了名字我就不认识你了", device);
         //     this.props.navigation.setParams({
@@ -582,11 +601,11 @@ export default class App extends React.Component  {
 
     }
     componentWillUnmount() {
-        this.subscription&&this.subscription.remove();
+        // this.subscription&&this.subscription.remove();
         this.outPackage&&this.outPackage.remove();
         this.backPackage&&this.backPackage.remove();
 
-        this._deviceStatusListener && this._deviceStatusListener.remove();
+        // this._deviceStatusListener && this._deviceStatusListener.remove();
         this._deviceNameChangedListener && this._deviceNameChangedListener.remove();
     }
     getRequestLoop = (n)=>{
@@ -634,7 +653,7 @@ export default class App extends React.Component  {
     };
     goToSelect = ()=>{
         if(this.state.getParam<=0){
-            this.getLoop&&clearInterval(this.getLoop);
+            // this.getLoop&&clearInterval(this.getLoop);
             this.props.navigation.navigate('Selects', { 'title': this.state.selectTitle })
         }
     };
@@ -699,16 +718,16 @@ export default class App extends React.Component  {
                         <Text style={style.butLable} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>{ this.state.statusText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setReduceNum()} delayLongPress={800} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>
+                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setReduceNum()} delayLongPress={1000} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>
                             <Image source={ this.state.reduceImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={()=>this.setReduceNum()} delayLongPress={800} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>{ this.state.reduceText }</Text>
+                        <Text style={style.butLable} onPress={()=>this.setReduceNum()} delayLongPress={1000} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>{ this.state.reduceText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setPlusNum()} delayLongPress={800} onLongPress={()=>this.setLongPlusNum()} onPressOut={()=>this.longOut()}>
+                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setPlusNum()} delayLongPress={1000} onLongPress={()=>this.setLongPlusNum()} onPressOut={()=>this.longOut()}>
                             <Image source={ this.state.plusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={()=>this.setPlusNum()} delayLongPress={800} onPressOut={()=>this.longOut()} onLongPress={()=>this.setLongPlusNum()}>{ this.state.plusText }</Text>
+                        <Text style={style.butLable} onPress={()=>this.setPlusNum()} delayLongPress={1000} onPressOut={()=>this.longOut()} onLongPress={()=>this.setLongPlusNum()}>{ this.state.plusText }</Text>
                     </View>
                 </View>
                 <MessageDialog

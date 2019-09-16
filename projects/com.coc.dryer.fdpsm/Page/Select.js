@@ -255,7 +255,7 @@ export default class Selects extends React.Component{
                 </View>
                 <MessageDialog
                     visible={this.state.visMessage}
-                    message={'1.请确保衣物间留有一定空隙；\n2.根据最厚的一件衣物，来选择相应时间吧。'}
+                    message={'1. 请确保衣物间留有一定空隙；\n2. 根据最厚的一件衣物，来选择相应时间吧。'}
                     buttons={[
                         {
                             text: '我知道了',
