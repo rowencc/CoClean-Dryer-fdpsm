@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CoClean-Dryer-fdpsm.iml" filepath="$PROJECT_DIR$/CoClean-Dryer-fdpsm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/miot-plugin-sdk.iml" filepath="$PROJECT_DIR$/miot-plugin-sdk.iml" />
     </modules>
   </component>
 </project>
