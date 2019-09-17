@@ -33,6 +33,8 @@ export default class App extends React.Component  {
             getParamText: '工作中......',
             selectTitle: '烘干时间表',
             selectText: '帮我计算干衣时间 >',
+            error:false,
+            errorText:'设备异常，请检查是否倾倒或跌落。',
             closeOneMin: '为保护主机，风扇将在一分钟后关闭......',
             closing: '设备正在关机......',
             step: 10,  //步进
@@ -103,7 +105,8 @@ export default class App extends React.Component  {
         )
     };
     setAnimateStart =()=>{
-        if(this.state.aniClock && this.state.count>0) {
+        // if(this.state.aniClock && this.state.count>0) {
+        if(this.state.count>0) {
             this.setState({aniClock:false,o:1,scaleValue:new Animated.Value(0)});
             Animated.loop(this.animateInfo()).start();
             // console.log('loop true '+this.state.aniClock)
@@ -111,7 +114,8 @@ export default class App extends React.Component  {
     };
     setAnimateStop =()=>{
         // console.log(!this.state.aniClock+":"+this.state.count);
-        if(!this.state.aniClock &&  this.state.count<=0) {
+        // if(!this.state.aniClock &&  this.state.count<=0) {
+        if(this.state.count<=0) {
             this.setState({aniClock:true,o:0,scaleValue:new Animated.Value(0)});
             Animated.loop(this.animateInfo()).stop();
             // console.log('loop false '+this.state.aniClock)
@@ -131,61 +135,34 @@ export default class App extends React.Component  {
     };
     setCountdown = (number) => {
         this.timer && clearInterval(this.timer);
-        // setTimeout(()=>{
-
         console.log('运行状态：'+this.state.status);
         if(number>0){
-            let param = number || this.state.count;
-            // this.setNum(param);
-
-                this.timer = setInterval(
-                    () => {
-                        let count = this.state.count;
+            this.timer = setInterval(
+                () => {
+                    let count = this.state.count;
+                    this.setState({
+                        count: count-1,
+                        percents: (count-1)/this.state.max*100,
+                    });
+                    if(this.state.count<=0){
+                        this.timer && clearInterval(this.timer);
+                        this.outRun(0);//设置开关机
+                        this.setNum(0);
                         this.setState({
-                            count: count-1,
-                            percents: (count-1)/this.state.max*100,
+                            status: false,
+                            statusText: this.state.onText,
+                            scaleValue : new Animated.Value(0),
+                            o:0
                         });
-                        if(this.state.count<=0){
-                            this.timer && clearInterval(this.timer);
-                            this.outRun(0);//设置开关机
-                            this.setNum(0);
-                            this.setState({
-                                status: false,
-                                statusText: this.state.onText,
-                                scaleValue : new Animated.Value(0),
-                                o:0
-                            });
-                            let getParamTime = setTimeout(()=>{
-                                this.setState({getParam:0})
-                            },50);
-                            this.setAnimateStop()
-                        }
-                    },
-                    60000
-                );
+                        let getParamTime = setTimeout(()=>{
+                            this.setState({getParam:0})
+                        },50);
+                        this.setAnimateStop()
+                    }
+                },
+                60000
+            );
         }
-        // else{
-        //     this.timer && clearInterval(this.timer);
-        //
-        //     this.setNum(this.state.min);
-        //     this.setState({
-        //         status: false,
-        //         statusText: this.state.onText,
-        //         scaleValue : new Animated.Value(0)
-        //     });
-        // }
-        if(this.state.status){
-            this.setState({statusText: this.state.offText});
-            this.setAnimateStart()
-        }else{
-            this.setAnimateStop();//动画停止
-            this.setState({
-                status: false,
-                statusText: this.state.onText,
-                scaleValue : new Animated.Value(0)
-            });
-        }
-        // },1000)
     };
     setRun=(count)=>{
         // this.getLoop&&clearInterval(this.getLoop);
@@ -329,6 +306,11 @@ export default class App extends React.Component  {
                 if(arrys.result[2].value=='off'){
                     setTimeout(()=>{this.setState({getParam:0})},500);
                 }
+                if(!this.state.aniClock){
+                    this.setAnimateStop()
+                }else{
+                    this.setAnimateStart()
+                }
                 // console.log('getLoop : change')
             }else{
                 // console.log('getLoop : pass')
@@ -415,11 +397,21 @@ export default class App extends React.Component  {
                     // console.log('setPower : '+value);
                     // console.log('setPropertiesValue', res);
                     setTimeout(()=>{this.getRequest()},0);
-                    if(value==0){
-                        this.setState({visMessage:true,getParam:0,o:0});
+                    if(value<=0){
+                        if(!this.state.aniClock){this.setAnimateStop()}//动画停止
+                        this.setState({visMessage:true,getParam:0,statusText: this.state.onText, scaleValue : new Animated.Value(0)});
                     }else{
-                        this.setState({visMessage:false,o:1});
+                        this.setState({visMessage:false,statusText: this.state.offText});
+                        if(this.state.aniClock){this.setAnimateStart()}
                     }
+
+                    // if(this.state.status){
+                    //     this.setState({statusText: this.state.offText});
+                    //     this.setAnimateStart();
+                    // }else{
+                    //     this.setState({statusText: this.state.onText, scaleValue : new Animated.Value(0)});
+                    //     this.setAnimateStop();//动画停止
+                    // }
                 }).catch(res => {
                     console.log(res, 'catch')
                 });
@@ -577,28 +569,27 @@ export default class App extends React.Component  {
         // }).catch(res => {
         //     console.log(res, 'catch')
         // });
-        Device.getDeviceWifi().subscribeMessages("event.3.1", "event.3.2", "event.3.3").then(res => {
+        Device.getDeviceWifi().subscribeMessages("event.3.1", "event.3.2", "event.3.3", "event.3.4").then(res => {
             this.getRequest();
-            console.log('subscribeMessages');
+            console.log('subscribeMessages ：',res);
+
         }).catch(res => {
             console.log(res, 'catch')
         });
 
-        DeviceEvent.deviceReceivedMessages.addListener(
-            (device, map, res) => {
-                console.log(JSON.stringify(device));
-                console.log('Device.addListener', device, map, res);
-                this.getRequest();
-            });
-        // this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener((device) => {
-        //     console.log("不要以为你改了名字我就不认识你了", device);
-        //     this.props.navigation.setParams({
-        //         name: device.name
-        //     });
-        //     this.forceUpdate();
-        // });
-
-
+        DeviceEvent.deviceReceivedMessages.addListener((device, map, res) => {
+            // console.log('Device.addListener', device, map, res);
+            // console.log(res[0].key=='event.3.3');
+            if(res[0].key=='event.3.3'){
+                if(res[0].value[0].value!=2){
+                    this.setState({error:true});
+                }else{
+                    this.setState({error:false});
+                }
+                // console.log('错误值 ：',res[0].value[0].value);
+            }
+            this.getRequest();
+        });
     }
     componentWillUnmount() {
         // this.subscription&&this.subscription.remove();
@@ -731,23 +722,41 @@ export default class App extends React.Component  {
                     </View>
                 </View>
                 <MessageDialog
-                               message={this.state.closeOneMin}
-                               cancelable={true}
-                               // cancel={'取消'}
-                               confirm={'我知道了'}
-                               timeout={10000}
-                               onCancel={(e) => {
-                                   console.log('onCancel', e);
-                               }}
-                               onConfirm={(e) => {
-                                   console.log('onConfirm', e);
-                               }}
-                               onDismiss={() => {
-                                   console.log('onDismiss');
-                                   this.setState({ visMessage: false });
-                               }}
-                               visible={this.state.visMessage} />
-                </View>
+                   message={this.state.closeOneMin}
+                   cancelable={true}
+                   // cancel={'取消'}
+                   confirm={'我知道了'}
+                   timeout={10000}
+                   onCancel={(e) => {
+                       console.log('onCancel', e);
+                   }}
+                   onConfirm={(e) => {
+                       console.log('onConfirm', e);
+                   }}
+                   onDismiss={() => {
+                       console.log('onDismiss');
+                       this.setState({ visMessage: false });
+                   }}
+                   visible={this.state.visMessage} />
+
+                <MessageDialog
+                    message={this.state.errorText}
+                    cancelable={true}
+                    // cancel={'取消'}
+                    confirm={'我知道了'}
+                    timeout={10000}
+                    onCancel={(e) => {
+                        console.log('onCancel', e);
+                    }}
+                    onConfirm={(e) => {
+                        console.log('onConfirm', e);
+                    }}
+                    onDismiss={() => {
+                        console.log('onDismiss');
+                        this.setState({ error: false });
+                    }}
+                    visible={this.state.error} />
+            </View>
         )
     }
 

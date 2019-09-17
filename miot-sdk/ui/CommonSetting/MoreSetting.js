@@ -2,11 +2,11 @@
 import { Device } from 'miot';
 import { DeviceEvent } from 'miot/Device';
 import Host from 'miot/Host';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
+import NavigationBar from '../NavigationBar';
 import Separator from '../Separator';
 import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
 /**
@@ -38,15 +38,19 @@ export default class MoreSetting extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       header:
-        <TitleBar
-          type='dark'
+        <NavigationBar
+          backgroundColor='#ffffff'
+          type={NavigationBar.TYPE.LIGHT}
+          left={[{
+            key: NavigationBar.ICON.BACK,
+            onPress: _ => navigation.goBack()
+          }]}
           title={strings.more}
-          style={{ backgroundColor: '#fff' }}
-          onPressLeft={_ => navigation.goBack()}
         />
     };
   };
   getMoreSetting(state) {
+    const sync_device = !!this.props.navigation.state.params.syncDevice;
     return {
       [secondAllOptions.SECURITY]: {
         title: strings.security,
@@ -59,7 +63,7 @@ export default class MoreSetting extends React.Component {
       [secondAllOptions.TIMEZONE]: {
         title: strings.timezone,
         value: state.timeZone,
-        onPress: _ => Host.ui.openDeviceTimeZoneSettingPage()
+        onPress: _ => Host.ui.openDeviceTimeZoneSettingPage({ sync_device })
       },
       [secondAllOptions.ADD_TO_DESKTOP]: {
         title: strings.addToDesktop,

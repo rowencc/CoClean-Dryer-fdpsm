@@ -178,7 +178,8 @@ export { firstAllOptions, secondAllOptions };
 /**
  * @export public
  * @doc_name 通用设置
- * @doc_index 25
+ * @doc_index 3
+ * @doc_directory ui
  * @author Geeook
  * @since 10004
  * @module CommonSetting
@@ -197,6 +198,7 @@ export { firstAllOptions, secondAllOptions };
  *   deleteDeviceMessage: string // 删除设备的弹窗中自定义提示文案，见 miot/Host.ui.openDeleteDevice 的传参说明
  *   ZXhjbHVkZVJlcXVpcmVkT3B0aW9ucw==: [] // %E5%A6%82%E6%9E%9C%E6%83%B3%E8%A6%81%E5%B1%8F%E8%94%BD%E5%BF%85%E9%80%89%E9%A1%B9%EF%BC%8C%E5%9C%A8%E8%BF%99%E9%87%8C%E4%BC%A0%E5%85%A5%20key%20%E5%8D%B3%E5%8F%AF%EF%BC%8C%E4%B8%80%E7%BA%A7%20or%20%E4%BA%8C%E7%BA%A7%E8%8F%9C%E5%8D%95%E7%9A%84%20key%20%E9%83%BD%E5%8F%AF%E4%BB%A5%E3%80%82%E7%89%B9%E6%AE%8A%E9%9C%80%E8%A6%81%EF%BC%8C%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8
  *   option: object // 见 miot/Host.ui.previewLegalInformationAuthorization 的传参说明
+ *   syncDevice: bool // 插件端设置时区后是否需要后台同步到设备端, 见 miot/Host.ui.openDeviceTimeZoneSettingPage 的传参说明
  * }
  * ```
  * @property {object} navigation - 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面
@@ -300,9 +302,15 @@ export default class CommonSetting extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
-    this.state = { name: Device.name };
+    this.state = {
+      name: Device.name,
+      showDot: props.showDot,
+    };
     console.log(`Device.type: ${Device.type}`);
     this.commonSetting = this.getCommonSetting(this.state);
+  }
+  componentWillReceiveProps(props) {
+    this.setState({ showDot: props.showDot });
   }
   /**
    * @description 点击「法律信息」，传入用户协议和隐私政策的文件地址
@@ -332,6 +340,8 @@ export default class CommonSetting extends React.Component {
         console.warn('upgradePageKey 必须是字符串, 是你在 index.js 的 RootStack 中定义的页面 key');
         return;
       }
+      Device.needUpgrade = false;
+      this.removeKeyFromShowDot(firstAllOptions.FIRMWARE_UPGRADE);
       this.openSubPage(upgradePageKey, {}); // 跳转到开发者指定页面
       console.warn('蓝牙统一OTA界面正在火热开发中');
     }
@@ -340,14 +350,38 @@ export default class CommonSetting extends React.Component {
       // this.openSubPage('FirmwareUpgrade');
       // 20190516，「固件自动升级」不能做成通用功能所以去掉，
       // 那么二级页面「FirmwareUpgrade」只剩下「检查固件升级」一项，遂藏之
-      Host.ui.openDeviceUpgradePage();
+      Device.needUpgrade = false;
+      this.removeKeyFromShowDot(firstAllOptions.FIRMWARE_UPGRADE);
+      if (Device.type === '16') { // mesh device
+        Host.ui.openBleMeshDeviceUpgradePage();
+      }
+      else {
+        Host.ui.openDeviceUpgradePage();
+      }
+    }
+  }
+  /**
+   * @description 从 this.state.showDot 移除某key，从而隐藏小红点
+   * @param {string} key 
+   */
+  removeKeyFromShowDot(key) {
+    const showDotTmp = [...this.state.showDot];
+    const index = showDotTmp.indexOf(key);
+    if (index !== -1) {
+      showDotTmp.splice(index, 1);
+      this.setState({ showDot: showDotTmp });
+    }
+    else {
+      if (key === firstAllOptions.FIRMWARE_UPGRADE) {
+        this.forceUpdate();
+      }
     }
   }
   /**
    * @description 打开二级菜单
    * @param {string} page index.js的RootStack中页面定义的key
    */
-  openSubPage(page, params = { secondOptions: this.props.secondOptions, excludeRequiredOptions: this.props.extraOptions.excludeRequiredOptions }) {
+  openSubPage(page, params = { syncDevice: this.props.extraOptions.syncDevice, secondOptions: this.props.secondOptions, excludeRequiredOptions: this.props.extraOptions.excludeRequiredOptions }) {
     if (this.props.navigation) {
       this.props.navigation.navigate(page, params);
     }
@@ -396,7 +430,11 @@ export default class CommonSetting extends React.Component {
     const items = keys.map(key => {
       const item = this.commonSetting[key];
       if (item) {
-        item.showDot = (this.props.showDot || []).includes(key);
+        item.showDot = (this.state.showDot || []).includes(key);
+        // 如果是固件升级设置项，且开发者没有传入是否显示
+        if (key === firstAllOptions.FIRMWARE_UPGRADE && !item.showDot) {
+          item.showDot = Device.needUpgrade;
+        }
       }
       return item;
     }).filter(item => item); // 防空

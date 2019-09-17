@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 原生模块
- * @doc_index 7
+ * @doc_index 1
+ * @doc_directory host
  * @module miot/Host
  * @description 
  * 扩展程序运行时的宿主环境  
@@ -118,6 +119,18 @@ export default {
          return  true
     },
     /**
+     * 获取 米家APP中 我的-->开发者设置-->其他设置，  AppConfig接口拉取preview版数据 是否选中的状态
+     * 1:表示选中, preview ； 0：表示未选中, release
+     * 如果选中，Service.smarthome.getAppConfig 获取的数据为preview版数据， 反之为release版数据
+     * @since 10024
+     * @const
+     * @type {int}
+     * @readonly
+     */
+    get appConfigEnv() {
+       return  true
+    },
+    /**
      * @const
      * @see {@link module:miot/host/ui}
      * @description 可调起的host业务页面
@@ -180,8 +193,6 @@ export default {
      * 获取APP名称
      */
     getAppName() {
-         return Promise.resolve(null);
-    },
          return Promise.resolve(null);
     },
     /**

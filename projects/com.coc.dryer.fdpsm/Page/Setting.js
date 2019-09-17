@@ -41,9 +41,9 @@ export default class Setting extends React.Component {
         // 显示部分一级菜单项
         const firstOptions = [
             first_options.SHARE,
-            first_options.IFTTT,
-            first_options.VOICE_AUTH,
-            first_options.FIRMWARE_UPGRADE,
+            // first_options.IFTTT,
+            // first_options.VOICE_AUTH,
+            // first_options.FIRMWARE_UPGRADE,
         ]
         // 显示部分二级菜单项
         const secondOptions = [

@@ -12,9 +12,10 @@ const minMargin = 2.5 // 容器和滚球之间的最小间距
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 23
+ * @doc_index 1
+ * @doc_directory ui
  * @author Geeook
- * @since
+ * @since 10020
  * @module Switch
  * @description Switch for Android and iOS
  * @property {bool} value - 开关状态，默认值 false
