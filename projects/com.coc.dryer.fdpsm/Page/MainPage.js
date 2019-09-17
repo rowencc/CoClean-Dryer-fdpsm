@@ -794,7 +794,8 @@ const style = StyleSheet.create({
     container: {
         width: width,
         height: height-90,
-        backgroundColor: '#0e62bd',
+        backgroundColor: '#0892fe',
+        // backgroundColor: '#0e62bd',
         alignItems: 'center',
         justifyContent: 'flex-start',
         flex: 1

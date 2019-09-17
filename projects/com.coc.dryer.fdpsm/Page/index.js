@@ -36,7 +36,8 @@ const RootStack = createStackNavigator({
                         // type='dark'
                         title={navigation.state.params ? navigation.state.params.title : Device.name}
                         subTitle=''
-                        style={{backgroundColor:'#0e62bd'}}
+                        style={{backgroundColor:'#0892fe'}}
+                        // style={{backgroundColor:'#0e62bd'}}
                         onPressLeft={() => {
                             Package.exit();
                             // if (this.props.navigation.routeName == 'MainPage') {

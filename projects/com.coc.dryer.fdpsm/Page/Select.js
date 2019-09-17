@@ -136,7 +136,8 @@ export default class Selects extends React.Component{
                 <TitleBar
                     // type='dark'
                     title='干衣时间'
-                    style={{ backgroundColor: '#0e62bd' }}
+                    style={{ backgroundColor: '#0892fe' }}
+                    // style={{ backgroundColor: '#0e62bd' }}
                     onPressLeft={_ => {
                         navigation.goBack();
                     }}
@@ -219,7 +220,7 @@ export default class Selects extends React.Component{
     }
     render(){
         return (
-            <View style={{flex: 1,justifyContent: 'center',alignContent: 'center',backgroundColor:'#0e62bd'}}>
+            <View style={{flex: 1,justifyContent: 'center',alignContent: 'center',backgroundColor:'#0892fe'}}>
                 <View style={style.overTimeBox}>
                     <View style={style.overTime}>
                         <Text style={style.overTimeText}>{ this.state.count <= 0 ?this.state.overTimeText : '约 '+this.state.time+'min 完成'}</Text>
@@ -277,7 +278,8 @@ const style = StyleSheet.create({
     container: {
         width: width,
         height: height-90,
-        backgroundColor: '#0e62bd',
+        backgroundColor: '#0892fe',
+        // backgroundColor: '#0e62bd',
         alignItems: 'center',
         justifyContent: 'flex-start',
         flex: 1
@@ -499,7 +501,8 @@ const style = StyleSheet.create({
         justifyContent:'center'
     },
     overTimeText:{
-        color:'#0e62bd',
+        color:'#0892fe',
+        // color:'#0e62bd',
 
         height: 26,
         textAlign:'center',

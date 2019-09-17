@@ -3,103 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9167a7d9-cc83-4c41-8eb5-2713b54b03c0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/config/transformer.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/config/transformer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/fixbug/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/fixbug/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/04-账户模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/05-蓝牙模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/07-原生模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/08-插件导航模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/09-系统服务模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/10-原生_音频模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/11-原生_加密模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/12-原生_文件模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/13-原生_本地化模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/14-原生_本地存储模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/15-原生_页面导航模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/16-系统资源.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/17-系统服务_场景模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/18-系统服务_安全模块.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/19-系统服务_miot_spec.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/22-地图组件.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/24-列表控件.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc-md/25-通用设置.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/Account.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/Account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/Bluetooth.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/Bluetooth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ClassicBluetooth.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ClassicBluetooth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/Device.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/Device.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/Host.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/Host.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/Package.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/Package.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/Service.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/Service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/host/audio.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/host/audio.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/host/crypto.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/host/crypto.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/host/file.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/host/file.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/host/locale.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/host/locale.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/host/storage.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/host/storage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/host/ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/host/ui.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/resources/Strings.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/resources/Strings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/resources/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/resources/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/service/scene.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/service/scene.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/service/security.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/service/security.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/service/smarthome.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/service/smarthome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/service/spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/service/spec.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/service/storage.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/service/storage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/AMapView.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/AMapView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/CommonSetting/CommonSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/CommonSetting/CommonSetting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/CommonSetting/MoreSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/CommonSetting/MoreSetting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/Dialog/ChoiceDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/Dialog/ChoiceDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/Dialog/MessageDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/Dialog/MessageDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/InputDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/InputDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/ListItem/ChoiceItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/ListItem/ChoiceItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/ListItem/ListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/ListItem/ListItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/ListItem/ListItemWithSlider.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/ListItem/ListItemWithSlider.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/ListItem/ListItemWithSwitch.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/ListItem/ListItemWithSwitch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/LoadingDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/LoadingDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/MHDatePicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/MHDatePicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/MessageDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/MessageDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/MultiChoseDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/MultiChoseDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/NavigationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/NumberSpinner.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/NumberSpinner.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/ProgressDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/ProgressDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/Radio.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/Radio.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/Separator.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/Separator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/SingleChoseDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/SingleChoseDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/StringSpinner.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/StringSpinner.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/Switch.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/Switch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/TitleBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/TitleBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/TitleBarBlack.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/TitleBarBlack.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miot-sdk/ui/TitleBarWhite.js" beforeDir="false" afterPath="$PROJECT_DIR$/miot-sdk/ui/TitleBarWhite.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/build/project.json" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/build/project.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/build/publish.mpkg" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/build/publish.mpkg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/project.json" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/project.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/CommonModules/CommonCell.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/CommonModules/CommonCell.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/AnimationComponentDemo/AnimCustomCompDemo.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/AnimationComponentDemo/AnimCustomCompDemo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Device/DeviceControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Device/DeviceControl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Host/HostPropsInfoDemo.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Host/HostPropsInfoDemo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Host/Local/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Host/Local/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Host/UI/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Host/UI/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Service/MiotSpecDemo.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Service/MiotSpecDemo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Service/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Service/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Service/smarthome.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/Service/smarthome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/CardPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/CardPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/DialogExample.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/DialogExample.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/UIDemo.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/UIComponent/UIDemo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/tutorial/Setting.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/Main/tutorial/Setting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Resources/widget/demo_operation_icon_auto_closed@2x.png~4f73bca15364d52ad926256ab7382d34b5e654ba" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Resources/widget/demo_operation_icon_auto_closed@2x.png~小吉洗衣机增加了多语言适配的文件" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Resources/widget/demo_operation_icon_auto_closed@3x.png~4f73bca15364d52ad926256ab7382d34b5e654ba" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Resources/widget/demo_operation_icon_auto_closed@3x.png~小吉洗衣机增加了多语言适配的文件" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Resources/widget/demo_operation_icon_love_closed@2x.png~4f73bca15364d52ad926256ab7382d34b5e654ba" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Resources/widget/demo_operation_icon_love_closed@2x.png~小吉洗衣机增加了多语言适配的文件" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Resources/widget/demo_operation_icon_love_closed@3x.png~4f73bca15364d52ad926256ab7382d34b5e654ba" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/Resources/widget/demo_operation_icon_love_closed@3x.png~小吉洗衣机增加了多语言适配的文件" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/projects/com.xiaomi.demo/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.xiaomi.demo/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -118,14 +24,47 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="444">
-              <caret line="555" column="19" selection-start-line="555" selection-start-column="19" selection-end-line="555" selection-end-column="19" />
+            <state relative-caret-position="8636">
+              <caret line="796" column="35" lean-forward="true" selection-start-line="796" selection-start-column="35" selection-end-line="796" selection-end-column="35" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="514">
+              <caret line="139" column="57" selection-start-line="139" selection-start-column="50" selection-end-line="139" selection-end-column="57" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="27" lean-forward="true" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#69#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="465">
+              <caret line="38" column="56" lean-forward="true" selection-start-line="38" selection-start-column="49" selection-end-line="38" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -137,6 +76,7 @@
       <find>setAnimateStart</find>
       <find>setAnimateStop</find>
       <find>devieStatus</find>
+      <find>#0e62bd</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -148,17 +88,19 @@
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/index.js" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/project.json" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" />
+        <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js" />
+        <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" />
       </list>
     </option>
   </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="615" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1786" />
     <option name="y" value="-1057" />
     <option name="width" value="1080" />
-    <option name="height" value="1057" />
+    <option name="height" value="1897" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -177,6 +119,24 @@
             <path>
               <item name="CoClean-Dryer-fdpsm" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="miot-plugin-sdk" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+            </path>
+            <path>
+              <item name="CoClean-Dryer-fdpsm" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="miot-plugin-sdk" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="projects" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="CoClean-Dryer-fdpsm" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="miot-plugin-sdk" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="projects" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com.coc.dryer.fdpsm" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="CoClean-Dryer-fdpsm" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="miot-plugin-sdk" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="projects" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com.coc.dryer.fdpsm" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Page" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -273,7 +233,7 @@
       <workItem from="1568686045574" duration="1356000" />
       <workItem from="1568688150341" duration="2067000" />
       <workItem from="1568696551974" duration="1779000" />
-      <workItem from="1568710272943" duration="242000" />
+      <workItem from="1568710272943" duration="1940000" />
     </task>
     <task id="LOCAL-00001" summary="10025">
       <created>1568696741861</created>
@@ -282,14 +242,22 @@
       <option name="project" value="LOCAL" />
       <updated>1568696741861</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="10025">
+      <created>1568710551536</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1568710551536</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5499000" />
+    <option name="totallyTimeSpent" value="7197000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="615" y="-1057" width="1080" height="1057" extended-state="0" />
+    <frame x="1786" y="-1057" width="1080" height="1897" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" id="Project" order="0" visible="true" weight="0.22061656" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -306,7 +274,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.17823835" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.09529086" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
@@ -369,25 +337,8 @@
     <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="27" lean-forward="true" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/build/project.json">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="22" column="20" lean-forward="true" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor" />
@@ -414,10 +365,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="27" lean-forward="true" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="38" column="56" lean-forward="true" selection-start-line="38" selection-start-column="49" selection-end-line="38" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="555" column="19" selection-start-line="555" selection-start-column="19" selection-end-line="555" selection-end-column="19" />
+        <state relative-caret-position="8636">
+          <caret line="796" column="35" lean-forward="true" selection-start-line="796" selection-start-column="35" selection-end-line="796" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="139" column="57" selection-start-line="139" selection-start-column="50" selection-end-line="139" selection-end-column="57" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
