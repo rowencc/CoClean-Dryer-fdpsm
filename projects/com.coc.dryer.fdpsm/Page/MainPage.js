@@ -668,32 +668,8 @@ export default class App extends React.Component  {
         )
     }
 
-
-    sendRemoteRequest =()=> {
-        let params = this.state.params;
-        let method = this.state.method;
-        let extra = this.state.extra;
-        if (method == '') {
-            alert('method 不能为空')
-            return;
-        }
-        Device.getDeviceWifi().callMethodFromCloud(method, {value:'on'}).then(res => {
-            let result = JSON.stringify(res);
-            this.setState({ result })
-        }).catch(err => {
-            let result = JSON.stringify(err);
-            result = "Error: \n" + result;
-            this.setState({ result })
-        })
-    };
-
-    clearParams() {
-        this.setState({ params: {}, extra: {}, paramsString: '', extraString: '', method: '' })
-    }
 }
-Package.entry(App, () => {
-
-})
+Package.entry(App, () => {});
 
 const style = StyleSheet.create({
     navigate: {
