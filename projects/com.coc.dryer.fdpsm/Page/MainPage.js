@@ -43,11 +43,11 @@ export default class App extends React.Component  {
             statusText: '开机', //开关文字描述
             onText: '开机', //关机文字描述
             offText: '关机', //开机文字描述
-            statusImg: require('../Resources/dryer/switch.png'), //开关文字描述
+            statusImg: require('../Resources/dryer/switch-big.png'), //开关文字描述
             plusText: '加时', //加时文字描述
-            plusImg: require('../Resources/dryer/plus.png'), //加时按钮图片
+            plusImg: require('../Resources/dryer/plus-big.png'), //加时按钮图片
             reduceText: '减时', //减时文字描述
-            reduceImg: require('../Resources/dryer/reduce.png'), //减时按钮图片
+            reduceImg: require('../Resources/dryer/reduce-big.png'), //减时按钮图片
             overTimeText: '待开机',
             time: this.setTime(0), // 获取预计完成时间
             o: 0,//动画光环隐显  关闭状态下 隐藏，开启状态下  显示
@@ -704,19 +704,19 @@ export default class App extends React.Component  {
                     {/*    功能按键*/}
                     <View style={style.butBox}>
                         <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>
-                            <Image source={ this.state.statusImg } />
+                            <Image style={{width:32,height:30}} source={ this.state.statusImg } />
                         </TouchableOpacity>
                         <Text style={style.butLable} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>{ this.state.statusText }</Text>
                     </View>
                     <View style={style.butBox}>
                         <TouchableOpacity style={style.butIcon} onPress={()=>this.setReduceNum()} delayLongPress={1000} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>
-                            <Image source={ this.state.reduceImg } />
+                            <Image style={{width:32,height:30}} source={ this.state.reduceImg } />
                         </TouchableOpacity>
                         <Text style={style.butLable} onPress={()=>this.setReduceNum()} delayLongPress={1000} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>{ this.state.reduceText }</Text>
                     </View>
                     <View style={style.butBox}>
                         <TouchableOpacity style={style.butIcon} onPress={()=>this.setPlusNum()} delayLongPress={1000} onLongPress={()=>this.setLongPlusNum()} onPressOut={()=>this.longOut()}>
-                            <Image source={ this.state.plusImg } />
+                            <Image style={{width:32,height:30}} source={ this.state.plusImg } />
                         </TouchableOpacity>
                         <Text style={style.butLable} onPress={()=>this.setPlusNum()} delayLongPress={1000} onPressOut={()=>this.longOut()} onLongPress={()=>this.setLongPlusNum()}>{ this.state.plusText }</Text>
                     </View>
@@ -939,6 +939,9 @@ const style = StyleSheet.create({
     tabLable:{
         marginLeft: 5,
         marginRight: 5,
+        paddingTop:5,
+        paddingBottom:5,
+        fontSize: 14,
         color:'#fff'
     },
     timeLable:{
@@ -962,9 +965,12 @@ const style = StyleSheet.create({
         height:60,
     },
     butIcon:{
+        // flex:60,
+        alignItems: 'center',
+        justifyContent:'center',
         height:60,
         width:60,
-        borderWidth:1,
+        borderWidth:1.3,
         borderColor:'#fff',
         borderRadius:30,
         marginBottom:15
@@ -1007,7 +1013,7 @@ const style = StyleSheet.create({
         justifyContent:'flex-start'
     },
     overTime:{
-        borderWidth:1,
+        borderWidth:1.3,
         borderColor:'#fff',
         borderRadius:16,
         height:26,
@@ -1018,13 +1024,14 @@ const style = StyleSheet.create({
     overTimeText:{
         color:'#fff',
         height: 26,
+        fontSize:14,
         textAlign:'center',
         alignItems:'center',
         justifyContent:'center',
         textAlignVertical:'center',
         // lineHeight:30,
         ...Platform.select({
-            ios:{lineHeight:34},
+            ios:{lineHeight:32},
             android:{}
         })
         // textAlign: 'center',

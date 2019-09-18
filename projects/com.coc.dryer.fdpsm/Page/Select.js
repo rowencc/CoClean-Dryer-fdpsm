@@ -5,11 +5,11 @@ import {
     View,
     Text,
 } from 'react-native';
-import TitleBar from "miot/ui/TitleBar";
+import NavigationBar from "miot/ui/NavigationBar";
 import {strings} from "miot/resources";
 import {NumberSpinner, StringSpinner} from 'miot/ui'
 import { AbstractDialog, ActionSheet, ChoiceDialog, InputDialog, LoadingDialog, MessageDialog, PinCodeDialog, ProgressDialog, ShareDialog } from 'miot/ui/Dialog';
-import {PackageEvent} from "miot";
+import {Device, Package, PackageEvent} from "miot";
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
 let param = 0;
@@ -86,9 +86,10 @@ export default class Selects extends React.Component{
                 ]}
             ],
             defaultIndexs: [1, 0], // 指定选择每一级的第几项，可以不填不传，默认为0(第一项)
-            confirmImg: require('../Resources/dryer/confirm.png'),
-            confirmFocusImg: require('../Resources/dryer/confirm-focus.png'),
-            confirmNullImg: require('../Resources/dryer/confirm.png'),
+            // confirmImg: require('../Resources/dryer/confirm.png'),
+            confirmImg: require('../Resources/dryer/select-big.png'),
+            confirmFocusImg: require('../Resources/dryer/select-big.png'),
+            confirmNullImg: require('../Resources/dryer/select-big.png'),
             visible: true,
         };
     }
@@ -133,14 +134,17 @@ export default class Selects extends React.Component{
     static navigationOptions = ({ navigation }) => {
         return {
             header:
-                <TitleBar
-                    // type='dark'
+                <NavigationBar
                     title='干衣时间'
-                    style={{ backgroundColor: '#0892fe' }}
-                    // style={{ backgroundColor: '#0e62bd' }}
-                    onPressLeft={_ => {
-                        navigation.goBack();
-                    }}
+                    backgroundColor='#0892fe'
+                    type={NavigationBar.TYPE.DARK}
+                    left={[
+                        {
+                            key: NavigationBar.ICON.BACK,
+                            onPress: () => {navigation.goBack();}
+                        }
+                    ]}
+                    onPressTitle={() => {console.log('onPressTitle')}}
                 />
         };
     };
@@ -250,8 +254,8 @@ export default class Selects extends React.Component{
                 </View>
                 <View style={style.butBox}>
                     {/*style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]}*/}
-                    <TouchableOpacity  onPress={()=>this.confirmProps()} >
-                        <Image source={ this.state.confirmImg } />
+                    <TouchableOpacity style={style.butIcon} onPress={()=>this.confirmProps()} >
+                        <Image  style={{width:30,height:30}} source={ this.state.confirmImg } />
                     </TouchableOpacity>
                 </View>
                 <MessageDialog
@@ -446,11 +450,14 @@ const style = StyleSheet.create({
         height:115,
     },
     butIcon:{
+        // flex:60,
+        alignItems: 'center',
+        justifyContent:'center',
         height:60,
         width:60,
-        borderWidth:1,
+        borderWidth:1.3,
         borderColor:'#fff',
-        borderRadius:30,
+        borderRadius:40,
         marginBottom:15
     },
     butLable:{

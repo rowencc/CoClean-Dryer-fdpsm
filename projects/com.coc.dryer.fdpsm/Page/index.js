@@ -1,6 +1,6 @@
 'use strict';
 
-import TitleBar from "miot/ui/TitleBar";
+import NavigationBar from "miot/ui/NavigationBar";
 import React from 'react';
 import { createStackNavigator,goback } from 'react-navigation'; //
 import MainPages from './MainPage';
@@ -32,37 +32,61 @@ const RootStack = createStackNavigator({
         navigationOptions: ({ navigation }) => {
             return {
                 header:
-                    <TitleBar
-                        // type='dark'
+                    <NavigationBar
+                        backgroundColor='#0892fe'
+                        type={NavigationBar.TYPE.DARK}
+                        left={[
+                            {
+                                key: NavigationBar.ICON.BACK,
+                                onPress: () => {Package.exit()}
+                            }
+                        ]}
+                        right={[
+                            {
+                                key: NavigationBar.ICON.SHARE,
+                                onPress: () => {onPressShare()}
+                            },
+                            {
+                                key: NavigationBar.ICON.MORE,
+                                onPress: () => {navigation.navigate('Setting', { 'title': '设置' })}
+                            }
+                        ]}
                         title={navigation.state.params ? navigation.state.params.title : Device.name}
-                        subTitle=''
-                        style={{backgroundColor:'#0892fe'}}
-                        // style={{backgroundColor:'#0e62bd'}}
-                        onPressLeft={() => {
-                            Package.exit();
-                            // if (this.props.navigation.routeName == 'MainPage') {
-                            //     Package.exit();
-                            // }else{
-                            //     navigation.goBack();
-                            // }
-                        }}
-                        // onPressLeft2={() => {
-                        //     navigation.navigate('RpcControl', { 'title': '设备控制' });
-                        // }}
-                        onPressRight={() => {
-                            navigation.navigate('Setting', { 'title': '设置' });
-                        }}
-                        onPressRight2={() => {
-                            onPressShare();
-                            // navigation.navigate('MoreSetting', { 'title': '设置' });
-                        }}
+                        onPressTitle={() => {console.log('onPressTitle')}}
                     />
+
             };
         },
         transitionConfig: () => ({
             screenInterpolator: interpolator,
         }),
     });
+
+{/*<TitleBar*/}
+{/*    // type='dark'*/}
+{/*    title={navigation.state.params ? navigation.state.params.title : Device.name}*/}
+{/*    subTitle=''*/}
+{/*    style={{backgroundColor:'#0892fe'}}*/}
+{/*    // style={{backgroundColor:'#0e62bd'}}*/}
+{/*    onPressLeft={() => {*/}
+{/*        Package.exit();*/}
+{/*        // if (this.props.navigation.routeName == 'MainPage') {*/}
+{/*        //     Package.exit();*/}
+{/*        // }else{*/}
+{/*        //     navigation.goBack();*/}
+{/*        // }*/}
+{/*    }}*/}
+{/*    // onPressLeft2={() => {*/}
+{/*    //     navigation.navigate('RpcControl', { 'title': '设备控制' });*/}
+{/*    // }}*/}
+{/*    onPressRight={() => {*/}
+{/*        navigation.navigate('Setting', { 'title': '设置' });*/}
+{/*    }}*/}
+{/*    onPressRight2={() => {*/}
+{/*        onPressShare();*/}
+{/*        // navigation.navigate('MoreSetting', { 'title': '设置' });*/}
+{/*    }}*/}
+{/*/>*/}
 function interpolator(props) {
     const { layout, position, scene } = props;
 

@@ -6,7 +6,7 @@ import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
 import { secondAllOptions } from "miot/ui/CommonSetting/CommonSetting";
 import { ListItem, ListItemWithSlider, ListItemWithSwitch } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
-import TitleBar from 'miot/ui/TitleBar';
+import NavigationBar from "miot/ui/NavigationBar";
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { API_LEVEL, Package, Device, Service, Host } from 'miot';
@@ -18,11 +18,17 @@ export default class Setting extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
             header:
-                <TitleBar
-                    type='dark'
+                <NavigationBar
                     title={strings.setting}
-                    style={{ backgroundColor: '#fff' }}
-                    onPressLeft={_ => navigation.goBack()}
+                    backgroundColor='#fff'
+                    // type={NavigationBar.TYPE.DARK}
+                    left={[
+                        {
+                            key: NavigationBar.ICON.BACK,
+                            onPress: () => {navigation.goBack()}
+                        }
+                    ]}
+                    onPressTitle={() => {console.log('onPressTitle')}}
                 />
         };
     };

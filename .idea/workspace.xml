@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9167a7d9-cc83-4c41-8eb5-2713b54b03c0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/miot-sdk/ui/BlankPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Resources/dryer/plus-big.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Resources/dryer/reduce-big.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Resources/dryer/select-big.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Resources/dryer/switch-big.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -27,8 +33,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8636">
-              <caret line="796" column="35" lean-forward="true" selection-start-line="796" selection-start-column="35" selection-end-line="796" selection-end-column="35" />
+            <state relative-caret-position="75">
+              <caret line="5" column="7" lean-forward="true" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#397#447#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="365">
+              <caret line="147" column="18" lean-forward="true" selection-start-line="136" selection-start-column="16" selection-end-line="147" selection-end-column="18" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -37,24 +56,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
+        <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="514">
-              <caret line="139" column="57" selection-start-line="139" selection-start-column="50" selection-end-line="139" selection-end-column="57" />
+            <state relative-caret-position="328">
+              <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="27" lean-forward="true" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#69#0" expanded="true" />
+                <element signature="e#16#65#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -63,8 +70,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="38" column="56" lean-forward="true" selection-start-line="38" selection-start-column="49" selection-end-line="38" selection-end-column="56" />
+            <state relative-caret-position="825">
+              <caret line="55" column="22" lean-forward="true" selection-start-line="34" selection-start-column="20" selection-end-line="55" selection-end-column="22" />
+              <folding>
+                <element signature="e#15#65#0" expanded="true" />
+                <element signature="e#150#185#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -90,6 +101,7 @@
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js" />
         <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js" />
+        <option value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js" />
       </list>
     </option>
   </component>
@@ -149,7 +161,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Resources/dryer" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -166,6 +178,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Resources/dryer" />
       <recent name="$PROJECT_DIR$/projects/com.coc.dryer.fdpsm" />
     </key>
   </component>
@@ -233,7 +246,8 @@
       <workItem from="1568686045574" duration="1356000" />
       <workItem from="1568688150341" duration="2067000" />
       <workItem from="1568696551974" duration="1779000" />
-      <workItem from="1568710272943" duration="1940000" />
+      <workItem from="1568710272943" duration="2069000" />
+      <workItem from="1568774747677" duration="5027000" />
     </task>
     <task id="LOCAL-00001" summary="10025">
       <created>1568696741861</created>
@@ -249,17 +263,24 @@
       <option name="project" value="LOCAL" />
       <updated>1568710551536</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="10025&#10;变更 背景颜色  #0892fe">
+      <created>1568716584002</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1568716584002</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7197000" />
+    <option name="totallyTimeSpent" value="12353000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1786" y="-1057" width="1080" height="1897" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" id="Project" order="0" visible="true" weight="0.22061656" />
+      <window_info active="true" id="Project" order="0" visible="true" weight="0.22447014" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -274,7 +295,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.09529086" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.27423823" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
@@ -330,7 +351,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="10025" />
-    <option name="LAST_COMMIT_MESSAGE" value="10025" />
+    <MESSAGE value="10025&#10;变更 背景颜色  #0892fe" />
+    <option name="LAST_COMMIT_MESSAGE" value="10025&#10;变更 背景颜色  #0892fe" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/miot-plugin-sdk.iml" />
@@ -375,29 +397,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js">
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="38" column="56" lean-forward="true" selection-start-line="38" selection-start-column="49" selection-end-line="38" selection-end-column="56" />
+        <state relative-caret-position="75">
+          <caret line="5" column="7" lean-forward="true" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#397#447#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/MainPage.js">
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8636">
-          <caret line="796" column="35" lean-forward="true" selection-start-line="796" selection-start-column="35" selection-end-line="796" selection-end-column="35" />
+        <state relative-caret-position="825">
+          <caret line="55" column="22" lean-forward="true" selection-start-line="34" selection-start-column="20" selection-end-line="55" selection-end-column="22" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#15#65#0" expanded="true" />
+            <element signature="e#150#185#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Select.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="139" column="57" selection-start-line="139" selection-start-column="50" selection-end-line="139" selection-end-column="57" />
+        <state relative-caret-position="365">
+          <caret line="147" column="18" lean-forward="true" selection-start-line="136" selection-start-column="16" selection-end-line="147" selection-end-column="18" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/com.coc.dryer.fdpsm/Page/Setting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+          <folding>
+            <element signature="e#16#65#0" expanded="true" />
           </folding>
         </state>
       </provider>
