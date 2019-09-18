@@ -492,7 +492,6 @@ const style = StyleSheet.create({
     },
     overTimeBox:{
         flex:1,
-        height:26,
         marginTop:60,
         alignItems:'center',
         justifyContent:'flex-start'
@@ -502,7 +501,6 @@ const style = StyleSheet.create({
         borderColor:'#ffffff',
         backgroundColor:'#ffffff',
         borderRadius:16,
-        height:26,
         width:120,
         alignItems:'center',
         justifyContent:'center'
@@ -510,20 +508,15 @@ const style = StyleSheet.create({
     overTimeText:{
         color:'#0892fe',
         // color:'#0e62bd',
-
-        height: 26,
         textAlign:'center',
         alignItems:'center',
         justifyContent:'center',
         textAlignVertical:'center',
-        // lineHeight:30,
+        lineHeight:26,
         ...Platform.select({
-            ios:{lineHeight:32},
+            ios:{paddingTop: 2,paddingBottom: 2},
             android:{}
         })
-        // textAlign: 'center',
-        // paddingTop: 5,
-        // paddingBottom: 5
     }
 });
 

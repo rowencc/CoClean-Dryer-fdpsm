@@ -5,7 +5,7 @@ import { DeviceEventEmitter, NativeModules, Animated, Easing, Image, ListView, P
 // import ProgressCircle from '../CommonModules/progress-circle';
 import * as Progress from 'react-native-progress';
 import Svg, { G,Circle, Path } from 'react-native-svg';
-import {MessageDialog} from "miot/ui";
+import {MessageDialog} from 'miot/ui/Dialog';
 
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
@@ -53,12 +53,12 @@ export default class App extends React.Component  {
             o: 0,//动画光环隐显  关闭状态下 隐藏，开启状态下  显示
             scaleValue : new Animated.Value(0),
             aniClock:true,//动画锁
-            circleSize:250,
-            svgSize:312,
-            svgCircleSize:156,
+            circleSize:width*.79-65,
+            svgSize:width*.79,
+            svgCircleSize:width*.79/2,
             svgCircleBorder:1,
             svgCircleFill:'none',
-            svgCircleR:[134,136,138,140,142,144,146,148,150,152],
+            svgCircleR:[width*.79/2-22,width*.79/2-20,width*.79/2-18,width*.79/2-16,width*.79/2-14,width*.79/2-12,width*.79/2-10,width*.79/2-8,width*.79/2-6,width*.79/2-4],
             svgCircleStroke:'rgba(255,255,255,.3)',
 
             visMessage: false,
@@ -662,8 +662,8 @@ export default class App extends React.Component  {
                 </View>
                 <View style={{flex:1,justifyContent: 'center',
                     alignItems: 'center',
-                    marginBottom: 40,
-                    marginTop: -20,
+                    marginBottom: height*.05,
+                    marginTop: -height*.01,
                     padding: 0,position:'relative'}}>
 
                     {/*    时间计时器*/}
@@ -740,22 +740,16 @@ export default class App extends React.Component  {
                    visible={this.state.visMessage} />
 
                 <MessageDialog
-                    message={this.state.errorText}
-                    cancelable={true}
-                    // cancel={'取消'}
-                    confirm={'我知道了'}
-                    timeout={10000}
-                    onCancel={(e) => {
-                        console.log('onCancel', e);
-                    }}
-                    onConfirm={(e) => {
-                        console.log('onConfirm', e);
-                    }}
-                    onDismiss={() => {
-                        console.log('onDismiss');
-                        this.setState({ error: false });
-                    }}
-                    visible={this.state.error} />
+                    visible={this.state.error}
+                    message={'设备异常，请检查：\n1. 产品是否倾倒或跌落；\n2. 主机进风口或出风口是否被遮挡。'}
+                    buttons={[
+                        {
+                            text: '我知道了',
+                            callback: _ => this.setState({ error: false })
+                        },
+                    ]}
+                    // onDismiss={_ => this.onDismiss('4')}
+                />
             </View>
         )
     }
@@ -815,8 +809,8 @@ const style = StyleSheet.create({
         borderWidth:20,
         borderColor:'rgba(255,255,255,0)',
         borderRadius:150,
-        width:250,
-        height:250,
+        width:width*.75,
+        height:width*.75,
         flex:1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -827,8 +821,8 @@ const style = StyleSheet.create({
         borderWidth:20,
         borderColor:'rgba(255,255,255,0)',
         borderRadius:150,
-        width:250,
-        height:250
+        width:width*.75,
+        height:width*.75
     },
     timeBeContainer0:{
         opacity:0,
@@ -836,102 +830,10 @@ const style = StyleSheet.create({
         borderWidth:1,
         borderColor:'#fff',
         borderRadius:160,
-        width:309,
-        height:309,
+        width:width*.77,
+        height:width*.77,
         // transform:[{rotate: '90deg' }]
 
-    },
-    timeBeContainer1:{
-        // opacity:0.3,
-        position:'absolute',
-        borderWidth:1,
-        borderColor:'rgba(255,255,255,.3)',
-        borderRadius:200,
-        width:273,
-        height:273,
-        // transform:[{rotate: this.spin }]
-
-    },
-    timeBeContainer2:{
-        // opacity:0.3,
-        position:'absolute',
-        borderWidth:1,
-        borderColor:'rgba(255,255,255,.3)',
-        borderRadius:160,
-        width:277,
-        height:277
-    },
-    timeBeContainer3:{
-        // opacity:0.3,
-        position:'absolute',
-        borderWidth:1,
-        borderColor:'rgba(255,255,255,.3)',
-        borderRadius:160,
-        width:281,
-        height:281
-    },
-    timeBeContainer4:{
-        // opacity:0.3,
-        position:'absolute',
-        borderWidth:1,
-        borderColor:'rgba(255,255,255,.3)',
-        borderRadius:160,
-        width:285,
-        height:285
-    },
-    timeBeContainer5:{
-        // opacity:0.3,
-        position:'absolute',
-        borderWidth:1,
-        borderColor:'rgba(255,255,255,.3)',
-        borderRadius:160,
-        width:289,
-        height:289
-    },
-    timeBeContainer6:{
-        // opacity:0.3,
-        position:'absolute',
-        borderWidth:1,
-        borderColor:'rgba(255,255,255,.3)',
-        borderRadius:160,
-        width:293,
-        height:293
-    },
-    timeBeContainer7:{
-        // opacity:0.3,
-        position:'absolute',
-        borderWidth:1,
-        borderColor:'rgba(255,255,255,.3)',
-        borderRadius:160,
-        width:297,
-        height:297
-    },
-    timeBeContainer8:{
-        // opacity:0.3,
-        position:'absolute',
-        borderWidth:1,
-        borderColor:'rgba(255,255,255,.3)',
-        borderRadius:160,
-        width:301,
-        height:301
-    },
-    timeBeContainer9:{
-        // opacity:0.3,
-        position:'absolute',
-        borderWidth:1,
-        borderColor:'rgba(255,255,255,.3)',
-        borderRadius:160,
-        width:305,
-        height:305
-    },
-    timeBeContainer10:{
-        // opacity:0.3,
-        position:'absolute',
-        borderWidth:1,
-        borderColor:'rgba(255,255,255,.3)',
-        borderRadius:160,
-        width:309,
-        height:309
     },
     timeBeContainerCircle:{
         position:'absolute',
@@ -948,15 +850,31 @@ const style = StyleSheet.create({
         marginLeft: 5,
         marginRight: 5,
         color:'#fff',
-        lineHeight:68,
-        fontSize: 68
+        ...Platform.select({
+            ios:{
+                lineHeight:height*.1,
+                fontSize: height*.1
+            },
+            android:{
+                lineHeight:height*.08,
+                fontSize: height*.08
+            }
+        })
     },
     unitLable:{
         marginLeft: 5,
         marginRight: 5,
         color:'#fff',
-        lineHeight:42,
-        fontSize: 42
+        ...Platform.select({
+            ios:{
+                lineHeight:height*.06,
+                fontSize: height*.06
+            },
+            android:{
+                lineHeight:height*.04,
+                fontSize: height*.04
+            }
+        })
     },
     butBox:{
         flex:1,
@@ -1007,77 +925,37 @@ const style = StyleSheet.create({
     },
     overTimeBox:{
         flex:1,
-        height:26,
-        marginTop:40,
+        // height:26,
+        marginTop:height*.03,
         alignItems:'center',
         justifyContent:'flex-start'
     },
     overTime:{
         borderWidth:1.3,
         borderColor:'#fff',
-        borderRadius:16,
-        height:26,
+        borderRadius:height*.1,
+        // height:26,
         width:110,
         alignItems:'center',
         justifyContent:'center'
     },
     overTimeText:{
         color:'#fff',
-        height: 26,
-        fontSize:14,
         textAlign:'center',
         alignItems:'center',
         justifyContent:'center',
         textAlignVertical:'center',
-        // lineHeight:30,
         ...Platform.select({
-            ios:{lineHeight:32},
-            android:{}
+            ios:{
+                fontSize:height*.02,
+                lineHeight:height*.04,
+                paddingTop: 2,
+                paddingBottom: 2
+            },
+            android:{
+                fontSize:height*.015,
+                lineHeight:height*.03,
+            }
         })
-        // textAlign: 'center',
-        // paddingTop: 5,
-        // paddingBottom: 5
-    }
-});
-
-var styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        borderTopColor: '#f1f1f1',
-        borderTopWidth: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#ffffff',
-        marginBottom: 0,
-        marginTop: 0,
-    },
-    rowContainer: {
-        height: 52,
-        alignSelf: 'stretch',
-        flexDirection: 'row',
-        paddingLeft: 23,
-        paddingRight: 23,
-        alignItems: 'center',
-        flex: 1,
-    },
-    list: {
-        alignSelf: 'stretch',
-    },
-
-    title: {
-        fontSize: 15,
-        color: '#333333',
-        alignItems: 'center',
-        flex: 1,
-    },
-    subArrow: {
-        width: 7,
-        height: 14,
-    },
-    separator: {
-        height: 1 / PixelRatio.get(),
-        backgroundColor: '#e5e5e5',
-        marginLeft: 20,
     }
 });
