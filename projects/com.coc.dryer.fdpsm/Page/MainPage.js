@@ -185,6 +185,7 @@ export default class App extends React.Component  {
         this.runLoop = setInterval(()=>{
             if(requestStatus <= 0){
                 console.log('发送开关机请求 outRun');
+
                 this._sendRequests('setPower',num>0 ? num : this.state.count);
                 setTimeout(()=>{if(num<=0){this.setState({getParam:0})}},500);
                 this.runLoop && clearInterval(this.runLoop);
@@ -239,7 +240,7 @@ export default class App extends React.Component  {
         this.requestClock();
 
         this.timeLoop = setInterval(()=>{
-            if(requestStatus <= 0 || requestStatus != null){
+            if(requestStatus <= 0){
                 this.setNum(this.state.count);
 
                 if(devieStatus==true){
@@ -262,14 +263,14 @@ export default class App extends React.Component  {
         let time = 50;
         this.request = setInterval(()=>{
             time=time-1;
-            console.log(time+' : '+requestStatus);
-            // this.setState({requestStatus:time});
             requestStatus = time;
+            // console.log(time+' : '+requestStatus);
+            // this.setState({requestStatus:time});
             if(requestStatus<=0){
                 this.request && clearInterval(this.request);
                 setTimeout(()=>{
                     // this.setState({requestStatus:-1});
-                    requestStatus=null
+                    requestStatus=0
                 },5000);
                 // console.log(time-1+' : '+this.state.requestStatus);
             }
@@ -326,21 +327,6 @@ export default class App extends React.Component  {
             // if(Host.isIOS){alert('失败 '+result)}
         })
     };
-    // async setPower(value){
-    //     const did = Device.deviceID;
-    //     let setPower = { did, siid: 3, piid: 3, value: value };
-    //     Service.spec.setPropertiesValue([setPower]).then(res => {
-    //         this.setNum(value);
-    //         if(value>0){
-    //             setTimeout(()=>{
-    //                 this.setCountdown(value);
-    //             },100);
-    //         }
-    //         console.log('setPropertiesValue', res)
-    //     }).catch(res => {
-    //         console.log(res, 'catch')
-    //     });
-    // };
     async _sendRequests(type,value) {
         /*
         * 功能定义ID
@@ -398,20 +384,15 @@ export default class App extends React.Component  {
                     // console.log('setPropertiesValue', res);
                     setTimeout(()=>{this.getRequest()},0);
                     if(value<=0){
-                        if(!this.state.aniClock){this.setAnimateStop()}//动画停止
-                        this.setState({visMessage:true,getParam:0,statusText: this.state.onText, scaleValue : new Animated.Value(0)});
+                        if(this.state.count>=360)this.setState({count:359});
+                        setTimeout(()=>{
+                            if(!this.state.aniClock){this.setAnimateStop()}//动画停止
+                            this.setState({visMessage:true,getParam:0,statusText: this.state.onText, scaleValue : new Animated.Value(0)});
+                        },500)
                     }else{
                         this.setState({visMessage:false,statusText: this.state.offText});
                         if(this.state.aniClock){this.setAnimateStart()}
                     }
-
-                    // if(this.state.status){
-                    //     this.setState({statusText: this.state.offText});
-                    //     this.setAnimateStart();
-                    // }else{
-                    //     this.setState({statusText: this.state.onText, scaleValue : new Animated.Value(0)});
-                    //     this.setAnimateStop();//动画停止
-                    // }
                 }).catch(res => {
                     console.log(res, 'catch')
                 });
@@ -480,54 +461,6 @@ export default class App extends React.Component  {
 
         }
     }
-    sendRequest =(status,num)=> {
-        const method = 'set_properties';
-        //提交数据 设置属性值
-
-        /*
-        * 功能定义ID
-        * siid = 3 当前使用
-        * ----------------------------------------------
-        * 属性
-        * piid = 1 属性名：left-time       衣物烘干剩余时间
-        * piid = 2 属性名：error-code      故障通知码
-        * piid = 3 属性名：power           电源开关
-        * piid = 4 属性名：mode            工作模式
-        * piid = 5 属性名：end-status      运行结束状态
-        * ----------------------------------------------
-        * 方法
-        * aiid = 1 方法名：set-time        运行结束通知
-        * aiid = 2 方法名：set-power       设置成功通知
-        * aiid = 3 方法名：set-mode        异常错误通知
-        * ----------------------------------------------
-        * 事件
-        * eiid = 1 事件名：end-send        运行结束通知
-        * eiid = 2 事件名：button-pressed  设置成功通知
-        * eiid = 3 事件名：error-send      异常错误通知
-        * */
-
-        let params = [{"did":this.state.did,"piid":3,"siid":3,"value": status===true?"off":'on'}];
-        let paramsString = JSON.stringify(params);
-        Device.getDeviceWifi().callMethod(method,paramsString).then(res => {
-            let result = JSON.stringify(res);
-            this.setNum(num);
-            this.setState({
-                status: status===true ? false : true,
-                statusText: this.state.onText,
-            });
-            devieStatus = status===true ? false : true;
-            setTimeout(()=>{
-                this.setCountdown(this.state.count);
-            },10);
-            console.log('成功 '+result);
-        }).catch(err => {
-            console.log('error:', err);
-            let result = JSON.stringify(err);
-            result = "Error: \n" + result;
-            this.setState({ result });
-            console.log('失败 '+result)
-        })
-    };
     componentDidMount() {
         Animated.loop(this.animateInfo()).start();
         this.outPackage = PackageEvent.packageWillPause.addListener(()=>{
@@ -557,20 +490,9 @@ export default class App extends React.Component  {
                 this.outRun(param)
             }
         });
-
         this.getRequest();
-        // setTimeout(()=>{this.getRequestLoop()},50);//计时器循环请求
-        // this.sendRequests('setLeftTime',60);
-        //订阅设备状态-
-        // Device.getDeviceWifi().subscribeMessages("prop.3.1", "prop.3.2", "prop.3.3", "prop.3.4", "prop.3.5").then(res => {
-        //     this.getRequest();
-        //     console.log('subscribeMessages');
-        //     alert('subscribeMessages');
-        // }).catch(res => {
-        //     console.log(res, 'catch')
-        // });
         Device.getDeviceWifi().subscribeMessages("event.3.1", "event.3.2", "event.3.3", "event.3.4").then(res => {
-            this.getRequest();
+            // this.getRequest();
             console.log('subscribeMessages ：',res);
 
         }).catch(res => {
@@ -709,35 +631,28 @@ export default class App extends React.Component  {
                         <Text style={style.butLable} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>{ this.state.statusText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setReduceNum()} delayLongPress={1000} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>
+                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setReduceNum()} delayLongPress={1500} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>
                             <Image style={{width:32,height:30}} source={ this.state.reduceImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={()=>this.setReduceNum()} delayLongPress={1000} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>{ this.state.reduceText }</Text>
+                        <Text style={style.butLable} onPress={()=>this.setReduceNum()} delayLongPress={1500} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>{ this.state.reduceText }</Text>
                     </View>
                     <View style={style.butBox}>
-                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setPlusNum()} delayLongPress={1000} onLongPress={()=>this.setLongPlusNum()} onPressOut={()=>this.longOut()}>
+                        <TouchableOpacity style={style.butIcon} onPress={()=>this.setPlusNum()} delayLongPress={1500} onLongPress={()=>this.setLongPlusNum()} onPressOut={()=>this.longOut()}>
                             <Image style={{width:32,height:30}} source={ this.state.plusImg } />
                         </TouchableOpacity>
-                        <Text style={style.butLable} onPress={()=>this.setPlusNum()} delayLongPress={1000} onPressOut={()=>this.longOut()} onLongPress={()=>this.setLongPlusNum()}>{ this.state.plusText }</Text>
+                        <Text style={style.butLable} onPress={()=>this.setPlusNum()} delayLongPress={1500} onPressOut={()=>this.longOut()} onLongPress={()=>this.setLongPlusNum()}>{ this.state.plusText }</Text>
                     </View>
                 </View>
                 <MessageDialog
-                   message={this.state.closeOneMin}
-                   cancelable={true}
-                   // cancel={'取消'}
-                   confirm={'我知道了'}
-                   timeout={10000}
-                   onCancel={(e) => {
-                       console.log('onCancel', e);
-                   }}
-                   onConfirm={(e) => {
-                       console.log('onConfirm', e);
-                   }}
-                   onDismiss={() => {
-                       console.log('onDismiss');
-                       this.setState({ visMessage: false });
-                   }}
-                   visible={this.state.visMessage} />
+                    visible={this.state.visMessage}
+                    message={this.state.closeOneMin}
+                    buttons={[
+                       {
+                           text: '我知道了',
+                           callback: _ => this.setState({ visMessage: false })
+                       },
+                   ]}
+                />
 
                 <MessageDialog
                     visible={this.state.error}
@@ -748,7 +663,6 @@ export default class App extends React.Component  {
                             callback: _ => this.setState({ error: false })
                         },
                     ]}
-                    // onDismiss={_ => this.onDismiss('4')}
                 />
             </View>
         )
@@ -852,12 +766,12 @@ const style = StyleSheet.create({
         color:'#fff',
         ...Platform.select({
             ios:{
-                lineHeight:height*.1,
-                fontSize: height*.1
+                lineHeight:width<359?width*.15:68,
+                fontSize: width<359?width*.15:68
             },
             android:{
-                lineHeight:height*.08,
-                fontSize: height*.08
+                lineHeight:width<359?width*.15:58,
+                fontSize: width<359?width*.15:58
             }
         })
     },
@@ -867,12 +781,12 @@ const style = StyleSheet.create({
         color:'#fff',
         ...Platform.select({
             ios:{
-                lineHeight:height*.06,
-                fontSize: height*.06
+                lineHeight:width<359?width*.08:42,
+                fontSize: width<359?width*.08:42
             },
             android:{
-                lineHeight:height*.04,
-                fontSize: height*.04
+                lineHeight:width<359?width*.08:32,
+                fontSize: width<359?width*.08:32
             }
         })
     },
@@ -947,14 +861,14 @@ const style = StyleSheet.create({
         textAlignVertical:'center',
         ...Platform.select({
             ios:{
-                fontSize:height*.02,
-                lineHeight:height*.04,
+                fontSize:width<359?width*.04:14,
+                lineHeight:width<359?width*.06:26,
                 paddingTop: 2,
                 paddingBottom: 2
             },
             android:{
-                fontSize:height*.015,
-                lineHeight:height*.03,
+                fontSize:width<359?width*.015:14,
+                lineHeight:width<359?width*.03:26,
             }
         })
     }

@@ -1,15 +1,9 @@
 import React from 'react';
 import {DeviceEventEmitter, Image, PixelRatio, Platform, StyleSheet, TouchableOpacity} from 'react-native'
-import Pickers from '../CommonModules/pickers.js';
-import {
-    View,
-    Text,
-} from 'react-native';
+import {View, Text} from 'react-native';
 import NavigationBar from "miot/ui/NavigationBar";
-import {strings} from "miot/resources";
-import {NumberSpinner, StringSpinner} from 'miot/ui'
-import { AbstractDialog, ActionSheet, ChoiceDialog, InputDialog, LoadingDialog, MessageDialog, PinCodeDialog, ProgressDialog, ShareDialog } from 'miot/ui/Dialog';
-import {Device, Package, PackageEvent} from "miot";
+import {StringSpinner} from 'miot/ui'
+import { MessageDialog } from 'miot/ui/Dialog';
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
 let param = 0;
@@ -246,14 +240,11 @@ export default class Selects extends React.Component{
                         dataSource={this.state.valueList}
                         defaultValue={this.state.defaultValue}
                         textColor="#ffffff"
-                        // unit={"斤"}
-                        // rgba(255,255,255,.8)
                         pickerInnerStyle={{ lineColor: "#ffffff", textClolor:'rgba(255,255,255,.8)', selectTextColor: "#ffffff", fontSize: 18, selectFontSize: 18, rowHeight: 40 }}
                         onValueChanged={(data) => { this.updateOneValue(data) }}
                     />
                 </View>
                 <View style={style.butBox}>
-                    {/*style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]}*/}
                     <TouchableOpacity style={style.butIcon} onPress={()=>this.confirmProps()} >
                         <Image  style={{width:30,height:30}} source={ this.state.confirmImg } />
                     </TouchableOpacity>
@@ -261,14 +252,7 @@ export default class Selects extends React.Component{
                 <MessageDialog
                     visible={this.state.visMessage}
                     message={'1. 请确保衣物间留有一定空隙；\n2. 根据最厚的一件衣物，来选择相应时间吧。'}
-                    buttons={[
-                        {
-                            text: '我知道了',
-                            // style: { color: 'lightpink' },
-                            callback: _ => this.setState({ visMessage: false })
-                        },
-                    ]}
-                    // onDismiss={_ => this.onDismiss('4')}
+                    buttons={[{text: '我知道了', callback: _ => this.setState({ visMessage: false })},]}
                 />
             </View>
         )
@@ -507,7 +491,6 @@ const style = StyleSheet.create({
     },
     overTimeText:{
         color:'#0892fe',
-        // color:'#0e62bd',
         textAlign:'center',
         alignItems:'center',
         justifyContent:'center',
@@ -519,8 +502,3 @@ const style = StyleSheet.create({
         })
     }
 });
-
-// var styles = StyleSheet.create({
-//         cls2:{fill:'none',stroke:'#ffffff',strokeMiterlimit:10,strokeWidth:'0.5px'},
-//         cls3:{fill:'none',stroke:'#ffffff',strokeMiterlimit:10,strokeLinecap:'round',strokeWidth:'2px'}
-// });
