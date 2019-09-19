@@ -4,11 +4,17 @@ import {View, Text} from 'react-native';
 import NavigationBar from "miot/ui/NavigationBar";
 import {StringSpinner} from 'miot/ui'
 import { MessageDialog } from 'miot/ui/Dialog';
+import Svg, {Circle} from "react-native-svg";
 let Dimensions = require('Dimensions');
 let {width,height} = Dimensions.get("screen");//第一种写法
 let param = 0;
 let classList=[];
 let valueList=[];
+let maxWidth = width;
+if(width>450){
+    maxWidth = 450
+}
+
 export default class Selects extends React.Component{
     constructor(props) {
         super(props);
@@ -247,6 +253,7 @@ export default class Selects extends React.Component{
                 <View style={style.butBox}>
                     <TouchableOpacity style={style.butIcon} onPress={()=>this.confirmProps()} >
                         <Image  style={{width:30,height:30}} source={ this.state.confirmImg } />
+                        <View style={style.buttonCircle} ><Svg height={62} width={62}><Circle cx={31} cy={31} r={30} stroke={'#fff'}　strokeWidth={1.3} fill={'transparent'}/></Svg></View>
                     </TouchableOpacity>
                 </View>
                 <MessageDialog
@@ -408,6 +415,9 @@ const style = StyleSheet.create({
     timeBeContainerCircle:{
         position:'absolute',
     },
+    buttonCircle:{
+        position:'absolute',
+    },
     tabLable:{
         marginLeft: 5,
         marginRight: 5,
@@ -439,9 +449,9 @@ const style = StyleSheet.create({
         justifyContent:'center',
         height:60,
         width:60,
-        borderWidth:1.3,
-        borderColor:'#fff',
-        borderRadius:40,
+        // borderWidth:1.3,
+        // borderColor:'#fff',
+        borderRadius:30,
         marginBottom:15
     },
     butLable:{
@@ -495,10 +505,19 @@ const style = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         textAlignVertical:'center',
-        lineHeight:26,
+        // lineHeight:26,
         ...Platform.select({
-            ios:{paddingTop: 2,paddingBottom: 2},
-            android:{}
+            ios:{
+                height:26,
+                fontSize:maxWidth<359?maxWidth*.04:14,
+                // lineHeight:maxWidth<359?maxWidth*.06:32,
+                paddingTop: maxWidth<359?6.2:5,
+                paddingBottom: maxWidth<359?6.2:5,
+            },
+            android:{
+                fontSize:maxWidth<359?maxWidth*.015:14,
+                lineHeight:maxWidth<359?maxWidth*.03:26,
+            }
         })
     }
 });

@@ -12,7 +12,10 @@ let {width,height} = Dimensions.get("screen");//第一种写法
 const { UIManager } = NativeModules;
 let requestStatus = 0;
 let devieStatus = false;
-
+let maxWidth = width;
+if(width>450){
+    maxWidth = 450
+}
 // const getEvents = DeviceEvent.deviceReceivedMessages.addListener((device, messages)=>{
 //     if(messages.has('prop.power')){
 //         const power = messages.get('prop.power');
@@ -53,12 +56,12 @@ export default class App extends React.Component  {
             o: 0,//动画光环隐显  关闭状态下 隐藏，开启状态下  显示
             scaleValue : new Animated.Value(0),
             aniClock:true,//动画锁
-            circleSize:width*.79-65,
-            svgSize:width*.79,
-            svgCircleSize:width*.79/2,
+            circleSize:maxWidth*.79-65,
+            svgSize:maxWidth*.79,
+            svgCircleSize:maxWidth*.79/2,
             svgCircleBorder:1,
             svgCircleFill:'none',
-            svgCircleR:[width*.79/2-22,width*.79/2-20,width*.79/2-18,width*.79/2-16,width*.79/2-14,width*.79/2-12,width*.79/2-10,width*.79/2-8,width*.79/2-6,width*.79/2-4],
+            svgCircleR:[maxWidth*.79/2-22,maxWidth*.79/2-20,maxWidth*.79/2-18,maxWidth*.79/2-16,maxWidth*.79/2-14,maxWidth*.79/2-12,maxWidth*.79/2-10,maxWidth*.79/2-8,maxWidth*.79/2-6,maxWidth*.79/2-4],
             svgCircleStroke:'rgba(255,255,255,.3)',
 
             visMessage: false,
@@ -292,21 +295,24 @@ export default class App extends React.Component  {
             let arrys = JSON.parse(result);
             let status = arrys.result[2].value=='on' ? true:false;
             if(status != this.state.status || arrys.result[0].value != this.state.count){
-                this.setState({
-                    status: arrys.result[2].value=='on' ? true:false,
-                    aniClock: arrys.result[2].value=='on' ? true:false,
-                    // getParam: arrys.result[2].value=='off'? 0 : 1,
-                    result
-                });
-                devieStatus = arrys.result[2].value=='on' ? true:false;
-                this.setNum(arrys.result[0].value);
-                setTimeout(()=>{
-                    this.setCountdown(this.state.count);
-                },10);
-                // alert(arrys.result[2].value);
-                if(arrys.result[2].value=='off'){
-                    setTimeout(()=>{this.setState({getParam:0})},500);
-                }
+                // if(requestStatus <= 0){
+                    this.setState({
+                        status: arrys.result[2].value=='on' ? true:false,
+                        aniClock: arrys.result[2].value=='on' ? true:false,
+                        // getParam: arrys.result[2].value=='off'? 0 : 1,
+                        result
+                    });
+                    devieStatus = arrys.result[2].value=='on' ? true:false;
+                    this.setNum(arrys.result[0].value);
+                    setTimeout(()=>{
+                        this.setCountdown(this.state.count);
+                    },10);
+                    // alert(arrys.result[2].value);
+                    if(arrys.result[2].value=='off'){
+                        setTimeout(()=>{this.setState({getParam:0})},500);
+                    }
+                // }
+
                 if(!this.state.aniClock){
                     this.setAnimateStop()
                 }else{
@@ -382,17 +388,19 @@ export default class App extends React.Component  {
                 Service.spec.setPropertiesValue([setLeftTime,setPower]).then(res => {
                     // console.log('setPower : '+value);
                     // console.log('setPropertiesValue', res);
-                    setTimeout(()=>{this.getRequest()},0);
-                    if(value<=0){
-                        if(this.state.count>=360)this.setState({count:359});
-                        setTimeout(()=>{
-                            if(!this.state.aniClock){this.setAnimateStop()}//动画停止
-                            this.setState({visMessage:true,getParam:0,statusText: this.state.onText, scaleValue : new Animated.Value(0)});
-                        },500)
-                    }else{
-                        this.setState({visMessage:false,statusText: this.state.offText});
-                        if(this.state.aniClock){this.setAnimateStart()}
-                    }
+                    // if(requestStatus <= 0){
+                        setTimeout(()=>{this.getRequest()},0);
+                        if(value<=0){
+                            if(this.state.count>=360)this.setState({count:359});
+                            setTimeout(()=>{
+                                if(!this.state.aniClock){this.setAnimateStop()}//动画停止
+                                this.setState({visMessage:true,getParam:0,statusText: this.state.onText, scaleValue : new Animated.Value(0)});
+                            },500)
+                        }else{
+                            this.setState({visMessage:false,statusText: this.state.offText});
+                            if(this.state.aniClock){this.setAnimateStart()}
+                        }
+                    // }
                 }).catch(res => {
                     console.log(res, 'catch')
                 });
@@ -512,6 +520,7 @@ export default class App extends React.Component  {
             }
             this.getRequest();
         });
+        // alert(Device.model+' : '+width);
     }
     componentWillUnmount() {
         // this.subscription&&this.subscription.remove();
@@ -579,7 +588,7 @@ export default class App extends React.Component  {
             <View style={style.container}>
                 <View style={style.overTimeBox}>
                     <View style={style.overTime}>
-                        <Text style={style.overTimeText}>{ !this.state.status ?this.state.overTimeText : '约'+this.state.time+'完成'}</Text>
+                        <Text style={style.overTimeText}>{ !this.state.status ?this.state.overTimeText : '约 '+this.state.time+' 完成'}</Text>
                     </View>
                 </View>
                 <View style={{flex:1,justifyContent: 'center',
@@ -626,19 +635,23 @@ export default class App extends React.Component  {
                     {/*    功能按键*/}
                     <View style={style.butBox}>
                         <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>
-                            <Image style={{width:32,height:30}} source={ this.state.statusImg } />
+                            <Image style={{width:30,height:30}} source={ this.state.statusImg } />
+                            <View style={style.buttonCircle} ><Svg height={62} width={62}><Circle cx={31} cy={31} r={30} stroke={'#fff'}　strokeWidth={1.3} fill={'transparent'}/></Svg></View>
                         </TouchableOpacity>
+
                         <Text style={style.butLable} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>{ this.state.statusText }</Text>
                     </View>
                     <View style={style.butBox}>
                         <TouchableOpacity style={style.butIcon} onPress={()=>this.setReduceNum()} delayLongPress={1500} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>
-                            <Image style={{width:32,height:30}} source={ this.state.reduceImg } />
+                            <Image style={{width:30,height:30}} source={ this.state.reduceImg } />
+                            <View style={style.buttonCircle} ><Svg height={62} width={62}><Circle cx={31} cy={31} r={30} stroke={'#fff'}　strokeWidth={1.3} fill={'transparent'}/></Svg></View>
                         </TouchableOpacity>
                         <Text style={style.butLable} onPress={()=>this.setReduceNum()} delayLongPress={1500} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>{ this.state.reduceText }</Text>
                     </View>
                     <View style={style.butBox}>
                         <TouchableOpacity style={style.butIcon} onPress={()=>this.setPlusNum()} delayLongPress={1500} onLongPress={()=>this.setLongPlusNum()} onPressOut={()=>this.longOut()}>
-                            <Image style={{width:32,height:30}} source={ this.state.plusImg } />
+                            <Image style={{width:30,height:30}} source={ this.state.plusImg } />
+                            <View style={style.buttonCircle} ><Svg height={62} width={62}><Circle cx={31} cy={31} r={30} stroke={'#fff'}　strokeWidth={1.3} fill={'transparent'}/></Svg></View>
                         </TouchableOpacity>
                         <Text style={style.butLable} onPress={()=>this.setPlusNum()} delayLongPress={1500} onPressOut={()=>this.longOut()} onLongPress={()=>this.setLongPlusNum()}>{ this.state.plusText }</Text>
                     </View>
@@ -698,9 +711,9 @@ const style = StyleSheet.create({
         position:'absolute',
         borderWidth:20,
         borderColor:'rgba(255,255,255,0)',
-        borderRadius:150,
-        width:width*.75,
-        height:width*.75,
+        borderRadius:maxWidth/2,
+        width:maxWidth*.78,
+        height:maxWidth*.78,
         flex:1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -710,22 +723,25 @@ const style = StyleSheet.create({
         position:'absolute',
         borderWidth:20,
         borderColor:'rgba(255,255,255,0)',
-        borderRadius:150,
-        width:width*.75,
-        height:width*.75
+        borderRadius:maxWidth/2,
+        width:maxWidth*.77,
+        height:maxWidth*.77
     },
     timeBeContainer0:{
         opacity:0,
         position:'absolute',
         borderWidth:1,
         borderColor:'#fff',
-        borderRadius:160,
-        width:width*.77,
-        height:width*.77,
+        borderRadius:maxWidth/2,
+        width:maxWidth*.78,
+        height:maxWidth*.78,
         // transform:[{rotate: '90deg' }]
 
     },
     timeBeContainerCircle:{
+        position:'absolute',
+    },
+    buttonCircle:{
         position:'absolute',
     },
     tabLable:{
@@ -742,12 +758,12 @@ const style = StyleSheet.create({
         color:'#fff',
         ...Platform.select({
             ios:{
-                lineHeight:width<359?width*.15:68,
-                fontSize: width<359?width*.15:68
+                lineHeight:maxWidth<359?maxWidth*.15:68,
+                fontSize: maxWidth<359?maxWidth*.15:68
             },
             android:{
-                lineHeight:width<359?width*.15:58,
-                fontSize: width<359?width*.15:58
+                lineHeight:maxWidth<359?maxWidth*.15:58,
+                fontSize: maxWidth<359?maxWidth*.15:58
             }
         })
     },
@@ -757,12 +773,12 @@ const style = StyleSheet.create({
         color:'#fff',
         ...Platform.select({
             ios:{
-                lineHeight:width<359?width*.08:42,
-                fontSize: width<359?width*.08:42
+                lineHeight:maxWidth<359?maxWidth*.08:42,
+                fontSize: maxWidth<359?maxWidth*.08:42
             },
             android:{
-                lineHeight:width<359?width*.08:32,
-                fontSize: width<359?width*.08:32
+                lineHeight:maxWidth<359?maxWidth*.08:32,
+                fontSize: maxWidth<359?maxWidth*.08:32
             }
         })
     },
@@ -778,8 +794,8 @@ const style = StyleSheet.create({
         justifyContent:'center',
         height:60,
         width:60,
-        borderWidth:1.3,
-        borderColor:'#fff',
+        // borderWidth:1.3,
+        // borderColor:'#fff',
         borderRadius:30,
         marginBottom:15
     },
@@ -837,14 +853,15 @@ const style = StyleSheet.create({
         textAlignVertical:'center',
         ...Platform.select({
             ios:{
-                fontSize:width<359?width*.04:14,
-                lineHeight:width<359?width*.06:26,
-                paddingTop: 2,
-                paddingBottom: 2
+                height:26,
+                fontSize:maxWidth<359?maxWidth*.04:14,
+                // lineHeight:maxWidth<359?maxWidth*.06:32,
+                paddingTop: maxWidth<380?6.5:5,
+                paddingBottom: maxWidth<380?6.5:5,
             },
             android:{
-                fontSize:width<359?width*.015:14,
-                lineHeight:width<359?width*.03:26,
+                fontSize:maxWidth<359?maxWidth*.015:14,
+                lineHeight:maxWidth<359?maxWidth*.03:26,
             }
         })
     }
