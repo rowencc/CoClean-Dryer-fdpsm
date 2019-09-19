@@ -636,7 +636,7 @@ export default class App extends React.Component  {
                     <View style={style.butBox}>
                         <TouchableOpacity style={[style.butIcon,{backgroundColor:this.state.status ? 'rgba(255,255,255,.30000000000000)' : 'transparent'}]} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>
                             <Image style={{width:30,height:30}} source={ this.state.statusImg } />
-                            <View style={style.buttonCircle} ><Svg height={62} width={62}><Circle cx={31} cy={31} r={30} stroke={'#fff'}　strokeWidth={1.3} fill={'transparent'}/></Svg></View>
+                            <View style={style.buttonCircle} ><Svg height={64} width={64}><Circle cx={32} cy={32} r={29} stroke={'#fff'}　strokeWidth={1.3} fill={'transparent'}/></Svg></View>
                         </TouchableOpacity>
 
                         <Text style={style.butLable} onPress={()=>this.setRun()} onPressOut={()=>this.outRun()}>{ this.state.statusText }</Text>
@@ -644,14 +644,14 @@ export default class App extends React.Component  {
                     <View style={style.butBox}>
                         <TouchableOpacity style={style.butIcon} onPress={()=>this.setReduceNum()} delayLongPress={1500} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>
                             <Image style={{width:30,height:30}} source={ this.state.reduceImg } />
-                            <View style={style.buttonCircle} ><Svg height={62} width={62}><Circle cx={31} cy={31} r={30} stroke={'#fff'}　strokeWidth={1.3} fill={'transparent'}/></Svg></View>
+                            <View style={style.buttonCircle} ><Svg height={64} width={64}><Circle cx={32} cy={32} r={29} stroke={'#fff'}　strokeWidth={1.3} fill={'transparent'}/></Svg></View>
                         </TouchableOpacity>
                         <Text style={style.butLable} onPress={()=>this.setReduceNum()} delayLongPress={1500} onLongPress={()=>this.setLongReduceNum()} onPressOut={()=>this.longOut()}>{ this.state.reduceText }</Text>
                     </View>
                     <View style={style.butBox}>
                         <TouchableOpacity style={style.butIcon} onPress={()=>this.setPlusNum()} delayLongPress={1500} onLongPress={()=>this.setLongPlusNum()} onPressOut={()=>this.longOut()}>
                             <Image style={{width:30,height:30}} source={ this.state.plusImg } />
-                            <View style={style.buttonCircle} ><Svg height={62} width={62}><Circle cx={31} cy={31} r={30} stroke={'#fff'}　strokeWidth={1.3} fill={'transparent'}/></Svg></View>
+                            <View style={style.buttonCircle} ><Svg height={64} width={64}><Circle cx={32} cy={32} r={29} stroke={'#fff'}　strokeWidth={1.3} fill={'transparent'}/></Svg></View>
                         </TouchableOpacity>
                         <Text style={style.butLable} onPress={()=>this.setPlusNum()} delayLongPress={1500} onPressOut={()=>this.longOut()} onLongPress={()=>this.setLongPlusNum()}>{ this.state.plusText }</Text>
                     </View>

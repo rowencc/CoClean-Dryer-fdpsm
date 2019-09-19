@@ -253,7 +253,7 @@ export default class Selects extends React.Component{
                 <View style={style.butBox}>
                     <TouchableOpacity style={style.butIcon} onPress={()=>this.confirmProps()} >
                         <Image  style={{width:30,height:30}} source={ this.state.confirmImg } />
-                        <View style={style.buttonCircle} ><Svg height={62} width={62}><Circle cx={31} cy={31} r={30} stroke={'#fff'}　strokeWidth={1.3} fill={'transparent'}/></Svg></View>
+                        <View style={style.buttonCircle} ><Svg height={64} width={64}><Circle cx={32} cy={32} r={29} stroke={'#fff'}　strokeWidth={1.3} fill={'transparent'}/></Svg></View>
                     </TouchableOpacity>
                 </View>
                 <MessageDialog
