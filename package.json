@@ -1,6 +1,6 @@
 {
   "name": "miot-workspace",
-  "version": "1.0.25",
+  "version": "1.0.27",
   "description": "MIOT Project workspace",
   "private": true,
   "scripts": {
@@ -35,7 +35,6 @@
     "react-native-nordic-dfu": "^3.0.0",
     "react-native-orientation": "3.1.3",
     "react-native-progress": "^3.5.0",
-    "react-native-root-toast": "^3.1.2",
     "react-native-shadow": "^1.2.2",
     "react-native-slider": "^0.11.0",
     "react-native-sqlite-storage": "3.1.2",
